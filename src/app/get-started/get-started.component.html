@@ -1,0 +1,29 @@
+<div class="get-started-page">
+    <mat-card class="mat-card" color="accent">
+        <section class="content-section">
+            <img src="../../assets/spotify-logo-png-7075.png" class="spotify-logo" />
+            <div class="head">
+                <p class="name">
+                    Sound<br>Board
+                </p>
+                <p class="text">
+                    Your Personal Spotify Companion
+                </p>
+            </div>
+            <mat-divider></mat-divider>
+        
+            <button mat-fab (click)="getStarted=true" [class.move]="getStarted"
+                color="primary" class="expand-btn">
+                <mat-icon>expand_more</mat-icon>
+            </button>
+            <p [class.no-display]="getStarted">Get Started!</p>
+            <div class="login-section" [class.no-display]="!getStarted">
+                <a [href]="authUrl">
+                    <button mat-raised-button
+                     color="primary" class="login-btn">LOGIN</button>
+                </a>
+                 <p>Login With Spotify</p>
+            </div>
+        </section>
+    </mat-card>
+</div>

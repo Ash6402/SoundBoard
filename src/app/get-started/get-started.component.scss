@@ -1,0 +1,107 @@
+@use 'src/_colors.scss' as theme;
+
+p{
+    text-align: center;
+    color: theme.$text-color;
+    font-size: 1.125rem;
+}
+
+.get-started-page{
+    height: 100%;
+    width: 100%;
+    background-color: theme.$backgroundColor-200;
+    display: grid;
+    justify-content: center;
+}
+
+.mat-card{
+    padding: 0.4rem;
+    display: grid;
+    align-items: center;
+    margin-block: 2rem;
+    overflow: hidden;
+}
+
+.content-section{
+    width: 100vw;
+    max-width: 30rem;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    gap: 1rem;
+
+    .spotify-logo{
+        max-width: initial;
+        position: absolute;
+        opacity: 0.1;
+        width: 50rem;
+        left: -8rem;
+        transform: rotate(20deg);
+        z-index: 0;
+    }
+
+    .head{ 
+        z-index: 2;
+        .name{
+            font-size: 4rem;
+            line-height: 4rem;
+            text-align: center;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .text{
+            font-size: 1.2rem;
+        }
+    }
+
+    .expand-btn{
+        margin: 0 auto;
+    }
+
+    .login-section{
+        position: relative;
+        transition: opacity 0.6s;
+        transition-delay: 0.5s;
+
+        .login-btn{
+            width: 100%;
+            padding: 1.6rem 4rem;
+            border-radius: 50px;
+            font-size: 1.4rem;
+
+            .btn-icon{
+                display: inline;
+            }
+        }
+
+        p{
+            margin-top: 0.4rem;
+        }
+    }
+
+    
+}
+
+.move{
+    top: 400%;
+    opacity: 0;
+    animation: move-down 1s
+}
+
+.no-display{
+    opacity: 0;
+}
+
+@keyframes move-down {
+    from {
+        top: 0;
+        opacity:1;
+    }
+    to {
+        top: 400%;
+        opacity: 0;
+    }
+
+}

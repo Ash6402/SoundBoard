@@ -1,0 +1,13 @@
+@use 'src/_colors.scss' as theme;
+
+
+.main-section{
+    width: 100%;
+    height: 100%;
+    background-color: theme.$backgroundColor-200;
+}
+
+.web-player{
+    position: absolute;
+    bottom: 0;
+}
