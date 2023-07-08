@@ -18,5 +18,4 @@ export class UserService {
   get user(){
     return this.currentUser;
   }
-  constructor() { }
 }

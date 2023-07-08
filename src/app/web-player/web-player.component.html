@@ -1,10 +1,22 @@
 <mat-card class="player-card">
-    <h1 class="web-player">Player</h1>
+    <div>
+        <img *ngIf="currentTrack" class="current-track-img" [src]="currentTrack?.album.images[0].url" />
+    </div>
     <div class="flex btns">
-        <button (click)="resume()">Play</button>
-        <button (click)="getPlayerState()">Get state</button>
-        <button (click)="togglePlay()">Toggle</button>
-        <button (click)="disconnect()">disconnect</button>
-        <button (click)="getDevices()">Devices</button>
+        <button mat-mini-fab matTooltip="Play previous track"
+         matTooltipPosition="above"
+         matTooltipShowDelay="300"
+         color="primary" (click)="previousPlay()"><mat-icon>arrow_back_ios</mat-icon></button>
+        <button mat-mini-fab matTooltip="Play/pause"
+         matTooltipPosition="above"
+         matTooltipShowDelay="300"
+         color="primary" (click)="togglePlay()"><mat-icon>play_arrow</mat-icon></button>
+        <button mat-mini-fab matTooltip="Play next track" 
+         matTooltipPosition="above"
+         matTooltipShowDelay="300"
+         color="primary" (click)="nextPlay()"><mat-icon>arrow_forward_ios</mat-icon></button>
+         <!-- <button mat-raised-button (click)="getPlayerState()"> 
+            state
+         </button> -->
     </div>
 </mat-card>

@@ -1,8 +1,20 @@
 <main class="main-section">
-    <mat-card>
+    <mat-card class="card">
         <mat-card-header>
-            <h2 *ngIf="user">Welcome {{user.display_name}}</h2>
+            <h2 class="username" *ngIf="user">WELCOME {{user.display_name | uppercase }}</h2>
         </mat-card-header>
     </mat-card>
+    <div class="saved-tracks-container">
+            <mat-card 
+            (click)="playSong([track.track.uri])"   
+            mat-raised-button
+             class="track-item" 
+             *ngFor="let track of savedTracks?.items">
+                <img [src]="track.track.album.images[0].url"
+                 height="50px"
+                 width="50px" />
+                    <h3 class="track-name">{{track.track.name}}</h3>
+            </mat-card>
+    </div>
     <app-web-player class="web-player"></app-web-player>
 </main>

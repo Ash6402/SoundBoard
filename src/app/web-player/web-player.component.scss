@@ -1,10 +1,29 @@
+@use 'src/_colors.scss' as theme;
+
 .player-card{
+    box-shadow: 0px -15px 20px 15px rgba(0,0,0,0.3);
+    padding-inline: 1.5rem;
     width: 100vw;
+    display: grid;
+    grid-template-columns: 6rem 1fr 6rem;
+    align-items: center;
+    flex-direction: row;
+    background-color: theme.$backgroundColor-200;    
+}
+
+.current-track-img{
+    aspect-ratio: 1/1;
+    width: 5rem;
+    border-radius: 5px;
+}
+
+.web-player{
+    display: none;
 }
 
 .btns{
     display: flex;
     justify-content: center;
     gap: 1.4rem;
-    padding-bottom: 2rem;
+    padding-block: 2rem;
 }

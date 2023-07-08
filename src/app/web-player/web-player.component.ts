@@ -2,6 +2,8 @@
 
 import { Component, OnInit, inject } from '@angular/core';
 import { HttpService } from '../services/http.service';
+import { interval } from 'rxjs';
+
 
 
 @Component({
@@ -13,6 +15,7 @@ export class WebPlayerComponent implements OnInit {
   player: Spotify.Player;
   token = localStorage.getItem('access_token');
   device_id: string;
+  currentTrack: Spotify.Track;
   private http = inject(HttpService);
 
   ngOnInit(): void {
@@ -28,7 +31,6 @@ export class WebPlayerComponent implements OnInit {
       })
       this.addListener();
       this.connect();
-      // this.transferPlayback();
     }
   }
 
@@ -45,7 +47,7 @@ export class WebPlayerComponent implements OnInit {
     node.async = true;
     node.src = 'https://sdk.scdn.co/spotify-player.js';
     node.type = 'text/javascript';
-    document.querySelector('.web-player').insertAdjacentElement('afterend', node);
+    document.querySelector('.player-card').insertAdjacentElement('afterbegin', node);
   }
 
   connect(){
@@ -60,6 +62,7 @@ export class WebPlayerComponent implements OnInit {
   resume(){
     this.player.resume().then(() => {
       console.log('Resumed!');
+      this.getPlayerState();
     });
   }
 
@@ -68,18 +71,15 @@ export class WebPlayerComponent implements OnInit {
   }
 
   getPlayerState(){
-    this.player.getCurrentState().then(state => {
-      if (!state) {
-        console.error('User is not playing music through the Web Playback SDK');
-        return;
-      }
-    
-      var current_track = state.track_window.current_track;
-      var next_track = state.track_window.next_tracks[0];
-    
-      console.log('Currently Playing', current_track);
-      console.log('Playing Next', next_track);
-    });
+      this.player.getCurrentState().then(state => {
+        if (!state) {
+          console.error('User is not playing music through the Web Playback SDK');
+          return;
+        }
+  
+        console.log(state);
+        this.currentTrack = state.track_window.current_track;
+      });
   }
 
   addListener(){
@@ -88,6 +88,7 @@ export class WebPlayerComponent implements OnInit {
       console.log('Device ID', device_id);
       this.device_id = device_id;
       this.transferPlayback();
+      this.getPlayerState();
     })
   }
 
@@ -100,6 +101,18 @@ export class WebPlayerComponent implements OnInit {
   togglePlay(){
     this.player.togglePlay().then(() => {
       console.log('Toggled playback!');
+      this.getPlayerState();
     });
+  }
+
+  nextPlay(){
+    this.player.nextTrack().then(()=>{
+      console.log('Next track Player');
+    })
+  }
+  previousPlay(){
+    this.player.previousTrack().then(()=>{
+      console.log('previous track Player');
+    })
   }
 }

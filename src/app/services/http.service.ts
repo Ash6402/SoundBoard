@@ -2,10 +2,11 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { environment } from 'src/environments/environment.development';
 import { CodeChallengeService } from './code-challenge.service';
-import { interval, map } from 'rxjs';
+import { map } from 'rxjs';
 import { UserService } from './user.service';
 import { User } from '../models/user.model';
 import { TokenResponse } from '../models/token-response.model';
+import { SavedTracks } from '../models/saved-tracks.model';
 
 @Injectable({providedIn: 'root'})
 
@@ -15,7 +16,6 @@ export class HttpService {
   private codeChallenge = inject(CodeChallengeService);
   private userService = inject(UserService);
   private hashedStr: string;
-  // url: string;
 
   login(){
       return this.codeChallenge.hashedStr().pipe(
@@ -23,7 +23,7 @@ export class HttpService {
           (digest)=>{
             this.hashedStr = digest;
             localStorage.setItem('code_verifier', this.codeChallenge.code_verifier);
-            return `${environment.authUrl}?client_id=${environment.clientId}&response_type=code&redirect_uri=${environment.redirectUri}&code_challenge_method=S256&code_challenge=${this.hashedStr}&scope=user-read-private user-read-email user-modify-playback-state user-read-playback-state streaming app-remote-control`;
+            return `${environment.authUrl}?client_id=${environment.clientId}&response_type=code&redirect_uri=${environment.redirectUri}&code_challenge_method=S256&code_challenge=${this.hashedStr}&scope=user-read-private user-library-read user-read-private user-read-email user-modify-playback-state user-read-playback-state streaming app-remote-control`;
           }
         )
       )
@@ -45,18 +45,19 @@ export class HttpService {
   }
 
   getAccessToken(code: string){
-    this.http.post<TokenResponse>(environment.tokenUrl,
+    return this.http.post<TokenResponse>(environment.tokenUrl,
       `grant_type=authorization_code&code=${code}&redirect_uri=${environment.redirectUri}&client_id=${environment.clientId}&code_verifier=${localStorage.getItem('code_verifier')}`
       ,
     {
       headers: new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'}),
-    }).subscribe({
-      next:(response)=>{
-        localStorage.setItem('access_token', response.access_token);
-        localStorage.setItem('refresh_token', response.refresh_token);
-      },
-      error: (err) => console.log(err)
     })
+    // .subscribe({
+    //   next: (response)=>{
+    //         localStorage.setItem('access_token', response.access_token);
+    //         localStorage.setItem('refresh_token', response.refresh_token);
+    //         },
+    //   error: (err) => console.log(err)
+    // })
   }
 
   getRefreshToken(){
@@ -65,7 +66,8 @@ export class HttpService {
       {
         headers: new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'}), 
       }
-    ).subscribe(
+    )
+    .subscribe(
       response => {
         localStorage.setItem('access_token', response.access_token);
         localStorage.setItem('refresh_token', response.refresh_token);
@@ -74,9 +76,9 @@ export class HttpService {
   }
 
   getUser(){
-    this.http.get<User>(`${environment.apiUrl}`, {
-      // headers: new HttpHeaders({'Authorization': `Bearer ${localStorage.getItem('access_token')}`})
-    }).subscribe({
+    return this.http.get<User>(`${environment.apiUrl}`, {
+    })
+    .subscribe({
       next: user => {
         console.log(user);
         this.userService.user = user;
@@ -95,15 +97,35 @@ export class HttpService {
     )
   }
 
+  getAlbums(){
+    this.http.get(`${environment.apiUrl}/albums`)
+    .subscribe(
+      response => {
+        console.log(response);
+      }
+    )
+  }
+
+  getSavedTracks(){ 
+    return this.http.get<SavedTracks>(`${environment.apiUrl}/tracks`)
+  }
+
   transferPlayback(deviceId: string){
     this.http.put(`${environment.apiUrl}/player`, {
       device_ids: [deviceId],
-      play: true,
     } ).subscribe({
-        next: (response)=>{
-          console.log('Transfered Succesfully', response);
+        next: ()=>{
+          console.log('Transfered Succesfully');
         },
         error: (err)=> console.log(err),
   })
+  }
+
+  playSong(uri: string[]){
+    this.http.put(`${environment.apiUrl}/player/play`, {
+      uris: uri,
+      offset: {position:0},
+      position_ms: 0,
+    },).subscribe();
   }
 }
