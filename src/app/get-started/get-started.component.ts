@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, inject } from '@angular/core';
-import { HttpService } from '../services/http.service';
+import { HttpAuthService } from '../services/http/auth/http-auth.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -10,7 +10,7 @@ import { Subscription } from 'rxjs';
 export class GetStartedComponent implements OnInit, OnDestroy{
 
   getStarted: boolean = false;
-  #http = inject(HttpService);
+  #http = inject(HttpAuthService);
   authUrl: string;
   subscription: Subscription;
 

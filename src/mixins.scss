@@ -1,0 +1,18 @@
+@use '@angular/material' as mat;
+@use 'src/_colors.scss' as theme;
+
+@mixin scrollbar{
+    &::-webkit-scrollbar {
+        width: 12px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: mat.get-color-from-palette(theme.$primary, 500);
+    }
+}
+
+@mixin loader{
+    display: grid;
+    align-items: center;
+    justify-content: center;
+}

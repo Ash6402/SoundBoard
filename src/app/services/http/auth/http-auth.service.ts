@@ -2,20 +2,18 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { environment } from 'src/environments/environment.development';
 import { CodeChallengeService } from './code-challenge.service';
-import { map } from 'rxjs';
-import { UserService } from './user.service';
-import { User } from '../models/user.model';
-import { TokenResponse } from '../models/token-response.model';
-import { SavedTracks } from '../models/saved-tracks.model';
+import { Subject, map } from 'rxjs';
+import { User } from '../../../models/user.model';
+import { TokenResponse } from '../../../models/token-response.model';
 
 @Injectable({providedIn: 'root'})
 
-export class HttpService {
+export class HttpAuthService {
 
   private http = inject(HttpClient);
   private codeChallenge = inject(CodeChallengeService);
-  private userService = inject(UserService);
   private hashedStr: string;
+  tokenArrived$ = new Subject<null>();
 
   login(){
       return this.codeChallenge.hashedStr().pipe(
@@ -51,13 +49,6 @@ export class HttpService {
     {
       headers: new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'}),
     })
-    // .subscribe({
-    //   next: (response)=>{
-    //         localStorage.setItem('access_token', response.access_token);
-    //         localStorage.setItem('refresh_token', response.refresh_token);
-    //         },
-    //   error: (err) => console.log(err)
-    // })
   }
 
   getRefreshToken(){
@@ -76,56 +67,6 @@ export class HttpService {
   }
 
   getUser(){
-    return this.http.get<User>(`${environment.apiUrl}`, {
-    })
-    .subscribe({
-      next: user => {
-        console.log(user);
-        this.userService.user = user;
-      },
-      error: (error)=>{
-        console.log(error);
-      }
-    })
-  }
-
-  getDevices(){
-    this.http.get(`${environment.apiUrl}/player/devices`).subscribe(
-      (response)=>{
-        console.log(response);
-      }
-    )
-  }
-
-  getAlbums(){
-    this.http.get(`${environment.apiUrl}/albums`)
-    .subscribe(
-      response => {
-        console.log(response);
-      }
-    )
-  }
-
-  getSavedTracks(){ 
-    return this.http.get<SavedTracks>(`${environment.apiUrl}/tracks`)
-  }
-
-  transferPlayback(deviceId: string){
-    this.http.put(`${environment.apiUrl}/player`, {
-      device_ids: [deviceId],
-    } ).subscribe({
-        next: ()=>{
-          console.log('Transfered Succesfully');
-        },
-        error: (err)=> console.log(err),
-  })
-  }
-
-  playSong(uri: string[]){
-    this.http.put(`${environment.apiUrl}/player/play`, {
-      uris: uri,
-      offset: {position:0},
-      position_ms: 0,
-    },).subscribe();
+    return this.http.get<User>(`${environment.apiUrl}`)
   }
 }

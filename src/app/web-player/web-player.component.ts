@@ -1,45 +1,21 @@
-/// <reference types="@types/spotify-web-playback-sdk"/>
-
-import { Component, OnInit, inject } from '@angular/core';
-import { HttpService } from '../services/http.service';
-import { interval } from 'rxjs';
-
-
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { PlayerSDKSerivce } from '../services/http/auth/player/player-sdk.service';
+import { HttpPlayerService } from '../services/http/auth/player/http-player.service';
 
 @Component({
   selector: 'app-web-player',
   templateUrl: './web-player.component.html',
-  styleUrls: ['./web-player.component.scss']
+  styleUrls: ['./web-player.component.scss'],
 })
-export class WebPlayerComponent implements OnInit {
-  player: Spotify.Player;
-  token = localStorage.getItem('access_token');
-  device_id: string;
-  currentTrack: Spotify.Track;
-  private http = inject(HttpService);
+
+export class WebPlayerComponent implements OnInit, OnDestroy {
+  playerSDKService = inject(PlayerSDKSerivce);
+  playerHttpService = inject(HttpPlayerService);
+  currentTrack$ = this.playerSDKService.currentTrack$;
+  queue$ = this.playerHttpService.queue$;
 
   ngOnInit(): void {
     this.loadScript();
-
-    window.onSpotifyWebPlaybackSDKReady = () => {
-      this.player = new Spotify.Player({
-        name: 'Web Player SDK - SoundBoard',
-        getOAuthToken: cb => {
-            cb(this.token);
-        },
-        volume: 1,
-      })
-      this.addListener();
-      this.connect();
-    }
-  }
-
-  getDevices(){
-    this.http.getDevices();
-  }
-
-  transferPlayback(){
-    this.http.transferPlayback(this.device_id);
   }
 
   loadScript(){
@@ -50,69 +26,12 @@ export class WebPlayerComponent implements OnInit {
     document.querySelector('.player-card').insertAdjacentElement('afterbegin', node);
   }
 
-  connect(){
-    this.player.connect().then(
-      (response)=>{
-        if(response)
-          console.log('connected successfully!');
-      }
-    )
+  getQueue(){
+    this.playerHttpService.getQueue();
   }
 
-  resume(){
-    this.player.resume().then(() => {
-      console.log('Resumed!');
-      this.getPlayerState();
-    });
-  }
-
-  disconnect(){
-    this.player.disconnect();
-  }
-
-  getPlayerState(){
-      this.player.getCurrentState().then(state => {
-        if (!state) {
-          console.error('User is not playing music through the Web Playback SDK');
-          return;
-        }
-  
-        console.log(state);
-        this.currentTrack = state.track_window.current_track;
-      });
-  }
-
-  addListener(){
-    this.player.addListener('ready', ( {device_id} ) => {
-      console.log('The Web Playback SDK is ready to play music!');
-      console.log('Device ID', device_id);
-      this.device_id = device_id;
-      this.transferPlayback();
-      this.getPlayerState();
-    })
-  }
-
-  removeListener(){
-    this.player.addListener('not_ready', ()=>{
-      console.log('player removed');
-    })
-  }
-
-  togglePlay(){
-    this.player.togglePlay().then(() => {
-      console.log('Toggled playback!');
-      this.getPlayerState();
-    });
-  }
-
-  nextPlay(){
-    this.player.nextTrack().then(()=>{
-      console.log('Next track Player');
-    })
-  }
-  previousPlay(){
-    this.player.previousTrack().then(()=>{
-      console.log('previous track Player');
-    })
+  ngOnDestroy(): void {
+    this.playerSDKService.disconnect();
+    this.playerSDKService.removeListener();
   }
 }

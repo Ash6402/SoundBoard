@@ -1,21 +1,21 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { User } from '../models/user.model';
-import { Subject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
+import { HttpAuthService } from './http/auth/http-auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  currentUser: User;
-  userSubject = new Subject<User>();
+  currentUser$ = new BehaviorSubject<User>(null);
+  http = inject(HttpAuthService);
 
-  set user(user: User){
-    this.currentUser = user;
-    this.userSubject.next(user);
+  getUser(){
+    return this.http.getUser().subscribe((user) => {this.currentUser$.next(user)})
   }
 
-  get user(){
-    return this.currentUser;
-  }
+  // played(){
+  //   this.played$.next(null);
+  // }
 }

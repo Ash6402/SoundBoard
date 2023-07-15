@@ -1,5 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { HttpService } from './services/http.service';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -8,9 +7,8 @@ import { HttpService } from './services/http.service';
 })
 export class AppComponent implements OnInit {
   title = 'SoundBoard';
-  http = inject(HttpService);
 
   ngOnInit(): void {
     
-  }
+  }    
 }

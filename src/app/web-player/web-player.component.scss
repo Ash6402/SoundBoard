@@ -1,29 +1,52 @@
 @use 'src/_colors.scss' as theme;
+@use '@angular/material' as mat;
+@import 'src/mixins.scss';
 
 .player-card{
     box-shadow: 0px -15px 20px 15px rgba(0,0,0,0.3);
-    padding-inline: 1.5rem;
     width: 100vw;
+    max-width: 100vw;
+    height: 100%;
+    background-color: theme.$backgroundColor-200;
+}
+
+.container{
+    padding: 1.5rem;
     display: grid;
-    grid-template-columns: 6rem 1fr 6rem;
+    height: inherit;
+    grid-template-columns: max-content 1fr max-content;
+    justify-content: center;
     align-items: center;
     flex-direction: row;
-    background-color: theme.$backgroundColor-200;    
+    max-width: 900px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.img-container{
+    grid-row: 1/2;
 }
 
 .current-track-img{
     aspect-ratio: 1/1;
-    width: 5rem;
+    width: 2.5rem;
     border-radius: 5px;
 }
 
-.web-player{
-    display: none;
+.main-btns{
+    justify-self: center;
 }
 
-.btns{
-    display: flex;
+.media-progress-bar{
+    justify-self: center;
+    grid-column: 1/4;
+}
+
+.loader{
+    display: grid;
     justify-content: center;
-    gap: 1.4rem;
-    padding-block: 2rem;
+}
+
+.queue-menu{
+    max-height: 20rem;
 }
