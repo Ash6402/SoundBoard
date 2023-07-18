@@ -16,6 +16,7 @@ export class WebPlayerComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.loadScript();
+    this.playerSDKService.initializePlayer();
   }
 
   loadScript(){

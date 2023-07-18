@@ -6,6 +6,11 @@ import { Subject, interval, map, repeat, takeUntil} from 'rxjs';
 import { HttpPlayerService } from '../services/http/auth/player/http-player.service';
 import { Track } from '../models/track.model';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Store } from '@ngrx/store';
+import { getAccessToken } from '../state/auth/auth.actions';
+import { selectUser } from '../state/user/user.selectors';
+import { getUser } from '../state/user/user.actions';
+import { selectAuth } from '../state/auth/auth.selectors';
 
 @Component({
   selector: 'app-home',
@@ -23,7 +28,15 @@ export class HomeComponent implements OnInit{
   current: Date;
   savedTracks: {added_at: string, track: Track}[] = [];
 
+  // private store = inject(Store);
+  // user$ = this.store.select(selectUser);
+  // accessToken = this.store.select(selectAuth);
+
   ngOnInit(): void {
+    // this.store.dispatch(getAccessToken());
+    // this.store.dispatch(getUser());
+
+
     const code = this.route.snapshot.queryParams['code'];
     if(localStorage.getItem('expiry'))
       this.expiry = new Date(Number(localStorage.getItem('expiry')));

@@ -12,7 +12,7 @@ export class UserService {
   http = inject(HttpAuthService);
 
   getUser(){
-    return this.http.getUser().subscribe((user) => {this.currentUser$.next(user)})
+    return this.http.getUser();
   }
 
   // played(){
