@@ -1,3 +1,6 @@
+<ng-container *ngIf="error$ | async">
+    <h1>An Unexpected Error Occured</h1>
+</ng-container>
 <main class="main-section">
     <mat-card class="card">
         <mat-card-header>

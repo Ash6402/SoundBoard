@@ -9,10 +9,8 @@ import { WebPlayerModule } from './web-player/web-player.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { GeneralInterceptor } from './interceptors/general.interceptor';
 import { StoreModule } from '@ngrx/store';
-import { AuthReducer } from './state/auth/auth.reducers';
 import { userReducer } from './state/user/user.reducers';
 import { EffectsModule } from '@ngrx/effects';
-import { AuthEffects } from './state/auth/auth.effects';
 import { UserEffects } from './state/user/user.effects';
 @NgModule({
   declarations: [
@@ -27,10 +25,9 @@ import { UserEffects } from './state/user/user.effects';
     WebPlayerModule,
     HttpClientModule,
     StoreModule.forRoot({
-      auth: AuthReducer,
       user: userReducer,
     }),
-    EffectsModule.forRoot([AuthEffects, UserEffects]),
+    EffectsModule.forRoot([ UserEffects]),
     ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
