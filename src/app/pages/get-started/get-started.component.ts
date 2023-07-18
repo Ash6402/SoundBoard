@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, inject } from '@angular/core';
-import { HttpAuthService } from '../services/http/auth/http-auth.service';
+import { HttpAuthService } from '../../services/http/auth/http-auth.service';
 import { Subscription } from 'rxjs';
 
 @Component({

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card'
 import { HomeComponent } from './home.component';
 import { MatButtonModule } from '@angular/material/button'
-import { WebPlayerModule } from '../web-player/web-player.module';
+import { WebPlayerModule } from '../../web-player/web-player.module';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'

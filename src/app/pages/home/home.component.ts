@@ -1,12 +1,12 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HttpAuthService } from '../services/http/auth/http-auth.service';
-import { UserService } from '../services/user.service';
-import { HttpPlayerService } from '../services/http/auth/player/http-player.service';
-import { Track } from '../models/track.model';
+import { HttpAuthService } from '../../services/http/auth/http-auth.service';
+import { UserService } from '../../services/user.service';
+import { HttpPlayerService } from '../../services/http/auth/player/http-player.service';
+import { Track } from '../../models/track.model';
 import { Store } from '@ngrx/store';
-import { selectError, selectUser } from '../state/user/user.selectors';
-import { getUser } from '../state/user/user.actions';
+import { selectError, selectUser } from '../../state/user/user.selectors';
+import { getUser } from '../../state/user/user.actions';
 
 @Component({
   selector: 'app-home',
