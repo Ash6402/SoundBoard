@@ -17,3 +17,10 @@
 - Angular Material
 - HTML5
 - SCSS
+- RXJS
+- NGRX
+
+## State Management
+
+- Basic State Management using the simple approach - subjects with services
+- State Management using ngrx under development
