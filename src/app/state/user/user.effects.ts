@@ -2,7 +2,7 @@ import { Injectable, inject } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { UserService } from "src/app/services/user.service";
 import { getUser, getUserFailure, getUserSuccess } from "./user.actions";
-import { Observable, catchError, concat, map, of, switchMap } from "rxjs";
+import { catchError, map, of, switchMap } from "rxjs";
 import { User } from "src/app/models/user.model";
 import { HttpAuthService } from "src/app/services/http/auth/http-auth.service";
 import { ActivatedRoute, Router } from "@angular/router";
@@ -24,13 +24,14 @@ export class UserEffects{
             return this.getUser;
         }),
         catchError((err: HttpErrorResponse)=> {
-            if((<string>err.message).includes('expires')){
+            if((<string>err.error.error.message).includes('expired')){
                 localStorage.removeItem('access_token');
                 this.router.navigate(['get-started']);
             }
             return of(getUserFailure({error: err.message}))
         }
-        ))
+        )
+        )
     )  
     
     private get GetTokenAndUser(){

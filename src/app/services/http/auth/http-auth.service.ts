@@ -3,8 +3,8 @@ import { Injectable, inject } from '@angular/core';
 import { environment } from 'src/environments/environment.development';
 import { CodeChallengeService } from './code-challenge.service';
 import { Subject, map } from 'rxjs';
-import { User } from '../../../models/user.model';
-import { TokenResponse } from '../../../models/token-response.model';
+import { User } from 'src/app/models/user.model';
+import { TokenResponse } from 'src/app/models/token-response.model';
 
 @Injectable({providedIn: 'root'})
 
@@ -67,6 +67,6 @@ export class HttpAuthService {
   }
 
   getUser(){
-    return this.http.get<User>(`${environment.apiUrl}`)
+    return this.http.get<User>(`${environment.apiUrl}`);
   }
 }

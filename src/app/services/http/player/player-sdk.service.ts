@@ -2,6 +2,10 @@
 import { Injectable, inject } from "@angular/core";
 import { BehaviorSubject, Subject, from } from "rxjs";
 import { HttpPlayerService } from "./http-player.service";
+import { Store } from "@ngrx/store";
+import { change } from "src/app/state/player/player.actions";
+import { PlayerState } from "src/app/state/player/player.reducers";
+import { Track } from "src/app/models/track.model";
 
 @Injectable({providedIn: 'root'})
 
@@ -10,13 +14,14 @@ export class PlayerSDKSerivce{
   playerHttpService = inject(HttpPlayerService);
 
   token = localStorage.getItem('access_token');
+  private store = inject(Store);
   player: Spotify.Player;
   device_id: string;
-  currentTrack$ = new BehaviorSubject<Spotify.Track>(null);
-  progress$ = new BehaviorSubject<number>(0);
-  duration$ = new BehaviorSubject<number>(0);
-  playerLoaded$ = new BehaviorSubject<boolean>(false);
-  paused$ = new BehaviorSubject<boolean>(true);
+  // currentTrack$ = new BehaviorSubject<Spotify.Track>(null);
+  // progress$ = new BehaviorSubject<number>(0);
+  // duration$ = new BehaviorSubject<number>(0);
+  // playerLoaded$ = new BehaviorSubject<boolean>(false);
+  // paused$ = new BehaviorSubject<boolean>(true);
   private http = inject(HttpPlayerService);
 
   initializePlayer(){
@@ -63,10 +68,10 @@ export class PlayerSDKSerivce{
           return;
         }
         console.log(state);
-        this.currentTrack$.next(state.track_window.current_track);
-        this.duration$.next(state.track_window.current_track.duration_ms)
-        this.progress$.next(state.position);
-        this.paused$.next(state.paused);
+        // this.currentTrack$.next(state.track_window.current_track);
+        // this.duration$.next(state.track_window.current_track.duration_ms)
+        // this.progress$.next(state.position);
+        // this.paused$.next(state.paused);
       }
     });
   }
@@ -82,37 +87,39 @@ export class PlayerSDKSerivce{
   }
 
   stateChanged(){
-    this.player.addListener('player_state_changed', ({
-      position,
-      duration,
-      paused,
-      track_window: { current_track }
-    }) => {
-      this.playerLoaded$.next(true);
-      console.log('Currently Playing', current_track);
-      console.log('paused', paused);
-      // console.log('Position in Song', position);
-      // console.log('Duration of Song', duration);
-      this.currentTrack$.next(current_track);
-      this.duration$.next(duration);
-      this.progress$.next(position);
-      this.paused$.next(paused);
+    this.player.addListener('player_state_changed',
+    //  ({
+    //   position,
+    //   duration,
+    //   paused,
+    //   track_window: { current_track }
+    // }) => {
+    //   this.playerLoaded$.next(true);
+    //   console.log('Currently Playing', current_track);
+    //   console.log('paused', paused);
+    //   // console.log('Position in Song', position);
+    //   // console.log('Duration of Song', duration);
+    //   this.currentTrack$.next(current_track);
+    //   this.duration$.next(duration);
+    //   this.progress$.next(position);
+    //   this.paused$.next(paused);
+    // }
+    ({position, duration, paused, track_window})=>{
+        this.store.dispatch(change({
+          state: {
+          progress: position,
+          duration,
+          paused,
+          currentPlaying: track_window.current_track,
+          next: track_window.next_tracks[0],
+          previous: track_window.previous_tracks[0],
+          }
+        }));
     });
   }
 
   togglePlay(){
-    from(this.player.togglePlay())
-    .subscribe({
-      next:  () => {
-        console.log('Toggled playback!');
-        // if(this.stateSubscription){
-        //   this.stateSubscription.unsubscribe();
-        //   this.stateSubscription = null;
-        // }else{
-        //   this.intervaledState();
-        // }
-      }
-    });
+   return from(this.player.togglePlay());
   }
   
   nextPlay(){

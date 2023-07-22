@@ -1,38 +1,10 @@
-<ng-container *ngIf="error$ | async">
-    <h1>An Unexpected Error Occured</h1>
-</ng-container>
 <main class="main-section">
     <mat-card class="card">
         <mat-card-header>
             <h2 class="username">WELCOME {{(user$ | async)?.display_name | uppercase }}</h2>
         </mat-card-header>
     </mat-card>
-    <div class="saved-tracks-container" *ngIf="savedTracks.length > 0; else spinner">
-        <mat-card    
-        mat-raised-button
-            class="track-item"
-            *ngFor="let track of savedTracks; let i = index">
-            <div class="info-container"
-            (click)="playSong([track.track.uri])">
-                <p>{{i+1}}</p>
-                <img [src]="track.track.album.images[0].url"
-                    height="50px"
-                    width="50px" />
-                    <h3 class="track-name">{{track.track.name}}</h3>
-            </div>
-            <button mat-icon-button matTooltip="Add to queue"
-            matTooltipPosition="above"
-            matTooltipShowDelay="300"
-                (click)="addToQueue(track.track.uri)"><mat-icon>queue</mat-icon></button>
-        </mat-card>
-    </div>
-    <ng-template #spinner>
-        <div class="loader">
-            <mat-spinner
-            color="primary"
-            mode="indeterminate">
-            </mat-spinner>
-        </div>
-    </ng-template>
+    <router-outlet></router-outlet>
     <app-web-player class="web-player"/>
 </main>
+<ng-container *ngIf="error$ | async"></ng-container>

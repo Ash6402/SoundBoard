@@ -12,7 +12,6 @@ import { FormsModule } from '@angular/forms';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { PlayerButtonsComponent } from './player-buttons/player-buttons.component';
 import { MediaProgressBarComponent } from './media-progress-bar/media-progress-bar.component';
-
 @NgModule({
   declarations: [
     WebPlayerComponent,

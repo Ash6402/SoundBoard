@@ -14,9 +14,9 @@
             </button>
             <app-media-progress-bar class="media-progress-bar"/>
             <mat-menu #menu="matMenu" yPosition="above" xPosition="before" [class]="'scrollbar'">
-                <div class="queue-menu" *ngIf="(queue$ | async)?.queue.length > 0; else loading">
+                <div class="queue-menu" *ngIf="(queue$ | async)?.length > 0; else loading">
                     <p mat-menu-item
-                    *ngFor="let track of (queue$ | async)?.queue" #item>
+                    *ngFor="let track of (queue$ | async)" #item>
                     {{track.name}}
                     </p>
                 </div>

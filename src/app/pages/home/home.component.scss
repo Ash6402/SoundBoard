@@ -12,61 +12,8 @@ h3{
     height: 100%;
     display: grid;
     gap: 0.2rem;
-    grid-template-rows: 10% 70% 1fr;
+    grid-template-rows: 10% 0% 70% 1fr;
     background-color: theme.$backgroundColor-200;
-}
-
-.saved-tracks-container{
-    max-height: 70vh;
-    display: grid;
-    gap: 0.4rem;
-    overflow: auto;
-}
-
-.saved-tracks-container{
-    @include scrollbar;
-}
-
-.track-item{
-    padding: .2rem 0.3rem;
-    margin-inline: 0.6rem;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    gap: 1rem;
-    align-items: center;
-    color: theme.$text-color;
-    background-color: theme.$backgroundColor-500;
-    border: 1px solid transparent;
-
-    img{
-        border-radius: 3px;
-    }
-
-    .info-container{
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-
-        p{
-            margin-bottom: 0;
-        }
-    }
-
-    .track-name{
-        font-weight: 700;
-    }
-
-}
-
-.track-item:hover{
-    cursor: pointer;
-    background-color: theme.$backgroundColor-200;
-    border: 1px solid mat.get-color-from-palette(theme.$accent, 600);
-}
-
-.track-item:active{
-    transform: translateY(2px);
 }
 
 .username{

@@ -1,5 +1,7 @@
 import { Component, inject } from '@angular/core';
-import { PlayerSDKSerivce } from 'src/app/services/http/auth/player/player-sdk.service';
+import { Store } from '@ngrx/store';
+import { PlayerSDKSerivce } from 'src/app/services/http/player/player-sdk.service';
+import { ready } from 'src/app/state/player/player.selector';
 
 @Component({
   selector: 'app-player-buttons',
@@ -29,7 +31,8 @@ import { PlayerSDKSerivce } from 'src/app/services/http/auth/player/player-sdk.s
 })
 export class PlayerButtonsComponent {
   playerSDKService = inject(PlayerSDKSerivce);
-  isReady$ = this.playerSDKService.playerLoaded$;
+  store = inject(Store);
+  isReady$ = this.store.select(ready);
 
   previousPlay(){
     this.playerSDKService.previousPlay();

@@ -1,6 +1,11 @@
 import { Component, OnDestroy, OnInit, inject } from '@angular/core';
-import { PlayerSDKSerivce } from '../services/http/auth/player/player-sdk.service';
-import { HttpPlayerService } from '../services/http/auth/player/http-player.service';
+import { PlayerSDKSerivce } from '../services/http/player/player-sdk.service';
+import { HttpPlayerService } from '../services/http/player/http-player.service';
+import { Store } from '@ngrx/store';
+import { currentPlaying } from '../state/player/player.selector';
+import { tap } from 'rxjs';
+import { getQueue } from '../state/queue/queue.actions';
+import { selectQueue } from '../state/queue/queue.selector';
 
 @Component({
   selector: 'app-web-player',
@@ -11,8 +16,9 @@ import { HttpPlayerService } from '../services/http/auth/player/http-player.serv
 export class WebPlayerComponent implements OnInit, OnDestroy {
   playerSDKService = inject(PlayerSDKSerivce);
   playerHttpService = inject(HttpPlayerService);
-  currentTrack$ = this.playerSDKService.currentTrack$;
-  queue$ = this.playerHttpService.queue$;
+  store = inject(Store);
+  currentTrack$ = this.store.select(currentPlaying);
+  queue$ = this.store.select(selectQueue);
 
   ngOnInit(): void {
     this.loadScript();
@@ -20,7 +26,7 @@ export class WebPlayerComponent implements OnInit, OnDestroy {
   }
 
   loadScript(){
-    let node =document.createElement('script');
+    let node = document.createElement('script');
     node.async = true;
     node.src = 'https://sdk.scdn.co/spotify-player.js';
     node.type = 'text/javascript';
@@ -28,7 +34,7 @@ export class WebPlayerComponent implements OnInit, OnDestroy {
   }
 
   getQueue(){
-    this.playerHttpService.getQueue();
+    this.store.dispatch(getQueue());
   }
 
   ngOnDestroy(): void {

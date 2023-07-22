@@ -12,8 +12,6 @@ import { environment } from 'src/environments/environment.development';
 export class HttpPlayerService {
   private http = inject(HttpClient);
   queue$ = new BehaviorSubject<Queue>(null);
-  
-  limit = 0;
 
   getPlayerState(){
     return this.http.get<PlaybackState>(`${environment.apiUrl}/player`);
@@ -44,17 +42,13 @@ export class HttpPlayerService {
   }
 
   getQueue(){
-   this.http.get<Queue>
-    (`${environment.apiUrl}/player/queue`).subscribe((response)=>{
-        console.log(response)
-        this.queue$.next(response);
-      })
+   return this.http.get<Queue>(`${environment.apiUrl}/player/queue`);
   }
 
   addToQueue(uri: string){
-    this.http.post(`${environment.apiUrl}/player/queue`,{}, {
+    return this.http.post(`${environment.apiUrl}/player/queue`,{}, {
       params: new HttpParams().set('uri', uri)
-    }).subscribe();
+    });
   }
 
   transferPlayback(deviceId: string){
@@ -68,7 +62,7 @@ export class HttpPlayerService {
       uris: uri,
       offset: {position:0},
       position_ms: 0,
-    },).subscribe();
+    }).subscribe();
   }
 
   seekToPosition(position: number){

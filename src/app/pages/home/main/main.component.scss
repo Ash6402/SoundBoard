@@ -1,0 +1,48 @@
+@use '@angular/material' as mat;
+@use 'src/_colors.scss' as theme;
+
+
+.playlist{
+    padding-inline: 0.3rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.8rem;
+    p{
+        margin-bottom: 0;
+        font-weight: 700;
+    }
+    .list-item{
+        .card{
+            background-color: theme.$backgroundColor-500;
+            padding: 1.5rem 1rem;
+            cursor: pointer;
+            position: relative;
+
+            .title{
+                font-size: 1.6rem;
+                line-height: 1.6rem;
+            }
+            .play-button{
+                position: absolute;
+                right: 0;
+                transform: translateX(30%);
+                transition: opacity 200ms;
+                bottom: 0.2rem;
+                opacity: 0;
+                pointer-events: none;
+            }
+
+            &:hover > .play-button{
+                opacity: 1;
+                pointer-events: all;
+            }
+        }
+    }
+}
+
+@media(min-width: 800px){
+    .playlist{
+        grid-template-columns: none;
+        grid-auto-columns:  minmax(max-content, 15rem);
+    }
+}

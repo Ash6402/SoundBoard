@@ -1,6 +1,9 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { BehaviorSubject, Observable, Subscription, interval, map, of, switchMap } from 'rxjs';
-import { PlayerSDKSerivce } from 'src/app/services/http/auth/player/player-sdk.service';
+import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
+import { PlayerSDKSerivce } from 'src/app/services/http/player/player-sdk.service';
+import { seek } from 'src/app/state/player/player.actions';
+import { duration, paused, position } from 'src/app/state/player/player.selector';
 
 @Component({
   selector: 'app-media-progress-bar',
@@ -36,29 +39,17 @@ import { PlayerSDKSerivce } from 'src/app/services/http/auth/player/player-sdk.s
 
 export class MediaProgressBarComponent implements OnInit {
   playerSDKService = inject(PlayerSDKSerivce);
-  progress$: BehaviorSubject<number> | Observable<number>;
-  duration$ = this.playerSDKService.duration$;
-  paused$ = this.playerSDKService.paused$;
+  store = inject(Store);
+  progress$ = this.store.select(position);
+  duration$ = this.store.select(duration);
+  paused$ = this.store.select(paused);
   subscription: Subscription;
 
   ngOnInit(){
-    this.progress$ = this.playerSDKService.progress$.pipe(
-      switchMap((value)=>{
-        if(this.paused$.value){
-          return of(value);
-        }
-        return interval(1000).pipe(
-          map((int) => {
-            let val = (value + (int * 1000))
-            console.log(val)
-            return val;
-          }
-        ))
-      })
-    )
+
   }
 
   seekToPosition(position: number){
-    this.playerSDKService.seekToPosition(position);
+    this.store.dispatch(seek({position}));
   }
 }
