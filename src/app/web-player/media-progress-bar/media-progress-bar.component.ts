@@ -1,7 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Subscription } from 'rxjs';
-import { PlayerSDKSerivce } from 'src/app/services/http/player/player-sdk.service';
 import { seek } from 'src/app/state/player/player.actions';
 import { duration, paused, position } from 'src/app/state/player/player.selector';
 
@@ -38,12 +36,10 @@ import { duration, paused, position } from 'src/app/state/player/player.selector
 })
 
 export class MediaProgressBarComponent implements OnInit {
-  playerSDKService = inject(PlayerSDKSerivce);
   store = inject(Store);
   progress$ = this.store.select(position);
   duration$ = this.store.select(duration);
   paused$ = this.store.select(paused);
-  subscription: Subscription;
 
   ngOnInit(){
 

@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { PlayerSDKSerivce } from 'src/app/services/http/player/player-sdk.service';
+import { next, previous, toggle } from 'src/app/state/player/player.actions';
 import { ready } from 'src/app/state/player/player.selector';
 
 @Component({
@@ -35,15 +36,15 @@ export class PlayerButtonsComponent {
   isReady$ = this.store.select(ready);
 
   previousPlay(){
-    this.playerSDKService.previousPlay();
+    this.store.dispatch(previous());
   }
 
   togglePlay(){
-    this.playerSDKService.togglePlay();
+    this.store.dispatch(toggle());
   }
 
   nextPlay(){
-    this.playerSDKService.nextPlay();
+    this.store.dispatch(next());
   }
 
 }

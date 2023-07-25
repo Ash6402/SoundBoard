@@ -1,9 +1,10 @@
-import { inject } from "@angular/core";
+import { Injectable, inject } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { map, mergeMap, switchMap } from "rxjs";
 import { HttpPlayerService } from "src/app/services/http/player/http-player.service";
 import { addToQueue, getQueue, getQueueSuccess } from "./queue.actions";
 
+@Injectable()
 export class QueueEffects{
     private actions$ = inject(Actions);
     private playerHttpService = inject(HttpPlayerService);

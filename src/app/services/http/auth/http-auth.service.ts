@@ -13,7 +13,7 @@ export class HttpAuthService {
   private http = inject(HttpClient);
   private codeChallenge = inject(CodeChallengeService);
   private hashedStr: string;
-  tokenArrived$ = new Subject<null>();
+  tokenFetched$ = new Subject<null>();
 
   login(){
       return this.codeChallenge.hashedStr().pipe(

@@ -34,10 +34,10 @@ export class HttpPlayerService {
     )
   }
 
-  getSavedTracks(){
-    return this.http.get<SavedTracks>(`${environment.apiUrl}/tracks`, 
+  getSavedTracks(url: string = `${environment.apiUrl}/tracks`){
+    return this.http.get<SavedTracks>(url, 
     {
-      params: new HttpParams().set('limit', 50)
+      params: new HttpParams().set('limit', 50),
     });
   }
 

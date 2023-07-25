@@ -1,10 +1,14 @@
 <main class="main-section">
     <mat-card class="card">
-        <mat-card-header>
+            <button mat-icon-button color="accent"
+             (click)="back()"
+             ><mat-icon>keyboard_arrow_left</mat-icon></button>
+            <button mat-icon-button color="accent"
+             (click)="next()"
+             ><mat-icon>keyboard_arrow_right</mat-icon></button>
             <h2 class="username">WELCOME {{(user$ | async)?.display_name | uppercase }}</h2>
-        </mat-card-header>
     </mat-card>
-    <router-outlet></router-outlet>
+    <router-outlet ></router-outlet>
     <app-web-player class="web-player"/>
 </main>
 <ng-container *ngIf="error$ | async"></ng-container>

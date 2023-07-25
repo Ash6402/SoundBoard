@@ -2,8 +2,12 @@
 @use '@angular/material' as mat;
 @import 'src/mixins.scss';
 
-h3{
+h2{
     margin-bottom: 0;
+}
+
+mat-icon{
+    transform: scale(2);
 }
 
 .main-section{
@@ -18,6 +22,7 @@ h3{
 
 .username{
     color: theme.$text-color;
+    margin-left: 1rem;
 }
 
 .web-player{
@@ -27,8 +32,9 @@ h3{
 
 .card{
     background-color: mat.get-color-from-palette(theme.$primary, 500);
-}
-
-.loader{
-    @include loader;
+    display: grid;
+    padding-inline-start: 1rem;
+    grid-template-columns: repeat(3, max-content);
+    justify-content: start;
+    align-items: center;
 }

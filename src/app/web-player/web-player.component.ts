@@ -3,9 +3,9 @@ import { PlayerSDKSerivce } from '../services/http/player/player-sdk.service';
 import { HttpPlayerService } from '../services/http/player/http-player.service';
 import { Store } from '@ngrx/store';
 import { currentPlaying } from '../state/player/player.selector';
-import { tap } from 'rxjs';
 import { getQueue } from '../state/queue/queue.actions';
 import { selectQueue } from '../state/queue/queue.selector';
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'app-web-player',
@@ -17,12 +17,14 @@ export class WebPlayerComponent implements OnInit, OnDestroy {
   playerSDKService = inject(PlayerSDKSerivce);
   playerHttpService = inject(HttpPlayerService);
   store = inject(Store);
-  currentTrack$ = this.store.select(currentPlaying);
+  currentTrack$ = this.store.select(currentPlaying).pipe(
+    tap(()=>{ })
+  );
   queue$ = this.store.select(selectQueue);
 
   ngOnInit(): void {
     this.loadScript();
-    this.playerSDKService.initializePlayer();
+    // this.playerSDKService.initializePlayer();
   }
 
   loadScript(){

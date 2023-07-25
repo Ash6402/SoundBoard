@@ -6,6 +6,8 @@ import { WebPlayerModule } from '../../web-player/web-player.module';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { RouterModule } from '@angular/router';
 import { MainComponentModule } from './main/main.module';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -18,6 +20,8 @@ import { MainComponentModule } from './main/main.module';
     MatCardModule,
     WebPlayerModule,
     MatSnackBarModule,
+    MatButtonModule,
+    MatIconModule,
   ],
   exports: [
     HomeComponent,

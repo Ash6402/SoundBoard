@@ -16,21 +16,20 @@ export class UserEffects{
    private route = inject(ActivatedRoute);
    private actions$ = inject(Actions);
    getUser$ = createEffect(()=>
-    this.actions$.pipe(
-        ofType(getUser),
-        switchMap(()=> {
-            if(!localStorage.getItem('access_token'))
-                return this.GetTokenAndUser;
-            return this.getUser;
-        }),
-        catchError((err: HttpErrorResponse)=> {
-            if((<string>err.error.error.message).includes('expired')){
-                localStorage.removeItem('access_token');
-                this.router.navigate(['get-started']);
-            }
-            return of(getUserFailure({error: err.message}))
-        }
-        )
+        this.actions$.pipe(
+            ofType(getUser),
+            switchMap(()=> {
+                if(!localStorage.getItem('access_token'))
+                    return this.GetTokenAndUser;
+                return this.getUser;
+            }),
+            catchError((err: HttpErrorResponse) => {
+                if((<string>err.error.error.message).includes('expired')){
+                    localStorage.removeItem('access_token');
+                    this.router.navigate(['get-started']);
+                }
+                return of(getUserFailure({error: err.message}))
+            })
         )
     )  
     

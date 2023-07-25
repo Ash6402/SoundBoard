@@ -1,8 +1,10 @@
-<div class="saved-tracks-container" *ngIf="savedTracks.length > 0; else spinner">
+<div class="saved-tracks-container"
+    [@listAnimation]="savedTracks.length"
+    *ngIf="(savedTracks | async)?.length > 0; else spinner">
     <mat-card    
     mat-raised-button
         class="track-item"
-        *ngFor="let track of savedTracks; let i = index">
+        *ngFor="let track of savedTracks | async; let i = index">
         <div class="info-container"
         (click)="playSong([track.track.uri])">
             <p>{{i+1}}</p>

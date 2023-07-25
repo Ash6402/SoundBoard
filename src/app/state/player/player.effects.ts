@@ -1,12 +1,22 @@
-import { inject } from "@angular/core";
+import { Injectable, inject } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { PlayerSDKSerivce } from "src/app/services/http/player/player-sdk.service";
-import { actionSuccess, seek, toggle } from "./player.actions";
-import { map, of, switchMap } from "rxjs";
+import { actionSuccess, initializePlayer, next, previous, seek, toggle } from "./player.actions";
+import { map, switchMap, tap } from "rxjs";
+import { HttpPlayerService } from "src/app/services/http/player/http-player.service";
 
+@Injectable()
 export class PlayerEffects{
     private actions$ = inject(Actions);
     private playerSDKService = inject(PlayerSDKSerivce);
+    private playerHttpService = inject(HttpPlayerService);
+
+    initialize$ = createEffect(()=>
+    this.actions$.pipe(
+        ofType(initializePlayer),
+        tap(()=> this.playerSDKService.initializePlayer())
+    ), {dispatch: false})
+
     toggle$ = createEffect(() =>
         this.actions$.pipe(
             ofType(toggle),
@@ -15,11 +25,25 @@ export class PlayerEffects{
         )
     );
 
+    next$ = createEffect(()=>
+    this.actions$.pipe(
+        ofType(next),
+        switchMap(()=> this.playerSDKService.nextPlay()),
+        map(()=> actionSuccess()),
+    ))
+
+    previous$ = createEffect(() => 
+    this.actions$.pipe(
+        ofType(previous),
+        switchMap(()=> this.playerSDKService.previousPlay()),
+        map(()=> actionSuccess()),
+    ))
+
     seek$ = createEffect(()=>
         this.actions$.pipe(
             ofType(seek),
-            switchMap(({position})=> of(this.playerSDKService.seekToPosition(position)) ),
+            switchMap(({position})=> this.playerHttpService.seekToPosition(position)),
             map(()=> actionSuccess()),
         )
-    )
+    );
 }

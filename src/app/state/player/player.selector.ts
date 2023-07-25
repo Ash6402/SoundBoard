@@ -12,6 +12,7 @@ export const paused = createSelector(
     selectPlayer,
     (state: PlayerState) => state.paused,
 )
+
 export const position = createSelector(
     selectPlayer,
     (state: PlayerState) => state.progress,
