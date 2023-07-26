@@ -4,38 +4,35 @@ import { Store } from '@ngrx/store';
 import { BehaviorSubject, EMPTY, expand } from 'rxjs';
 import { HttpPlayerService } from 'src/app/services/http/player/http-player.service';
 import { addToQueue } from 'src/app/state/queue/queue.actions';
+import { LikedSongsStore } from './liked-songs.store';
 
 @Component({
   selector: 'app-liked-songs',
   templateUrl: './liked-songs.component.html',
   styleUrls: ['./liked-songs.component.scss'],
+  providers: [LikedSongsStore],
   animations: [
     trigger('listAnimation', [
       transition('*<=>*', [
         query(':enter', [
           style({ opacity: 0 }), stagger('60ms', animate('600ms ease-out', style({ opacity: 1 })))
-        ],{optional: true})
+        ],{optional: true}),
+        query(':leave', [
+          style({opacity: 1}), animate('600ms ease-out', style({opacity: 0}))
+        ], {optional: true})
       ])
     ])
   ]
 })
 export class LikedSongsComponent implements OnInit {
-  
-  savedTracks = new BehaviorSubject<any>([]);
+
+  componentStore = inject(LikedSongsStore);
+  savedTracks = this.componentStore.tracks$;
   httpPlayer = inject(HttpPlayerService);
   private store = inject(Store);
 
   ngOnInit(): void {
-    this.getSavedTracks();
-  }
-
-  getSavedTracks(){
-    this.httpPlayer.getSavedTracks().pipe(
-      expand((res)=>{
-        this.savedTracks.next([...this.savedTracks.value ,...res.items])
-        return res.next ? this.httpPlayer.getSavedTracks(res.next) : EMPTY
-      })
-    ).subscribe();
+    this.componentStore.getSongs();
   }
 
   addToQueue(uri: string){
@@ -44,5 +41,9 @@ export class LikedSongsComponent implements OnInit {
 
   playSong(uris: string[]){
     this.httpPlayer.playSong(uris);
+  }
+
+  remove(id: string){
+    this.httpPlayer.removeFromLiked(id);
   }
 }

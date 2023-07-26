@@ -21,7 +21,7 @@ export class HttpAuthService {
           (digest)=>{
             this.hashedStr = digest;
             localStorage.setItem('code_verifier', this.codeChallenge.code_verifier);
-            return `${environment.authUrl}?client_id=${environment.clientId}&response_type=code&redirect_uri=${environment.redirectUri}&code_challenge_method=S256&code_challenge=${this.hashedStr}&scope=user-read-private user-library-read user-read-private user-read-email user-modify-playback-state user-read-playback-state streaming app-remote-control`;
+            return `${environment.authUrl}?client_id=${environment.clientId}&response_type=code&redirect_uri=${environment.redirectUri}&code_challenge_method=S256&code_challenge=${this.hashedStr}&scope=user-read-private user-library-read user-library-modify user-read-private user-read-email user-modify-playback-state user-read-playback-state streaming app-remote-control `;
           }
         )
       )
