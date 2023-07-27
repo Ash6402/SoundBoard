@@ -22,5 +22,5 @@
 
 ## State Management
 
-- Basic State Management using the simple approach - subjects with services
-- State Management using ngrx under development
+- Basic State Management using the simple approach - subjects with services.
+- State Management using Ngrx Store and also Component Store.
