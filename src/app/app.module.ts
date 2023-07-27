@@ -5,7 +5,6 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GetStartedModule } from './pages/get-started/get-started.module';
 import { HomeModule } from './pages/home/home.module';
-import { WebPlayerModule } from './web-player/web-player.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { GeneralInterceptor } from './interceptors/general.interceptor';
 import { StoreModule } from '@ngrx/store';
@@ -26,7 +25,6 @@ import { QueueEffects } from './state/queue/queue.effects';
     BrowserAnimationsModule,
     GetStartedModule,
     HomeModule,
-    WebPlayerModule,
     HttpClientModule,
     StoreModule.forRoot({
       user: userReducer,

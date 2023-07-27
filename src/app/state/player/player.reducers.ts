@@ -27,6 +27,6 @@ export const playerReducer = createReducer(
     initialState,
     on(toggle, (state) => ({...state, paused: !state.paused})),
     on(actionSuccess, (state) => (<PlayerState>{...state, status: 'success' })),
-    on(change, (state, {state: changedState}) => (<PlayerState>{...changedState, status: 'success', ready:true})),
+    on(change, (state, {state: changedState}) => (<PlayerState>{...state,...changedState, status: 'success', ready:true})),
     on(seek, (state, {position}) =>  ({...state, progress: position})),
 )
