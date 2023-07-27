@@ -4,14 +4,13 @@
 
 .player-card{
     box-shadow: 0px -15px 20px 15px rgba(0,0,0,0.3);
-    width: 100vw;
-    max-width: 100vw;
     height: 100%;
     background-color: theme.$backgroundColor-200;
 }
 
 .container{
-    padding: 1.5rem;
+    padding-top: 0.5rem;
+    padding-inline: 0.4rem;
     display: grid;
     height: inherit;
     grid-template-columns: max-content 1fr max-content;
@@ -47,6 +46,11 @@
     justify-content: center;
 }
 
+.background{
+    background-color: theme.$backgroundColor-500;
+}
+
 .queue-menu{
     max-height: 20rem;
+    max-width: 12rem;
 }

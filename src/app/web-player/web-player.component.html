@@ -9,11 +9,13 @@
             </div>
             <app-player-buttons class="main-btns"/>
             <button class="queue_btn" matTooltip="Queue" matTooltipShowDelay="300"
-             (click)="getQueue()" mat-mini-fab color="primary" [matMenuTriggerFor]="menu">
+             (click)="getQueue()" [disabled]="!(currentTrack$ | async)"
+             mat-mini-fab color="primary" [matMenuTriggerFor]="menu">
                 <mat-icon>queue_music</mat-icon>
             </button>
             <app-media-progress-bar class="media-progress-bar"/>
-            <mat-menu #menu="matMenu" yPosition="above" xPosition="before" [class]="'scrollbar'">
+            <mat-menu #menu="matMenu"
+                yPosition="above" xPosition="before" [class]="'background'">
                 <div class="queue-menu" *ngIf="(queue$ | async)?.length > 0; else loading">
                     <p mat-menu-item
                     *ngFor="let track of (queue$ | async)" #item>

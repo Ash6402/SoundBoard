@@ -1,7 +1,6 @@
 import { animate, query, stagger, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { BehaviorSubject, EMPTY, expand } from 'rxjs';
 import { HttpPlayerService } from 'src/app/services/http/player/http-player.service';
 import { addToQueue } from 'src/app/state/queue/queue.actions';
 import { LikedSongsStore } from './liked-songs.store';
@@ -17,11 +16,8 @@ import { LikedSongsStore } from './liked-songs.store';
         query(':enter', [
           style({ opacity: 0 }), stagger('60ms', animate('600ms ease-out', style({ opacity: 1 })))
         ],{optional: true}),
-        query(':leave', [
-          style({opacity: 1}), animate('600ms ease-out', style({opacity: 0}))
-        ], {optional: true})
-      ])
-    ])
+      ]),
+    ]),
   ]
 })
 export class LikedSongsComponent implements OnInit {
@@ -44,6 +40,6 @@ export class LikedSongsComponent implements OnInit {
   }
 
   remove(id: string){
-    this.httpPlayer.removeFromLiked(id);
+    this.componentStore.removeTrack(id);
   }
 }

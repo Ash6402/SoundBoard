@@ -1,8 +1,8 @@
 <div class="saved-tracks-container"
     [@listAnimation]="savedTracks.length"
     *ngIf="(savedTracks | async)?.length > 0; else spinner">
-    <mat-card    
-    mat-raised-button
+    <mat-card  
+        mat-raised-button
         class="track-item"
         *ngFor="let track of savedTracks | async; let i = index">
         <div class="info-container"
@@ -18,13 +18,13 @@
             matTooltip="Remove"
             matTooltipPosition="above"
             matTooltipShowDelay="300"
-            (click)="remove(track.track.id)">
+            (click)="remove(track.id)">
             <mat-icon>favorite</mat-icon>
             </button>
             <button mat-icon-button matTooltip="Add to queue"
             matTooltipPosition="above"
             matTooltipShowDelay="300"
-                (click)="addToQueue(track.track.uri)"><mat-icon>queue</mat-icon></button>
+                (click)="addToQueue(track.uri)"><mat-icon>queue</mat-icon></button>
         </div>
     </mat-card>
 </div>

@@ -54,11 +54,7 @@ export class HttpPlayerService {
   removeFromLiked(id: string){
     console.log(id);
     return this.http.delete(`${environment.apiUrl}/tracks`, {
-      params: new HttpParams().set('ids', '1h6w4POXM2LfG4ZD4xUfZQ'),
-    })
-    .subscribe({
-      next: (res)=>console.log(res),
-      error: (err) => console.log(err)
+      params: new HttpParams().set('ids', id),
     });    
   }
 

@@ -1,13 +1,13 @@
 <main class="main-section">
-    <mat-card class="card">
-            <button mat-icon-button color="accent"
+    <mat-toolbar class="header">
+            <button mat-mini-fab class="btn-color"
              (click)="back()"
-             ><mat-icon>keyboard_arrow_left</mat-icon></button>
-            <button mat-icon-button color="accent"
+             ><mat-icon class="icon-color">keyboard_arrow_left</mat-icon></button>
+            <button mat-mini-fab class="btn-color"
              (click)="next()"
-             ><mat-icon>keyboard_arrow_right</mat-icon></button>
+             ><mat-icon class="icon-color">keyboard_arrow_right</mat-icon></button>
             <h2 class="username">WELCOME {{(user$ | async)?.display_name | uppercase }}</h2>
-    </mat-card>
+    </mat-toolbar>
     <router-outlet ></router-outlet>
     <app-web-player class="web-player"/>
 </main>
