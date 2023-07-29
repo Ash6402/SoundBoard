@@ -1,5 +1,5 @@
 import { createReducer, on } from "@ngrx/store";
-import { actionSuccess, change, continuePlaying, seek, setProgressValue, toggle } from "./player.actions";
+import { actionSuccess, change, continuePlaying, increment, seek, toggle } from "./player.actions";
 
 export interface PlayerState{
     paused: boolean;
@@ -27,8 +27,9 @@ export const playerReducer = createReducer(
     initialState,
     on(toggle, (state) => ({...state, paused: !state.paused})),
     on(actionSuccess, (state) => (<PlayerState>{...state, status: 'success' })),
-    on(change, (state, {state: changedState}) => (<PlayerState>{...state,...changedState, status: 'success', ready:true})),
+    on(change, (state, {state: changedState}) => 
+    (<PlayerState>{...state, ...changedState, status: 'success', ready: true})),
     on(seek, (state, {position}) =>  ({...state, progress: position, paused: true})),
-    on(setProgressValue, (state, {value}) => ({...state, progress: value})),
     on(continuePlaying, (state) => ({...state, paused: false})),
-)
+    on(increment, (state) => ({...state, progress: state.progress + 1000})),
+    )

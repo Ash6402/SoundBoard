@@ -5,8 +5,7 @@ export const initializePlayer = createAction("[Player Component] Initialize Play
 export const play = createAction('[Player Component] Play Song', props<{uri: string}>());
 export const toggle = createAction("[Player Component] Toggle Song");
 export const continuePlaying = createAction("[Player Component] Continue Progress");
-export const setProgressValue = createAction("[Player Component] Set Progress Value",
- props<{value: number}>());
+export const increment = createAction("[Player Component] Increment Progress");
 export const next = createAction("[Player Component] Play Next");
 export const previous = createAction("[Player Component] Play Previous");
 export const seek = createAction("[Player Component] Seek To Postion", props<{position: number}>());

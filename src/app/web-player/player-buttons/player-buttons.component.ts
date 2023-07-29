@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { PlayerSDKSerivce } from 'src/app/services/http/player/player-sdk.service';
 import { next, previous, toggle } from 'src/app/state/player/player.actions';
-import { ready } from 'src/app/state/player/player.selector';
+import { paused, ready } from 'src/app/state/player/player.selector';
 
 @Component({
   selector: 'app-player-buttons',
@@ -13,10 +13,13 @@ import { ready } from 'src/app/state/player/player.selector';
       matTooltipPosition="above" [disabled]="!(isReady$ | async)"
       matTooltipShowDelay="300"
       color="primary" (click)="previousPlay()"><mat-icon>skip_previous</mat-icon></button>
-      <button mat-mini-fab matTooltip="Play/pause" [disabled]="!(isReady$ | async)"
+      <button mat-mini-fab [matTooltip]="(paused$ | async) ? 'play' : 'pause'" [disabled]="!(isReady$ | async)"
       matTooltipPosition="above"
       matTooltipShowDelay="300"
-      color="primary" (click)="togglePlay()"><mat-icon>play_arrow</mat-icon></button>
+      color="primary" (click)="togglePlay()">
+      <mat-icon *ngIf="(paused$ | async); else pause">play_arrow</mat-icon>
+      <ng-template #pause><mat-icon>pause_arrow</mat-icon></ng-template>
+    </button>
       <button mat-mini-fab matTooltip="Play next track"
       matTooltipPosition="above" [disabled]="!(isReady$ | async)"
       matTooltipShowDelay="300"
@@ -34,6 +37,7 @@ export class PlayerButtonsComponent {
   playerSDKService = inject(PlayerSDKSerivce);
   store = inject(Store);
   isReady$ = this.store.select(ready);
+  paused$ = this.store.select(paused);
 
   previousPlay(){
     this.store.dispatch(previous());

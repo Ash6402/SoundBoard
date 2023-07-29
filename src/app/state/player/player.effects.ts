@@ -1,7 +1,7 @@
 import { Injectable, inject } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { PlayerSDKSerivce } from "src/app/services/http/player/player-sdk.service";
-import { actionSuccess, continuePlaying, initializePlayer, next, play, previous, seek, toggle } from "./player.actions";
+import { actionSuccess, initializePlayer, next, play, previous, seek, toggle } from "./player.actions";
 import { map, switchMap, tap } from "rxjs";
 import { HttpPlayerService } from "src/app/services/http/player/http-player.service";
 
@@ -36,20 +36,20 @@ export class PlayerEffects{
         ofType(next),
         switchMap(()=> this.playerSDKService.nextPlay()),
         map(()=> actionSuccess()),
-    ))
+    ));
 
     previous$ = createEffect(() => 
     this.actions$.pipe(
         ofType(previous),
         switchMap(()=> this.playerSDKService.previousPlay()),
         map(()=> actionSuccess()),
-    ))
+    ));
 
     seek$ = createEffect(()=>
         this.actions$.pipe(
             ofType(seek),
             switchMap(({position})=> this.playerHttpService.seekToPosition(position)),
-            map(() => continuePlaying()),
+            map(() => actionSuccess()),
         )
     );
 }

@@ -1,7 +1,7 @@
-import { ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Subject, takeUntil, tap, timer } from 'rxjs';
-import { seek, setProgressValue } from 'src/app/state/player/player.actions';
+import { Subject, interval, takeUntil, tap } from 'rxjs';
+import { increment, seek } from 'src/app/state/player/player.actions';
 import { duration, paused, position } from 'src/app/state/player/player.selector';
 
 @Component({
@@ -36,13 +36,12 @@ import { duration, paused, position } from 'src/app/state/player/player.selector
   ],
 })
 
-// Another change detection issue in this component. If I toggle it works fine. but after the seek
-// function is called and the continueProgress refires the timer. change detection stops again. So
+// Another change detection issue in this component. If I toggle it works fine. but after the seek()
+// function is called and the continueProgress() refires the timer. change detection stops again. So
 // once again manually firing the change detection.
 
 export class MediaProgressBarComponent implements OnInit, OnDestroy {
   store = inject(Store);
-  @ViewChild('progressBar') progressBar: ElementRef<HTMLInputElement>;
   progress$ = this.store.select(position);
   duration$ = this.store.select(duration);
   paused$ = this.store.select(paused);
@@ -63,10 +62,8 @@ export class MediaProgressBarComponent implements OnInit, OnDestroy {
   }
 
   continuedProgress(){
-    timer(0, 1000).pipe(
-      tap(()=>{this.store.dispatch(setProgressValue({
-        value: Number(this.progressBar.nativeElement.value)+1000,
-      }))}),
+    interval(1000).pipe(
+      tap(()=>this.store.dispatch(increment())),
       takeUntil(this.destroy$),
     ).subscribe(() => this.cdr.detectChanges());
   }
