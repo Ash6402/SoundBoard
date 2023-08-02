@@ -1,14 +1,17 @@
-import { Injectable, inject } from "@angular/core";
-import { NavigationEnd, Router } from "@angular/router";
-import { filter } from "rxjs";
+import { DestroyRef, Injectable, inject } from "@angular/core";
+import { NavigationEnd, Router, RouterEvent } from "@angular/router";
+import { BehaviorSubject, Observable, Subject, filter } from "rxjs";
+import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
+import { MainComponent } from "../pages/home/main/main.component";
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class NavigationHistoryService{
-    private router = inject(Router);
+    isHome$ = new BehaviorSubject<boolean>(null); 
+    // as a simple Subject on intial load next method doesn't fire even though the currentPage()
+    // fuunction is called. If I use a behaviorSubject it works. Maybe i'm missing something here
+    // about Subjects.
 
-    NavHistory(){
-        this.router.events.pipe(
-            filter((e)=> e instanceof NavigationEnd))
-            .subscribe((e: NavigationEnd)=> console.log(e.url));
+    currentPage(event: RouterEvent): void{
+        this.isHome$.next(event instanceof MainComponent);
     }
 }

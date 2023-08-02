@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { WebPlayerComponent } from './web-player.component';
-import { MatCardModule } from '@angular/material/card';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon'
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -21,7 +21,7 @@ import { MediaProgressBarComponent } from './media-progress-bar/media-progress-b
   ],
   imports: [
     CommonModule,
-    MatCardModule,
+    MatToolbarModule,
     MatButtonModule,
     MatIconModule,
     MatTooltipModule,

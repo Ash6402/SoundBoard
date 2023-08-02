@@ -9,24 +9,26 @@ import { MainComponentModule } from './main/main.module';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { HeaderComponent } from "../../header/header.component";
 
 @NgModule({
-  declarations: [
-    HomeComponent,
-  ],
-  imports: [
-    CommonModule,
-    RouterModule,
-    MainComponentModule,
-    MatCardModule,
-    WebPlayerModule,
-    MatSnackBarModule,
-    MatButtonModule,
-    MatIconModule,
-    MatToolbarModule,
-  ],
-  exports: [
-    HomeComponent,
-  ]
+    declarations: [
+      HomeComponent,
+    ],
+    exports: [
+      HomeComponent,
+    ],
+    imports: [
+      CommonModule,
+      RouterModule,
+      MainComponentModule,
+      MatCardModule,
+      WebPlayerModule,
+      MatSnackBarModule,
+      MatButtonModule,
+      MatIconModule,
+      MatToolbarModule,
+      HeaderComponent,
+    ]
 })
 export class HomeModule { }

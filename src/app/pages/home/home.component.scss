@@ -2,67 +2,9 @@
 @use '@angular/material' as mat;
 @import 'src/mixins.scss';
 
-h2{
-    margin-bottom: 0;
-}
-
-.btn-color{
-    background-color: theme.$backgroundColor-500;
-}
-
-.icon-color{
-    color: theme.$text-color;
-}
-
-button{
-    opacity: 86%;
-    position: relative;
-    z-index: 3;
-}
-
-mat-icon{
-    position: relative;
-    transform: scale(1.6);
-    z-index: 2;
-}
-
 .main-section{
     width: 100%;
-    // overflow: hidden;
-    height: 100%;
-    display: grid;
-    gap: 0.3rem;
-    grid-template-rows: 10% 0% 70% 1fr;
-    background-color: theme.$backgroundColor-200;
-}
-
-.username{
-    color: theme.$text-color;
-    position: absolute;
-    left: 5.5rem;
-    margin-left: 1rem;
-    font-size: clamp(1rem, 10vw, 7rem);
-}
-
-.web-player{
-    position: relative;
-    width: 100%;
-}
-
-.header{
-    position: relative;
-    background-color: mat.get-color-from-palette(theme.$primary, 500);
-    display: grid;
-    gap: 0.5rem;
-    padding-inline-start: 1rem;
-    grid-template-columns: repeat(3, max-content);
-    justify-content: start;
-    align-items: center;
-    overflow: hidden;
-}
-
-@media(min-width: 800px){
-    .username{
-        left: -2vw;
-    }
+    height: calc(100vh - 10rem);
+    margin: 0.25rem 0;
+    overflow: auto;
 }

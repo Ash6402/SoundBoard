@@ -1,4 +1,4 @@
-<mat-card class="player-card">
+<mat-toolbar class="player-card">
         <div class="container">
             <div class="img-container">
                 <img *ngIf="(currentTrack$ | async) as track; else placeholder" class="current-track-img"
@@ -8,29 +8,31 @@
                 </ng-template>
             </div>
             <app-player-buttons class="main-btns"/>
-            <button class="queue_btn" matTooltip="Queue" matTooltipShowDelay="300"
+            <button class="queue_btn" matTooltip="Queue"
+             matTooltipShowDelay="300" matTooltipPosition="above"
              (click)="getQueue()" [disabled]="!(currentTrack$ | async)"
              mat-mini-fab color="primary" [matMenuTriggerFor]="menu">
                 <mat-icon>queue_music</mat-icon>
             </button>
             <app-media-progress-bar class="media-progress-bar"/>
-            <mat-menu #menu="matMenu"
-                yPosition="above" xPosition="before" [class]="'background'">
-                <div class="queue-menu" *ngIf="(queue$ | async)?.length > 0; else loading">
-                    <p mat-menu-item
-                    *ngFor="let track of (queue$ | async)" #item>
-                    {{track.name}}
-                    </p>
-                </div>
-                <ng-template #loading>
-                    <div class="loader">
-                        <mat-spinner
-                        color="primary"
-                        mode="indeterminate"
-                        [diameter]="50">                        
-                        </mat-spinner>
-                    </div>
-                </ng-template>
-            </mat-menu>
         </div>
-</mat-card>
+</mat-toolbar>
+
+<mat-menu #menu="matMenu"
+yPosition="above" xPosition="before" [class]="'background'">
+<div class="queue-menu" *ngIf="(queue$ | async)?.length > 0; else loading">
+    <p mat-menu-item
+    *ngFor="let track of (queue$ | async)" #item>
+    {{track.name}}
+    </p>
+</div>
+<ng-template #loading>
+    <div class="loader">
+        <mat-spinner
+        color="primary"
+        mode="indeterminate"
+        [diameter]="50">                        
+        </mat-spinner>
+    </div>
+</ng-template>
+</mat-menu>

@@ -2,7 +2,7 @@ import { createAction, props } from "@ngrx/store";
 import { PlayerState } from "./player.reducers";
 
 export const initializePlayer = createAction("[Player Component] Initialize Player");
-export const play = createAction('[Player Component] Play Song', props<{uri: string}>());
+export const play = createAction('[Player Component] Play Song', props<{uris: string[]}>());
 export const toggle = createAction("[Player Component] Toggle Song");
 export const continuePlaying = createAction("[Player Component] Continue Progress");
 export const increment = createAction("[Player Component] Increment Progress");

@@ -9,7 +9,7 @@ import { duration, paused, position } from 'src/app/state/player/player.selector
   template: `
     <div class="media-progress">
       <p>{{ ((progress$ | async) | durationConverter) }}</p>
-      <mat-slider [disableRipple]="true" [min]="0" 
+      <mat-slider [min]="0" 
       [max]="duration$ | async" class="progress-bar">
           <input (dragEnd)="seekToPosition(progressBar.value)" 
           [value]="progress$ | async" 
@@ -21,6 +21,7 @@ import { duration, paused, position } from 'src/app/state/player/player.selector
   styles: [
     `.media-progress{
       display: flex;
+      font-size: 12px;
       align-items: center;
       gap: 1rem;
   

@@ -1,32 +1,17 @@
 <div class="saved-tracks-container"
     [@listAnimation]="savedTracks.length"
     *ngIf="(savedTracks | async)?.length > 0; else spinner">
-    <mat-card  
-        mat-raised-button
-        class="track-item"
-        *ngFor="let track of savedTracks | async; let i = index">
-        <div class="info-container"
-        (click)="playSong([track.uri])">
-            <p>{{i+1}}</p>
-            <img [src]="track.album.images[0].url"
-                height="50px"
-                width="50px" loading="lazy" />
-                <h3 class="track-name">{{track.name}}</h3>
-        </div>
-        <div>
+    <ng-container *ngFor="let track of savedTracks | async; let i = index">
+        <app-track-item [index]="i" [track]="track">
             <button mat-icon-button class="liked-btn"
-            matTooltip="Remove"
-            matTooltipPosition="above"
-            matTooltipShowDelay="300"
-            (click)="remove(track.id)">
+             matTooltip="remove"
+             matTooltipPosition="above"
+             matTooltipShowDelay="300"
+             (click)="addOrRemove(track.id)">
             <mat-icon>favorite</mat-icon>
             </button>
-            <button mat-icon-button matTooltip="Add to queue"
-            matTooltipPosition="above"
-            matTooltipShowDelay="300"
-                (click)="addToQueue(track.uri)"><mat-icon>queue</mat-icon></button>
-        </div>
-    </mat-card>
+        </app-track-item>
+    </ng-container>
 </div>
 <ng-template #spinner>
     <div class="loader">

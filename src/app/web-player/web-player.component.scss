@@ -3,20 +3,21 @@
 @import 'src/mixins.scss';
 
 .player-card{
+    position: relative;
+    z-index: 100;
     box-shadow: 0px -15px 20px 15px rgba(0,0,0,0.3);
-    height: 100%;
     background-color: theme.$backgroundColor-200;
+    height: 6rem;
 }
 
 .container{
     padding-top: 0.5rem;
     padding-inline: 0.4rem;
     display: grid;
-    height: inherit;
+    height: fit-content;
     grid-template-columns: max-content 1fr max-content;
     justify-content: center;
     align-items: center;
-    flex-direction: row;
     max-width: 900px;
     width: 100%;
     margin: 0 auto;

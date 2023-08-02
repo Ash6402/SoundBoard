@@ -24,12 +24,9 @@ export class UserEffects{
                 return this.getUser;
             }),
             catchError((err: HttpErrorResponse) => {
-                if((<string>err.error.error.message).includes('expired')){
-                    localStorage.removeItem('access_token');
-                    this.router.navigate(['get-started']);
-                }
-                return of(getUserFailure({error: err.message}))
-            })
+                console.log(err);
+                return of(getUserFailure({error: err.message}))}
+            )
         )
     )  
     

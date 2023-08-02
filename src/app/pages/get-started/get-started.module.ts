@@ -6,9 +6,6 @@ import { MatDividerModule } from '@angular/material/divider'
 import { MatIconModule } from '@angular/material/icon'
 import { GetStartedComponent } from './get-started.component';
 
-
-
-
 @NgModule({
   declarations: [GetStartedComponent],
   imports: [
@@ -17,7 +14,6 @@ import { GetStartedComponent } from './get-started.component';
     MatCardModule,
     MatDividerModule,
     MatIconModule,
-
   ],
   exports: [
     GetStartedComponent,

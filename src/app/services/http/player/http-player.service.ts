@@ -18,20 +18,11 @@ export class HttpPlayerService {
   }
 
   getDevices(){
-    this.http.get(`${environment.apiUrl}/player/devices`).subscribe(
-      (response)=>{
-        console.log(response);
-      }
-    )
+    this.http.get(`${environment.apiUrl}/player/devices`);
   }
 
   getAlbums(){
-    this.http.get(`${environment.apiUrl}/albums`)
-    .subscribe(
-      response => {
-        console.log(response);
-      }
-    )
+    this.http.get(`${environment.apiUrl}/albums`);
   }
 
   getSavedTracks(url: string = `${environment.apiUrl}/tracks`){
@@ -52,7 +43,7 @@ export class HttpPlayerService {
   }
 
   removeFromLiked(id: string){
-    console.log(id);
+    console.log('called');
     return this.http.delete(`${environment.apiUrl}/tracks`, {
       params: new HttpParams().set('ids', id),
     });    
@@ -65,11 +56,11 @@ export class HttpPlayerService {
   }
 
   playSong(uri: string[]){
-    this.http.put(`${environment.apiUrl}/player/play`, {
+    return this.http.put(`${environment.apiUrl}/player/play`, {
       uris: uri,
       offset: {position:0},
       position_ms: 0,
-    }).subscribe();
+    });
   }
 
   seekToPosition(position: number){

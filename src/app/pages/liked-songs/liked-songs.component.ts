@@ -1,8 +1,6 @@
 import { animate, query, stagger, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit, inject } from '@angular/core';
-import { Store } from '@ngrx/store';
 import { HttpPlayerService } from 'src/app/services/http/player/http-player.service';
-import { addToQueue } from 'src/app/state/queue/queue.actions';
 import { LikedSongsStore } from './liked-songs.store';
 
 @Component({
@@ -25,21 +23,12 @@ export class LikedSongsComponent implements OnInit {
   componentStore = inject(LikedSongsStore);
   savedTracks = this.componentStore.tracks$;
   httpPlayer = inject(HttpPlayerService);
-  private store = inject(Store);
 
   ngOnInit(): void {
     this.componentStore.getSongs();
   }
 
-  addToQueue(uri: string){
-    this.store.dispatch(addToQueue({uri}));
-  }
-
-  playSong(uris: string[]){
-    this.httpPlayer.playSong(uris);
-  }
-
-  remove(id: string){
-    this.componentStore.removeTrack(id);
+  addOrRemove(id: string){
+    this.componentStore.addOrRemove(id);
   }
 }

@@ -1,6 +1,6 @@
 import { Injectable, inject } from "@angular/core";
 import { ComponentStore } from "@ngrx/component-store";
-import { EMPTY, Observable, expand, map, mergeMap, tap } from "rxjs";
+import { EMPTY, Observable, expand, first, iif, map, mergeMap, of, switchMap } from "rxjs";
 import { Track } from "src/app/models/track.model";
 import { HttpPlayerService } from "src/app/services/http/player/http-player.service";
 
@@ -32,11 +32,29 @@ export class LikedSongsStore extends ComponentStore<LikedSongsState>{
         })
     ))
 
-    removeTrack = this.effect(($: Observable<string>)=> $.pipe(
-        // mergeMap((id) => this.httpPlayerService.removeFromLiked(id).pipe( 
-        //     tap(() => this.remove(id))
-        //   )
-        map((id) => this.remove(id), 
-        )),
+    addOrRemove = this.effect(($: Observable<string>) => $.pipe(
+        mergeMap((id)=>
+            this.tracks$.pipe(
+                first(),
+                switchMap((tracks) => {
+                return iif(() => tracks.find((track => track.id===id))===undefined,
+                this.addToLiked(id),
+                this.removeFromLiked(id),
+                )})
+            )
+        ))
     )
+
+    removeFromLiked(id: string){
+        console.log(true);
+        return this.httpPlayerService.removeFromLiked(id)
+        .pipe(map(() => {
+            return this.remove(id);
+        }))
+    }
+
+    addToLiked(id: string){
+        console.log(false);
+        return of('');
+    }
 }

@@ -56,7 +56,6 @@
 
 @media(min-width: 800px){
     .playlist{
-        max-height: 70vh;
         overflow: auto;
         grid-template-columns: repeat(auto-fill, 13rem);
         gap: 1rem;

@@ -6,14 +6,13 @@ import { authGuard } from './guards/auth.guard';
 import { MainComponent } from './pages/home/main/main.component';
 
 const routes: Routes = [
-  {path:'', redirectTo: 'get-started', pathMatch: 'full'},
-  {path: 'get-started', component: GetStartedComponent},
-  {path: 'home', component: HomeComponent, canActivate: [authGuard], children: [
+  {path: '', component: HomeComponent, canActivate: [authGuard], children: [
     {path: '', component: MainComponent},
     {path: 'liked-songs', loadChildren: ()=> import('./pages/liked-songs/liked-songs.module')
-    .then(m=>m.LikedSongsModule)}
+      .then(m=>m.LikedSongsModule)}
   ]},
-  {path: '**', redirectTo: 'get-started'},
+  {path: 'get-started', component: GetStartedComponent},
+  {path: '**', redirectTo: ''},
 ];
 
 @NgModule({

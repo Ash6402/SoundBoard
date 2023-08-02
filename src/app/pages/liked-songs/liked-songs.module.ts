@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
@@ -9,13 +9,15 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { LikedSongsComponent } from './liked-songs.component';
 import { RouterModule } from '@angular/router';
-
+import { TrackItemComponent } from 'src/app/shared/track-item/track-item.component';
+import { IsPlayingDirective } from 'src/app/shared/is-playing.directive';
 
 @NgModule({
   declarations: [LikedSongsComponent],
   imports: [
     CommonModule,
     MatCardModule,
+    TrackItemComponent,
     MatButtonModule,
     MatIconModule,
     MatTooltipModule,

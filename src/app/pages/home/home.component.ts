@@ -1,44 +1,37 @@
-import { AfterViewInit, Component, OnInit, inject } from '@angular/core';
+import { AfterViewInit, Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { selectError, selectUser } from '../../state/user/user.selectors';
 import { getUser } from '../../state/user/user.actions';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { tap } from 'rxjs';
-import { Location } from '@angular/common';
 import { NavigationHistoryService } from 'src/app/services/navigation-history.service';
 import { initializePlayer } from 'src/app/state/player/player.actions';
+import { RouterEvent } from '@angular/router';
 
 @Component({
   selector: 'app-home',
-  templateUrl: './home.component.html',
+  template: `
+    <app-header></app-header>
+    <main class="main-section">
+      <router-outlet (activate)="currentPage($event)"></router-outlet>
+    </main> 
+    <app-web-player></app-web-player>
+  `,
   styleUrls: ['./home.component.scss'],
   providers: [NavigationHistoryService],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeComponent implements OnInit, AfterViewInit{
   private store = inject(Store);
-  snackbar = inject(MatSnackBar);
-  location = inject(Location);
   navHistory = inject(NavigationHistoryService);
   user$ = this.store.select(selectUser);
-  error$ = this.store.select(selectError).pipe(
-    tap((err)=>{
-      if(err)
-        console.log(err);
-        this.snackbar.open('An Unexpected Error Occured', null, {duration: 3000});
-    })
-  )
-  
-  back(){
-    this.location.back();
-  }
-
-  next(){
-    this.location.forward();
-  }
   
   ngOnInit(): void {
     this.store.dispatch(getUser());
-    this.navHistory.NavHistory();
+  }
+
+  currentPage(event: RouterEvent){
+    this.navHistory.currentPage(event);
   }
 
   ngAfterViewInit(){
