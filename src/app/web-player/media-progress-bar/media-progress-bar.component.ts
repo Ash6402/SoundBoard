@@ -1,4 +1,5 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import { Store } from '@ngrx/store';
 import { Subject, interval, takeUntil, tap } from 'rxjs';
 import { increment, seek } from 'src/app/state/player/player.actions';
@@ -41,7 +42,7 @@ import { duration, paused, position } from 'src/app/state/player/player.selector
 // function is called and the continueProgress() refires the timer. change detection stops again. So
 // once again manually firing the change detection.
 
-export class MediaProgressBarComponent implements OnInit, OnDestroy {
+export class MediaProgressBarComponent implements OnInit {
   store = inject(Store);
   progress$ = this.store.select(position);
   duration$ = this.store.select(duration);
@@ -50,7 +51,8 @@ export class MediaProgressBarComponent implements OnInit, OnDestroy {
   cdr = inject(ChangeDetectorRef);
 
   ngOnInit(){
-    this.paused$.pipe(tap(isPaused => {
+    this.paused$.pipe(takeUntilDestroyed(),
+      tap(isPaused => {
         if(isPaused)
           this.destroy$.next();
         else
@@ -63,13 +65,9 @@ export class MediaProgressBarComponent implements OnInit, OnDestroy {
   }
 
   continuedProgress(){
-    interval(1000).pipe(
+    interval(1000).pipe(takeUntilDestroyed(),
       tap(()=>this.store.dispatch(increment())),
       takeUntil(this.destroy$),
     ).subscribe(() => this.cdr.detectChanges());
-  }
-
-  ngOnDestroy(): void{
-    this.destroy$.next();
   }
 }
