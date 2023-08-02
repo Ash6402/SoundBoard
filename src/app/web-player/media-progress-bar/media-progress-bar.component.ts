@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import { Store } from '@ngrx/store';
 import { Subject, interval, takeUntil, tap } from 'rxjs';
@@ -49,9 +49,10 @@ export class MediaProgressBarComponent implements OnInit {
   paused$ = this.store.select(paused);
   destroy$ = new Subject<void>();
   cdr = inject(ChangeDetectorRef);
+  destroyRef = inject(DestroyRef);
 
   ngOnInit(){
-    this.paused$.pipe(takeUntilDestroyed(),
+    this.paused$.pipe(takeUntilDestroyed(this.destroyRef),
       tap(isPaused => {
         if(isPaused)
           this.destroy$.next();
@@ -65,7 +66,7 @@ export class MediaProgressBarComponent implements OnInit {
   }
 
   continuedProgress(){
-    interval(1000).pipe(takeUntilDestroyed(),
+    interval(1000).pipe(takeUntilDestroyed(this.destroyRef),
       tap(()=>this.store.dispatch(increment())),
       takeUntil(this.destroy$),
     ).subscribe(() => this.cdr.detectChanges());
