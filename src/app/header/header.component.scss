@@ -38,8 +38,29 @@ button{
     background-color: theme.$backgroundColor-500 !important;
 }
 
-mat-icon{
+p{
+    align-self: center;
+    margin-bottom: 0;
+}
+
+.nav-icon{
     position: relative;
     transform: scale(1.6);
     z-index: 2;
+}
+
+.mobile-menu{
+    display: flex;
+    width: 100%;
+    justify-content: stretch;
+}
+
+.sign-out{
+    margin-left: 0.4rem;
+    color: theme.$text-color;
+    font-weight: 700;
+}
+
+.sign-out:active{
+    transform: translateY(1px) translateX(1px);
 }

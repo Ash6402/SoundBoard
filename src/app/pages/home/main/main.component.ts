@@ -1,5 +1,6 @@
-import { Component, inject } from '@angular/core';
+import { AfterViewInit, Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CurrentPageService } from 'src/app/services/current-page.service';
 import { HttpPlayerService } from 'src/app/services/http/player/http-player.service';
 
 @Component({
@@ -7,10 +8,16 @@ import { HttpPlayerService } from 'src/app/services/http/player/http-player.serv
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss']
 })
-export class MainComponent {
+export class MainComponent implements OnInit{
   private router = inject(Router);
   private route = inject(ActivatedRoute);
   private httpService = inject(HttpPlayerService);
+  currentPageService = inject(CurrentPageService);
+
+  ngOnInit(): void {
+    this.currentPageService.currentPage$.next("Home");
+  }
+
   navigate(param: string){
     this.router.navigate([param], {relativeTo: this.route});  
   }

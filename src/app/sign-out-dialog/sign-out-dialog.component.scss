@@ -1,0 +1,16 @@
+@use 'src/_colors.scss' as theme;
+@use '@angular/material' as mat;
+
+div{
+    padding: 1rem;
+    display: grid;
+    background-color: theme.$backgroundColor-200;
+    h1{
+        font-weight: 900;
+        color: theme.$text-color;
+    }
+}
+
+button{
+    justify-self: end;
+}

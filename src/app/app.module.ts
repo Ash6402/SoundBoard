@@ -18,6 +18,9 @@ import { PagesModule } from './pages/pages.module';
 import { WebPlayerModule } from "./web-player/web-player.module";
 import { HeaderComponent } from "./header/header.component";
 import { ErrorHandlerInterceptor } from './interceptors/error-handler.interceptor';
+import { SignOutDialogComponent } from './sign-out-dialog/sign-out-dialog.component';
+
+import { MatDialogModule } from '@angular/material/dialog';
 @NgModule({
     declarations: [
         AppComponent,
@@ -39,9 +42,11 @@ import { ErrorHandlerInterceptor } from './interceptors/error-handler.intercepto
         TrackItemComponent,
         BrowserAnimationsModule,
         HeaderComponent,
+        SignOutDialogComponent,
         PagesModule,
         WebPlayerModule,
         HttpClientModule,
+        MatDialogModule,
         StoreModule.forRoot({
             user: userReducer,
             player: playerReducer,

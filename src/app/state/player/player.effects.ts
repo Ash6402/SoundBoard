@@ -29,7 +29,7 @@ export class PlayerEffects{
     toggle$ = createEffect(() =>
         this.actions$.pipe(
             ofType(toggle),
-            switchMap( () => this.playerSDKService.togglePlay()),
+            switchMap(() => this.playerSDKService.togglePlay()),
             map(() => actionSuccess()),
         )
     );

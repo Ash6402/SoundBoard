@@ -46,7 +46,7 @@ export class PlayerSDKSerivce{
       console.log('The Web Playback SDK is ready to play music!');
       console.log('Device ID', device_id);
       this.device_id = device_id;
-      this.transferPlayback();
+      // this.transferPlayback();
     })
   }
 

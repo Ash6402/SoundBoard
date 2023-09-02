@@ -25,8 +25,8 @@ export class HttpPlayerService {
     this.http.get(`${environment.apiUrl}/albums`);
   }
 
-  getSavedTracks(url: string = `${environment.apiUrl}/tracks`){
-    return this.http.get<SavedTracks>(url, 
+  getSavedTracks(url: string = `${environment.apiUrl}/tracks`){ 
+    return this.http.get<SavedTracks>(url,
     {
       params: new HttpParams().set('limit', 50),
     });

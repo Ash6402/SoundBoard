@@ -6,7 +6,7 @@ import {
   HttpInterceptor,
   HttpErrorResponse,
 } from '@angular/common/http';
-import { Observable, catchError, of, throwError } from 'rxjs';
+import { Observable, catchError, of } from 'rxjs';
 import { Router } from '@angular/router';
 
 export class ErrorHandlerInterceptor implements HttpInterceptor {

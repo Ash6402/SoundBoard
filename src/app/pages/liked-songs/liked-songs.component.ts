@@ -2,6 +2,7 @@ import { animate, query, stagger, style, transition, trigger } from '@angular/an
 import { Component, OnInit, inject } from '@angular/core';
 import { HttpPlayerService } from 'src/app/services/http/player/http-player.service';
 import { LikedSongsStore } from './liked-songs.store';
+import { CurrentPageService } from 'src/app/services/current-page.service';
 
 @Component({
   selector: 'app-liked-songs',
@@ -23,9 +24,11 @@ export class LikedSongsComponent implements OnInit {
   componentStore = inject(LikedSongsStore);
   savedTracks = this.componentStore.tracks$;
   httpPlayer = inject(HttpPlayerService);
+  currentPageService = inject(CurrentPageService);
 
   ngOnInit(): void {
     this.componentStore.getSongs();
+    this.currentPageService.currentPage$.next("Liked Songs");
   }
 
   addOrRemove(id: string){
