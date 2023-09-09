@@ -4,12 +4,14 @@ import { HomeComponent } from './pages/home/home.component';
 import { GetStartedComponent } from './pages/get-started/get-started.component';
 import { authGuard } from './guards/auth.guard';
 import { MainComponent } from './pages/home/main/main.component';
+import { SearchComponent } from './pages/search/search.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent, canActivate: [authGuard], children: [
     {path: '', component: MainComponent},
     {path: 'liked-songs', loadChildren: ()=> import('./pages/liked-songs/liked-songs.module')
-      .then(m=>m.LikedSongsModule)}
+      .then(m=>m.LikedSongsModule)},
+    {path: 'search', component: SearchComponent},
   ]},
   {path: 'get-started', component: GetStartedComponent},
   {path: '**', redirectTo: ''},

@@ -1,0 +1,17 @@
+.container{
+    padding-top: 0.5rem;
+    padding-inline: 0.4rem;
+    display: flex;
+    gap:0.5rem;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
+}
+
+.search-btn{
+    margin-right: 0.4rem;
+}
+
+.search-field{
+    width: min(100vw, 22rem);
+}

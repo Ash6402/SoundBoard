@@ -9,6 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { SignOutDialogComponent } from '../sign-out-dialog/sign-out-dialog.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -32,9 +33,14 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
               ><mat-icon class="icon-color nav-icon">keyboard_arrow_right</mat-icon></button>
             <p>{{ currentPage$ | async }}</p>
         </div>
-        <button *ngIf="!(isMobile$| async).matches else menuTemplate" 
-        mat-flat-button class="sign-out-btn" 
-        (click)="signOutDialog()">Sign Out</button>
+        <div class="btns" *ngIf="!(isMobile$| async).matches else menuTemplate">
+          <button mat-icon-button color="accent" (click)="navigateToSearch()">
+            <mat-icon>search</mat-icon>
+          </button>
+          <button
+          mat-flat-button class="sign-out-btn"
+          (click)="signOutDialog()">Sign Out</button>
+        </div>
         <ng-template #menuTemplate>
           <button class="icon-btn" [matMenuTriggerFor]="menu" mat-icon-button>
             <mat-icon>more_vert</mat-icon>
@@ -42,6 +48,9 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
         </ng-template>
         <mat-menu #menu>
           <div class="mobile-menu">
+            <button mat-icon-button (click)="navigateToSearch()" color="accent">
+              <mat-icon>search</mat-icon>
+            </button>
             <a class="sign-out"
             (click)="signOutDialog()">Sign Out</a>
           </div>
@@ -51,6 +60,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
+  router = inject(Router);
   isHome$ = inject(NavigationHistoryService).isHome$;
   currentPage$  = inject(CurrentPageService).currentPage$;
   isMobile$ = inject(BreakpointObserver).observe(Breakpoints.XSmall);
@@ -63,6 +73,10 @@ export class HeaderComponent {
 
   next(){
     this.location.forward();
+  }
+
+  navigateToSearch(){
+    this.router.navigate(['/search']);
   }
 
   signOutDialog(){

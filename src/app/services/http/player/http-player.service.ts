@@ -3,7 +3,7 @@ import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { PlaybackState } from 'src/app/models/playback-state.model';
 import { Queue } from 'src/app/models/queue.model';
-import { SavedTracks } from 'src/app/models/saved-tracks.model';
+import { Tracks } from 'src/app/models/tracks.model';
 import { environment } from 'src/environments/environment.development';
 
 @Injectable({
@@ -26,7 +26,7 @@ export class HttpPlayerService {
   }
 
   getSavedTracks(url: string = `${environment.apiUrl}/tracks`){ 
-    return this.http.get<SavedTracks>(url,
+    return this.http.get<Tracks>(url,
     {
       params: new HttpParams().set('limit', 50),
     });

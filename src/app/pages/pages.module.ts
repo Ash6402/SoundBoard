@@ -2,20 +2,17 @@ import { NgModule } from "@angular/core";
 import { GetStartedModule } from "./get-started/get-started.module";
 import { HomeModule } from "./home/home.module";
 import { LikedSongsModule } from "./liked-songs/liked-songs.module";
-import { SearchComponent } from './search/search.component';
+import { SearchModule } from "./search/search.module";
 
 @NgModule({
-    declarations: [
-    SearchComponent
+  declarations: [],
+  imports: [
+    GetStartedModule,
+    HomeModule,
+    LikedSongsModule,
+    SearchModule,
   ],
-
-    imports: [
-        GetStartedModule,
-        HomeModule,
-        LikedSongsModule,
-    ],
-
-    exports: [],
+  exports: [],
 })
 
 export class PagesModule{}

@@ -1,0 +1,9 @@
+<div class="container"> 
+    <mat-form-field appearance="outline" class="search-field" color="accent">
+        <mat-label>Search</mat-label>
+        <input matInput type="text" #input/>
+        <button [disabled]="input.value.length===0" matSuffix mat-mini-fab (click)="search(input.value)" class="search-btn">
+            <mat-icon>search</mat-icon>
+        </button>
+    </mat-form-field>
+</div>

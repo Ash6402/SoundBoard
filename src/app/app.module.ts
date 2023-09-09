@@ -53,7 +53,6 @@ import { MatDialogModule } from '@angular/material/dialog';
             queue: queueReducer,
         }),
         EffectsModule.forRoot([UserEffects, PlayerEffects, QueueEffects]),
-
     ]
 })
 export class AppModule { }

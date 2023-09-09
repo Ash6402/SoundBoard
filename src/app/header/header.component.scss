@@ -43,6 +43,12 @@ p{
     margin-bottom: 0;
 }
 
+.btns{
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
 .nav-icon{
     position: relative;
     transform: scale(1.6);
@@ -51,12 +57,13 @@ p{
 
 .mobile-menu{
     display: flex;
+    flex-direction: column;
+    align-items: center;
     width: 100%;
     justify-content: stretch;
 }
 
 .sign-out{
-    margin-left: 0.4rem;
     color: theme.$text-color;
     font-weight: 700;
 }
