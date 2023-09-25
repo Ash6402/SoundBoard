@@ -7,3 +7,16 @@
         </button>
     </mat-form-field>
 </div>
+<ng-container>
+    <div *ngFor="let track of tracks$ | async; let i = index" class="searched-item">
+        <app-track-item [index]="i" [track]="track">
+            <button mat-icon-button class="liked-btn"
+             matTooltip="add"
+             matTooltipPosition="above"
+             matTooltipShowDelay="300"
+            (click)="addToLiked(track.id, icon)">
+            <mat-icon #icon>favorite_border</mat-icon>
+            </button>
+        </app-track-item>
+    </div>
+</ng-container>

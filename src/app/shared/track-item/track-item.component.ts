@@ -31,7 +31,7 @@ import { IsPlayingDirective } from '../is-playing.directive';
         <div class="info-container"
         (click)="playSong([track.uri])">
             <p>{{index+1}}</p>
-            <img [src]="track.album.images[0].url"
+            <img [src]="track.album?.images[0].url || track.images[0].url"
                 height="50px"
                 width="50px" loading="lazy"/>
                 <h3 class="track-name">{{track.name}}</h3>
@@ -52,7 +52,7 @@ import { IsPlayingDirective } from '../is-playing.directive';
 })
 export class TrackItemComponent {
   @Input() index: number;
-  @Input() track: Track;
+  @Input() track: Track | any;
 
   isMobile = inject(BreakpointObserver)
     .observe('(max-width: 599px)')

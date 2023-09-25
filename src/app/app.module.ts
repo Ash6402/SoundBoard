@@ -21,6 +21,8 @@ import { ErrorHandlerInterceptor } from './interceptors/error-handler.intercepto
 import { SignOutDialogComponent } from './sign-out-dialog/sign-out-dialog.component';
 
 import { MatDialogModule } from '@angular/material/dialog';
+import { likedSongsReducer } from './state/liked-songs/liked-songs.reducers';
+import { LikedSongsEffects } from './state/liked-songs/liked-songs.effects';
 @NgModule({
     declarations: [
         AppComponent,
@@ -51,8 +53,9 @@ import { MatDialogModule } from '@angular/material/dialog';
             user: userReducer,
             player: playerReducer,
             queue: queueReducer,
+            likedSongs: likedSongsReducer,
         }),
-        EffectsModule.forRoot([UserEffects, PlayerEffects, QueueEffects]),
+        EffectsModule.forRoot([UserEffects, PlayerEffects, QueueEffects, LikedSongsEffects]),
     ]
 })
 export class AppModule { }

@@ -3,7 +3,6 @@ import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { PlaybackState } from 'src/app/models/playback-state.model';
 import { Queue } from 'src/app/models/queue.model';
-import { Tracks } from 'src/app/models/tracks.model';
 import { environment } from 'src/environments/environment.development';
 
 @Injectable({
@@ -25,13 +24,6 @@ export class HttpPlayerService {
     this.http.get(`${environment.apiUrl}/albums`);
   }
 
-  getSavedTracks(url: string = `${environment.apiUrl}/tracks`){ 
-    return this.http.get<Tracks>(url,
-    {
-      params: new HttpParams().set('limit', 50),
-    });
-  }
-
   getQueue(){
    return this.http.get<Queue>(`${environment.apiUrl}/player/queue`);
   }
@@ -40,15 +32,9 @@ export class HttpPlayerService {
     return this.http.post(`${environment.apiUrl}/player/queue`,{}, {
       params: new HttpParams().set('uri', uri)
     });
-  }
+0  }
 
-  removeFromLiked(id: string){
-    console.log('called');
-    return this.http.delete(`${environment.apiUrl}/tracks`, {
-      params: new HttpParams().set('ids', id),
-    });    
-  }
-
+  
   transferPlayback(deviceId: string){
     return this.http.put(`${environment.apiUrl}/player`, {
       device_ids: [deviceId],

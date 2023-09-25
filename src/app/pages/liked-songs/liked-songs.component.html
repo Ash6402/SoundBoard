@@ -1,13 +1,13 @@
 <div class="saved-tracks-container"
-    [@listAnimation]="savedTracks.length"
-    *ngIf="(savedTracks | async)?.length > 0; else spinner">
-    <ng-container *ngFor="let track of savedTracks | async; let i = index">
+    [@listAnimation]="savedTracks$.length"
+    *ngIf="(savedTracks$ | async)?.length > 0; else spinner">
+    <ng-container *ngFor="let track of savedTracks$ | async; let i = index">
         <app-track-item [index]="i" [track]="track">
             <button mat-icon-button class="liked-btn"
              matTooltip="remove"
              matTooltipPosition="above"
              matTooltipShowDelay="300"
-             (click)="addOrRemove(track.id)">
+             (click)="remove(track.id)">
             <mat-icon>favorite</mat-icon>
             </button>
         </app-track-item>

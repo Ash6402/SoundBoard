@@ -12,4 +12,24 @@ export class HttpGeneralService{
             params: new HttpParams().set('q', query).set('type', "track"),
         })
     }
+    
+  getSavedTracks(url: string = `${environment.apiUrl}/tracks`){ 
+    return this.http.get<Tracks>(url,
+    {
+      params: new HttpParams().set('limit', 50),
+    });
+  }
+
+    removeFromLiked(id: string){
+        return this.http.delete(`${environment.apiUrl}/tracks`, {
+        params: new HttpParams().set('ids', id),
+    });    
+  }
+
+    addToLiked(id: string){
+        return this.http.put(`${environment.apiUrl}/tracks`,{}, {
+        params: new HttpParams().set('ids', id),
+    });
+  }
+
 }
