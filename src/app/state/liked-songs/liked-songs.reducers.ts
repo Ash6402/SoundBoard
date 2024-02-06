@@ -1,5 +1,5 @@
 import { createReducer, on } from "@ngrx/store";
-import { add, addSongs, addToLiked, clearState, fetchLikedSongs, removeFromLiked } from "./liked-songs.actions";
+import { addSongs, fetchLikedSongs, removeFromLiked, add } from "./liked-songs.actions";
 import { Track } from "src/app/models/track.model";
 
 export interface LikedSongsState{
@@ -17,5 +17,5 @@ export const likedSongsReducer = createReducer(
     on(fetchLikedSongs, (state) => ({...state, fetching: true})),
     on(addSongs, (state, { tracks }) => ({...state, fetching: false, tracks: [...state.tracks, ...tracks]})),
     on(removeFromLiked, (state, {id}) => ({...state, tracks: state.tracks.filter(item => item.id !== id)})),
-    on(clearState, (state) => ({...state, tracks: []})),
+    on(add, (state, {track}) => ({...state, tracks: [track, ...state.tracks]})),
 )

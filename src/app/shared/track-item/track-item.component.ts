@@ -11,6 +11,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { map } from 'rxjs';
 import { IsPlayingDirective } from '../is-playing.directive';
+import { TrimmerPipe } from 'src/app/pipes/TrimmerPipe';
 
 @Component({
   selector: 'app-track-item',
@@ -22,6 +23,7 @@ import { IsPlayingDirective } from '../is-playing.directive';
     MatButtonModule,
     MatTooltipModule,
     IsPlayingDirective,
+    TrimmerPipe,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
@@ -34,7 +36,7 @@ import { IsPlayingDirective } from '../is-playing.directive';
             <img [src]="track.album?.images[0].url || track.images[0].url"
                 height="50px"
                 width="50px" loading="lazy"/>
-                <h3 class="track-name">{{track.name}}</h3>
+                <h3 class="track-name">{{track.name | trimmer | async }}</h3>
         </div>
         <div class="action-btns" *ngIf="!(isMobile | async) else mobile">
             <ng-content></ng-content>

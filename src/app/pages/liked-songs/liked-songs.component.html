@@ -1,7 +1,7 @@
 <div class="saved-tracks-container"
     [@listAnimation]="savedTracks$.length"
     *ngIf="(savedTracks$ | async)?.length > 0; else spinner">
-    <ng-container *ngFor="let track of savedTracks$ | async; let i = index">
+    <div class="track" *ngFor="let track of savedTracks$ | async; let i = index" @remove>
         <app-track-item [index]="i" [track]="track">
             <button mat-icon-button class="liked-btn"
              matTooltip="remove"
@@ -11,7 +11,7 @@
             <mat-icon>favorite</mat-icon>
             </button>
         </app-track-item>
-    </ng-container>
+    </div>
 </div>
 <ng-template #spinner>
     <div class="loader">

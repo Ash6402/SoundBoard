@@ -5,13 +5,12 @@ import { getUser, getUserFailure, getUserSuccess } from "./user.actions";
 import { catchError, map, of, switchMap } from "rxjs";
 import { User } from "src/app/models/user.model";
 import { HttpAuthService } from "src/app/services/http/auth/http-auth.service";
-import { ActivatedRoute, Router } from "@angular/router";
+import { ActivatedRoute } from "@angular/router";
 import { HttpErrorResponse } from "@angular/common/http";
 
 @Injectable()
 export class UserEffects{
    private userService = inject(UserService);
-   private router = inject(Router);
    private httpService = inject(HttpAuthService);
    private route = inject(ActivatedRoute);
    private actions$ = inject(Actions);

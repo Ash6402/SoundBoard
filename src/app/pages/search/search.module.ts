@@ -8,6 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { TrackItemComponent } from 'src/app/shared/track-item/track-item.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { IsLikedDirective } from 'src/app/shared/is-liked.directive';
 
 @NgModule({
   declarations: [SearchComponent],
@@ -19,6 +20,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatFormFieldModule,
     MatIconModule,
     MatTooltipModule,
+    IsLikedDirective,
   ],
   exports: [
     SearchComponent,

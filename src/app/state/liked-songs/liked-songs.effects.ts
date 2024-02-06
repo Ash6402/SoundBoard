@@ -1,10 +1,9 @@
 import { Injectable, inject } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { add, addSongs, addToLiked, fetchLikedSongs, fetchSuccess, removeFromLiked } from "./liked-songs.actions";
-import { EMPTY, expand, map, switchMap, takeUntil, takeWhile } from "rxjs";
+import { addSongs, addToLiked, fetchLikedSongs, fetchSuccess, removeFromLiked } from "./liked-songs.actions";
+import { EMPTY, expand, map, switchMap } from "rxjs";
 import { HttpGeneralService } from "src/app/services/http/general/http-general.service";
 import { Store } from "@ngrx/store";
-import { Track } from "src/app/models/track.model";
 
 @Injectable()
 export class LikedSongsEffects{
@@ -15,10 +14,11 @@ export class LikedSongsEffects{
     fetchLikedSongs$ = createEffect(() => 
         this.actions$.pipe(
             ofType(fetchLikedSongs),
-            switchMap(() => this.httpGeneralService.getSavedTracks()),
+            switchMap(() => {
+                return this.httpGeneralService.getSavedTracks()}),
             expand((res) => {
-              this.store.dispatch(addSongs({tracks: res.items.flatMap((item)=>item.track)}));
-              return res.next ? this.httpGeneralService.getSavedTracks(res.next) : EMPTY
+                this.store.dispatch(addSongs({tracks: res.items.flatMap((item)=>item.track)}));
+                return res.next ? this.httpGeneralService.getSavedTracks(res.next) : EMPTY
             }),
             map(() => fetchSuccess()),
         ),
