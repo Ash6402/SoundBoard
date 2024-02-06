@@ -1,4 +1,4 @@
-@if (savedTracks$ | async; as tracks?.length > 0) {
+@if (savedTracks$ | async; as tracks?.length == 0) {
   <div class="saved-tracks-container"
     [@listAnimation]="(savedTracks$ | async).length"
     >
