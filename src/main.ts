@@ -12,16 +12,17 @@ import { userReducer } from './app/state/user/user.reducers';
 import { StoreModule } from '@ngrx/store';
 import { MatDialogModule } from '@angular/material/dialog';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { AppRoutingModule } from './app/app-routing.module';
 import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
 import { ErrorHandlerInterceptor } from './app/interceptors/error-handler.interceptor';
 import { GeneralInterceptor } from './app/interceptors/general.interceptor';
 import { HTTP_INTERCEPTORS, withInterceptorsFromDi, provideHttpClient } from '@angular/common/http';
-
+import { provideRouter } from '@angular/router';
+import { routes } from './app/app.routes';
 
 bootstrapApplication(AppComponent, {
     providers: [
-        importProvidersFrom(BrowserModule, AppRoutingModule, MatDialogModule, StoreModule.forRoot({
+        provideRouter(routes),
+        importProvidersFrom(BrowserModule, MatDialogModule, StoreModule.forRoot({
             user: userReducer,
             player: playerReducer,
             queue: queueReducer,
