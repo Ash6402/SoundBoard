@@ -2,11 +2,14 @@ import { AfterViewInit, Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CurrentPageService } from 'src/app/services/current-page.service';
 import { HttpPlayerService } from 'src/app/services/http/player/http-player.service';
+import { MatCard } from '@angular/material/card';
 
 @Component({
-  selector: 'app-main',
-  templateUrl: './main.component.html',
-  styleUrls: ['./main.component.scss']
+    selector: 'app-main',
+    templateUrl: './main.component.html',
+    styleUrls: ['./main.component.scss'],
+    standalone: true,
+    imports: [MatCard]
 })
 export class MainComponent implements OnInit{
   private router = inject(Router);

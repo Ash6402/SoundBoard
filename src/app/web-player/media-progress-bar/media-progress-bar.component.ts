@@ -4,10 +4,13 @@ import { Store } from '@ngrx/store';
 import { Subject, interval, takeUntil, tap } from 'rxjs';
 import { increment, seek } from 'src/app/state/player/player.actions';
 import { duration, paused, position } from 'src/app/state/player/player.selector';
+import { DurationConverterPipe } from '../../pipes/duration-converter.pipe';
+import { AsyncPipe } from '@angular/common';
+import { MatSlider, MatSliderThumb } from '@angular/material/slider';
 
 @Component({
-  selector: 'app-media-progress-bar',
-  template: `
+    selector: 'app-media-progress-bar',
+    template: `
     <div class="media-progress">
       <p>{{ ((progress$ | async) | durationConverter) }}</p>
       <mat-slider [min]="0" 
@@ -18,9 +21,8 @@ import { duration, paused, position } from 'src/app/state/player/player.selector
       </mat-slider>
       <p>{{ duration$ | async | durationConverter }}</p>
     </div>`,
-
-  styles: [
-    `.media-progress{
+    styles: [
+        `.media-progress{
       display: flex;
       font-size: 12px;
       align-items: center;
@@ -35,7 +37,14 @@ import { duration, paused, position } from 'src/app/state/player/player.selector
         max-width: 20rem;
       }
     }`
-  ],
+    ],
+    standalone: true,
+    imports: [
+        MatSlider,
+        MatSliderThumb,
+        AsyncPipe,
+        DurationConverterPipe,
+    ],
 })
 
 // Another change detection issue in this component. If I toggle it works fine. but after the seek()

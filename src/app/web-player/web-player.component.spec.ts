@@ -7,8 +7,8 @@ describe('WebPlayerComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [WebPlayerComponent]
-    });
+    imports: [WebPlayerComponent]
+});
     fixture = TestBed.createComponent(WebPlayerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

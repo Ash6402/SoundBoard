@@ -6,12 +6,35 @@ import { currentPlaying } from '../state/player/player.selector';
 import { getQueue } from '../state/queue/queue.actions';
 import { selectQueue } from '../state/queue/queue.selector';
 import { tap } from 'rxjs';
+import { AsyncPipe } from '@angular/common';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { MediaProgressBarComponent } from './media-progress-bar/media-progress-bar.component';
+import { MatIcon } from '@angular/material/icon';
+import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatMiniFabButton } from '@angular/material/button';
+import { PlayerButtonsComponent } from './player-buttons/player-buttons.component';
+import { MatToolbar } from '@angular/material/toolbar';
 
 @Component({
-  selector: 'app-web-player',
-  templateUrl: './web-player.component.html',
-  styleUrls: ['./web-player.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-web-player',
+    templateUrl: './web-player.component.html',
+    styleUrls: ['./web-player.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [
+        MatToolbar,
+        PlayerButtonsComponent,
+        MatMiniFabButton,
+        MatTooltip,
+        MatMenuTrigger,
+        MatIcon,
+        MediaProgressBarComponent,
+        MatMenu,
+        MatMenuItem,
+        MatProgressSpinner,
+        AsyncPipe,
+    ],
 })
 
 // I am using the manual change detection because due to some reason the component doesn't

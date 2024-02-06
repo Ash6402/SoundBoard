@@ -8,34 +8,41 @@ import { likedSongs } from 'src/app/state/liked-songs/liked-songs.selectors';
 import { fetchLikedSongs, removeFromLiked } from 'src/app/state/liked-songs/liked-songs.actions';
 import { HttpGeneralService } from 'src/app/services/http/general/http-general.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { AsyncPipe } from '@angular/common';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatIconButton } from '@angular/material/button';
+import { TrackItemComponent } from '../../shared/track-item/track-item.component';
 
 @Component({
-  selector: 'app-liked-songs',
-  templateUrl: './liked-songs.component.html',
-  styleUrls: ['./liked-songs.component.scss'],
-  providers: [LikedSongsStore],
-  animations: [
-    trigger('listAnimation', [
-      transition('*<=>*', [
-        query(':enter', [
-          style({ opacity: 0 }), stagger('60ms', animate('600ms ease-out', style({ opacity: 1 })))
-        ],{optional: true}),
-        animate('1000ms ease-out'),
-      ]),
-    ]),
-    trigger('remove', [
-        transition(':leave', [
-        animate('200ms ease-in', style({
-          transform: 'translateX(100%)',
-          opacity: 0,
-        })),
-        animate('60ms ease-out', style({
-          height: 0,
-        }))
-     ]),
-    ]), 
-    
-  ]
+    selector: 'app-liked-songs',
+    templateUrl: './liked-songs.component.html',
+    styleUrls: ['./liked-songs.component.scss'],
+    providers: [LikedSongsStore],
+    animations: [
+        trigger('listAnimation', [
+            transition('*<=>*', [
+                query(':enter', [
+                    style({ opacity: 0 }), stagger('60ms', animate('600ms ease-out', style({ opacity: 1 })))
+                ], { optional: true }),
+                animate('1000ms ease-out'),
+            ]),
+        ]),
+        trigger('remove', [
+            transition(':leave', [
+                animate('200ms ease-in', style({
+                    transform: 'translateX(100%)',
+                    opacity: 0,
+                })),
+                animate('60ms ease-out', style({
+                    height: 0,
+                }))
+            ]),
+        ]),
+    ],
+    standalone: true,
+    imports: [TrackItemComponent, MatIconButton, MatTooltip, MatIcon, MatProgressSpinner, AsyncPipe]
 })
 export class LikedSongsComponent implements OnInit {
   

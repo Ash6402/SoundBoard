@@ -8,8 +8,8 @@ describe('LikedSongsComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [LikedSongsComponent]
-    });
+    imports: [LikedSongsComponent]
+});
     fixture = TestBed.createComponent(LikedSongsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

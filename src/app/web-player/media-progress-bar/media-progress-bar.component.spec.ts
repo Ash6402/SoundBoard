@@ -8,8 +8,8 @@ describe('MediaProgressBarComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [MediaProgressBarComponent]
-    });
+    imports: [MediaProgressBarComponent]
+});
     fixture = TestBed.createComponent(MediaProgressBarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

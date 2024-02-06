@@ -8,8 +8,8 @@ describe('GetStartedComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [GetStartedComponent]
-    });
+    imports: [GetStartedComponent]
+});
     fixture = TestBed.createComponent(GetStartedComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

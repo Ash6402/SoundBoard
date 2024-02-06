@@ -12,21 +12,22 @@ import { RouterModule } from '@angular/router';
 import { TrackItemComponent } from 'src/app/shared/track-item/track-item.component';
 
 @NgModule({
-  declarations: [LikedSongsComponent],
-  imports: [
-    CommonModule,
-    MatCardModule,
-    TrackItemComponent,
-    MatButtonModule,
-    MatIconModule,
-    MatTooltipModule,
-    MatProgressSpinnerModule,
-    RouterModule.forChild([
-      {path: '', component: LikedSongsComponent}
-    ]),
-  ],
-  exports: [
-    RouterModule,
-    LikedSongsComponent],
+    imports: [
+        CommonModule,
+        MatCardModule,
+        TrackItemComponent,
+        MatButtonModule,
+        MatIconModule,
+        MatTooltipModule,
+        MatProgressSpinnerModule,
+        RouterModule.forChild([
+            { path: '', component: LikedSongsComponent }
+        ]),
+        LikedSongsComponent,
+    ],
+    exports: [
+        RouterModule,
+        LikedSongsComponent
+    ],
 })
 export class LikedSongsModule { }

@@ -3,11 +3,14 @@ import { Store } from '@ngrx/store';
 import { PlayerSDKSerivce } from 'src/app/services/http/player/player-sdk.service';
 import { next, previous, toggle } from 'src/app/state/player/player.actions';
 import { paused, ready } from 'src/app/state/player/player.selector';
+import { AsyncPipe } from '@angular/common';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatMiniFabButton } from '@angular/material/button';
 
 @Component({
-  selector: 'app-player-buttons',
-
-  template: `
+    selector: 'app-player-buttons',
+    template: `
     <div class="btns">
       <button mat-mini-fab matTooltip="Play previous track" class="icon-btn"
         matTooltipPosition="above" [disabled]="!(isReady$ | async)"
@@ -28,13 +31,19 @@ import { paused, ready } from 'src/app/state/player/player.selector';
           matTooltipShowDelay="300"
           color="primary" (click)="nextPlay()"><mat-icon>skip_next</mat-icon></button>
         </div>`,
-
-  styles: [
-    `.btns{
+    styles: [
+        `.btns{
       display: flex;
       gap: 1rem;
     }`
-  ],
+    ],
+    standalone: true,
+    imports: [
+        MatMiniFabButton,
+        MatTooltip,
+        MatIcon,
+        AsyncPipe,
+    ],
 })
 export class PlayerButtonsComponent {
   playerSDKService = inject(PlayerSDKSerivce);
