@@ -12,7 +12,7 @@
 
 ## Tools used
 
-- Angular2 v16
+- Angular2 v16 (recently updated to v17 code isn't refractored yet)
 - Typescript
 - Angular Material
 - HTML5
