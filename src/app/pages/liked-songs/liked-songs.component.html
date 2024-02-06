@@ -1,23 +1,26 @@
-<div class="saved-tracks-container"
-    [@listAnimation]="savedTracks$.length"
-    *ngIf="(savedTracks$ | async)?.length > 0; else spinner">
-    <div class="track" *ngFor="let track of savedTracks$ | async; let i = index" @remove>
+@if (savedTracks$ | async; as tracks?.length > 0) {
+  <div class="saved-tracks-container"
+    [@listAnimation]="(savedTracks$ | async).length"
+    >
+    @for (track of savedTracks$ | async; track track; let i = $index) {
+      <div class="track" @remove>
         <app-track-item [index]="i" [track]="track">
-            <button mat-icon-button class="liked-btn"
-             matTooltip="remove"
-             matTooltipPosition="above"
-             matTooltipShowDelay="300"
-             (click)="remove(track.id)">
+          <button mat-icon-button class="liked-btn"
+            matTooltip="remove"
+            matTooltipPosition="above"
+            matTooltipShowDelay="300"
+            (click)="remove(track.id)">
             <mat-icon>favorite</mat-icon>
-            </button>
+          </button>
         </app-track-item>
-    </div>
-</div>
-<ng-template #spinner>
-    <div class="loader">
-        <mat-spinner
-        color="primary"
-        mode="indeterminate">
-        </mat-spinner>
-    </div>
-</ng-template>
+      </div>
+    }
+  </div>
+} @else {
+  <div class="loader">
+    <mat-spinner
+      color="primary"
+      mode="indeterminate">
+    </mat-spinner>
+  </div>
+}

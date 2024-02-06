@@ -28,28 +28,28 @@ import { TrimmerPipe } from 'src/app/pipes/TrimmerPipe';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
         <mat-card [isPlaying]="track"
-        mat-raised-button
-        class="track-item">
-        <div class="info-container"
-        (click)="playSong([track.uri])">
+          mat-raised-button
+          class="track-item">
+          <div class="info-container"
+            (click)="playSong([track.uri])">
             <p>{{index+1}}</p>
             <img [src]="track.album?.images[0].url || track.images[0].url"
-                height="50px"
-                width="50px" loading="lazy"/>
-                <h3 class="track-name">{{track.name | trimmer | async }}</h3>
-        </div>
-        <div class="action-btns" *ngIf="!(isMobile | async) else mobile">
-            <ng-content></ng-content>
-            <button mat-icon-button matTooltip="Add to queue"
-             matTooltipPosition="above"
-             matTooltipShowDelay="300"
-             (click)="addToQueue(track.uri)"><mat-icon>queue</mat-icon></button>
-        </div>
-    </mat-card>
-    <ng-template #mobile>
-
-    </ng-template>
-  `,
+              height="50px"
+              width="50px" loading="lazy"/>
+              <h3 class="track-name">{{track.name | trimmer | async }}</h3>
+            </div>
+            @if (!(isMobile | async)) {
+              <div class="action-btns">
+                <ng-content></ng-content>
+                <button mat-icon-button matTooltip="Add to queue"
+                  matTooltipPosition="above"
+                  matTooltipShowDelay="300"
+                  (click)="addToQueue(track.uri)"><mat-icon>queue</mat-icon></button>
+                </div>
+              } @else {
+              }
+            </mat-card>
+        `,
   styleUrls: ['./track-item.component.scss'],
 })
 export class TrackItemComponent {

@@ -1,38 +1,45 @@
 <mat-toolbar class="player-card">
-        <div class="container">
-            <div class="img-container">
-                <img *ngIf="(currentTrack$ | async) as track; else placeholder" class="current-track-img"
-                [src]="track.album.images[0].url" />
-                <ng-template #placeholder>
-                    <img src="/assets/placeholder.png" class="current-track-img"/>
-                </ng-template>
-            </div>
-            <app-player-buttons class="main-btns"/>
-            <button class="queue_btn" matTooltip="Queue"
-             matTooltipShowDelay="300" matTooltipPosition="above"
-             (click)="getQueue()" [disabled]="!(currentTrack$ | async)"
-             mat-mini-fab color="primary" [matMenuTriggerFor]="menu">
-                <mat-icon>queue_music</mat-icon>
-            </button>
-            <app-media-progress-bar class="media-progress-bar"/>
-        </div>
+  <div class="container">
+    <div class="img-container">
+      @if ((currentTrack$ | async); as track) {
+        <img class="current-track-img"
+          [src]="track.album.images[0].url" />
+      } @else {
+        <img src="/assets/placeholder.png" class="current-track-img"/>
+      }
+      <ng-template #placeholder>
+        <img src="/assets/placeholder.png" class="current-track-img"/>
+      </ng-template>
+    </div>
+    <app-player-buttons class="main-btns"/>
+    <button class="queue_btn" matTooltip="Queue"
+      matTooltipShowDelay="300" matTooltipPosition="above"
+      (click)="getQueue()" [disabled]="!(currentTrack$ | async)"
+      mat-mini-fab color="primary" [matMenuTriggerFor]="menu">
+      <mat-icon>queue_music</mat-icon>
+    </button>
+    <app-media-progress-bar class="media-progress-bar"/>
+  </div>
 </mat-toolbar>
 
 <mat-menu #menu="matMenu"
-yPosition="above" xPosition="before" [class]="'background'">
-<div class="queue-menu" *ngIf="(queue$ | async)?.length > 0; else loading">
-    <p mat-menu-item
-    *ngFor="let track of (queue$ | async)" #item>
-    {{track.name}}
-    </p>
-</div>
-<ng-template #loading>
+  yPosition="above" xPosition="before" [class]="'background'">
+  @if ((queue$ | async)?.length > 0) {
+    <div class="queue-menu">
+      @for (track of (queue$ | async); track track) {
+        <p mat-menu-item
+          #item>
+          {{track.name}}
+        </p>
+      }
+    </div>
+  } @else {
     <div class="loader">
-        <mat-spinner
+      <mat-spinner
         color="primary"
         mode="indeterminate"
-        [diameter]="50">                        
-        </mat-spinner>
+        [diameter]="50">
+      </mat-spinner>
     </div>
-</ng-template>
+  }
 </mat-menu>

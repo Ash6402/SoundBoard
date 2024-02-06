@@ -1,22 +1,24 @@
-<div class="container"> 
-    <mat-form-field appearance="outline" class="search-field" color="accent">
-        <mat-label>Search</mat-label>
-        <input matInput type="text" #input (keyup)="search(input.value)"/>
-        <button [disabled]="true" matSuffix mat-mini-fab (click)="search(input.value)" class="search-btn">
-            <mat-icon>search</mat-icon>
-        </button>
-    </mat-form-field>
+<div class="container">
+  <mat-form-field appearance="outline" class="search-field" color="accent">
+    <mat-label>Search</mat-label>
+    <input matInput type="text" #input (keyup)="search(input.value)"/>
+    <button [disabled]="true" matSuffix mat-mini-fab (click)="search(input.value)" class="search-btn">
+      <mat-icon>search</mat-icon>
+    </button>
+  </mat-form-field>
 </div>
 <ng-container>
-    <div *ngFor="let track of tracks$ | async; let i = index" class="searched-item">
-        <app-track-item [index]="i" [track]="track" [isLiked]="track" [icon]="icon">
-            <button mat-icon-button class="liked-btn"
-             matTooltip="add"
-             matTooltipPosition="above"
-             matTooltipShowDelay="300"
-            (click)="addToLiked(track.id, icon, track)">
-            <mat-icon #icon>favorite_border</mat-icon>
-            </button>
-        </app-track-item>
+  @for (track of tracks$ | async; track track; let i = $index) {
+    <div class="searched-item">
+      <app-track-item [index]="i" [track]="track" [isLiked]="track" [icon]="icon">
+        <button mat-icon-button class="liked-btn"
+          matTooltip="add"
+          matTooltipPosition="above"
+          matTooltipShowDelay="300"
+          (click)="addToLiked(track.id, icon, track)">
+          <mat-icon #icon>favorite_border</mat-icon>
+        </button>
+      </app-track-item>
     </div>
+  }
 </ng-container>

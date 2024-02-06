@@ -10,21 +10,24 @@ import { paused, ready } from 'src/app/state/player/player.selector';
   template: `
     <div class="btns">
       <button mat-mini-fab matTooltip="Play previous track" class="icon-btn"
-      matTooltipPosition="above" [disabled]="!(isReady$ | async)"
-      matTooltipShowDelay="300"
-      color="primary" (click)="previousPlay()"><mat-icon>skip_previous</mat-icon></button>
-      <button mat-mini-fab [matTooltip]="(paused$ | async) ? 'play' : 'pause'" [disabled]="!(isReady$ | async)"
-      matTooltipPosition="above"
-      matTooltipShowDelay="300"
-      color="primary" (click)="togglePlay()">
-      <mat-icon *ngIf="(paused$ | async); else pause">play_arrow</mat-icon>
-      <ng-template #pause><mat-icon>pause_arrow</mat-icon></ng-template>
-    </button>
-      <button mat-mini-fab matTooltip="Play next track"
-      matTooltipPosition="above" [disabled]="!(isReady$ | async)"
-      matTooltipShowDelay="300"
-      color="primary" (click)="nextPlay()"><mat-icon>skip_next</mat-icon></button>
-    </div>`,
+        matTooltipPosition="above" [disabled]="!(isReady$ | async)"
+        matTooltipShowDelay="300"
+        color="primary" (click)="previousPlay()"><mat-icon>skip_previous</mat-icon></button>
+        <button mat-mini-fab [matTooltip]="(paused$ | async) ? 'play' : 'pause'" [disabled]="!(isReady$ | async)"
+          matTooltipPosition="above"
+          matTooltipShowDelay="300"
+          color="primary" (click)="togglePlay()">
+          @if ((paused$ | async)) {
+            <mat-icon>play_arrow</mat-icon>
+          } @else {
+            <mat-icon>pause_arrow</mat-icon>
+          }
+        </button>
+        <button mat-mini-fab matTooltip="Play next track"
+          matTooltipPosition="above" [disabled]="!(isReady$ | async)"
+          matTooltipShowDelay="300"
+          color="primary" (click)="nextPlay()"><mat-icon>skip_next</mat-icon></button>
+        </div>`,
 
   styles: [
     `.btns{

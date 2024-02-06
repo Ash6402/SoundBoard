@@ -24,39 +24,40 @@ import { Router } from '@angular/router';
   ],
   template: `
     <mat-toolbar class="header">
-        <div class="nav-btn-container">
-            <button mat-mini-fab class="nav-btn" [disabled]="isHome$ | async"
-              (click)="back()"
-              ><mat-icon class="icon-color nav-icon">keyboard_arrow_left</mat-icon></button>
-            <button mat-mini-fab class="nav-btn"
-              (click)="next()"
-              ><mat-icon class="icon-color nav-icon">keyboard_arrow_right</mat-icon></button>
+      <div class="nav-btn-container">
+        <button mat-mini-fab class="nav-btn" [disabled]="isHome$ | async"
+          (click)="back()"
+          ><mat-icon class="icon-color nav-icon">keyboard_arrow_left</mat-icon></button>
+          <button mat-mini-fab class="nav-btn"
+            (click)="next()"
+            ><mat-icon class="icon-color nav-icon">keyboard_arrow_right</mat-icon></button>
             <p>{{ currentPage$ | async }}</p>
-        </div>
-        <div class="btns" *ngIf="!(isMobile$| async).matches else menuTemplate">
-          <button mat-icon-button color="accent" (click)="navigateToSearch()">
-            <mat-icon>search</mat-icon>
-          </button>
-          <button
-          mat-flat-button class="sign-out-btn"
-          (click)="signOutDialog()">Sign Out</button>
-        </div>
-        <ng-template #menuTemplate>
-          <button class="icon-btn" [matMenuTriggerFor]="menu" mat-icon-button>
-            <mat-icon>more_vert</mat-icon>
-          </button>
-        </ng-template>
-        <mat-menu #menu>
-          <div class="mobile-menu">
-            <button mat-icon-button (click)="navigateToSearch()" color="accent">
-              <mat-icon>search</mat-icon>
-            </button>
-            <a class="sign-out"
-            (click)="signOutDialog()">Sign Out</a>
           </div>
-        </mat-menu>
-    </mat-toolbar>
-  `,
+          @if (!(isMobile$| async).matches) {
+            <div class="btns">
+              <button mat-icon-button color="accent" (click)="navigateToSearch()">
+                <mat-icon>search</mat-icon>
+              </button>
+              <button
+                mat-flat-button class="sign-out-btn"
+              (click)="signOutDialog()">Sign Out</button>
+            </div>
+          } @else {
+            <button class="icon-btn" [matMenuTriggerFor]="menu" mat-icon-button>
+              <mat-icon>more_vert</mat-icon>
+            </button>
+          }
+          <mat-menu #menu>
+            <div class="mobile-menu">
+              <button mat-icon-button (click)="navigateToSearch()" color="accent">
+                <mat-icon>search</mat-icon>
+              </button>
+              <a class="sign-out"
+              (click)="signOutDialog()">Sign Out</a>
+            </div>
+          </mat-menu>
+        </mat-toolbar>
+    `,
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
