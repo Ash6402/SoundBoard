@@ -2,9 +2,14 @@
 @use '@angular/material' as mat;
 @import 'src/mixins.scss';
 
+:host{
+    display: grid;
+    grid-template-rows: max-content 1fr min-content;
+    height: 100vh;
+}
+
 .main-section{
     width: 100%;
-    height: calc(100vh - 10rem);
     margin: 0.25rem 0;
     overflow: auto;
 }

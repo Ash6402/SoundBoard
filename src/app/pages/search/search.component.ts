@@ -1,4 +1,4 @@
-import { Component, DestroyRef, OnInit, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { CurrentPageService } from 'src/app/services/current-page.service';
 import { SearchStore } from './search.store';
 import { HttpGeneralService } from 'src/app/services/http/general/http-general.service';
@@ -18,6 +18,7 @@ import { MatFormField, MatLabel, MatSuffix } from '@angular/material/form-field'
     selector: 'app-search',
     templateUrl: './search.component.html',
     styleUrls: ['./search.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [SearchStore],
     standalone: true,
     imports: [

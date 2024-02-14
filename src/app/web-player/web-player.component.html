@@ -1,16 +1,6 @@
 <mat-toolbar class="player-card">
   <div class="container">
-    <div class="img-container">
-      @if ((currentTrack$ | async); as track) {
-        <img class="current-track-img"
-          [src]="track.album.images[0].url" />
-      } @else {
-        <img src="/assets/placeholder.png" class="current-track-img"/>
-      }
-      <ng-template #placeholder>
-        <img src="/assets/placeholder.png" class="current-track-img"/>
-      </ng-template>
-    </div>
+    <app-track-details [track]="currentTrack$" />
     <app-player-buttons class="main-btns"/>
     <button class="queue_btn" matTooltip="Queue"
       matTooltipShowDelay="300" matTooltipPosition="above"
@@ -23,7 +13,7 @@
 </mat-toolbar>
 
 <mat-menu #menu="matMenu"
-  yPosition="above" xPosition="before" [class]="'background'">
+  yPosition="above" xPosition="before" class="background">
   @if ((queue$ | async)?.length > 0) {
     <div class="queue-menu">
       @for (track of (queue$ | async); track track) {

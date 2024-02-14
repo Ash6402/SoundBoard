@@ -2,8 +2,6 @@ import { AfterViewInit, Component, OnInit, inject, ChangeDetectionStrategy } fro
 import { Store } from '@ngrx/store';
 import { selectError, selectUser } from '../../state/user/user.selectors';
 import { getUser } from '../../state/user/user.actions';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { tap } from 'rxjs';
 import { NavigationHistoryService } from 'src/app/services/navigation-history.service';
 import { initializePlayer } from 'src/app/state/player/player.actions';
 import { RouterEvent, RouterOutlet } from '@angular/router';
@@ -13,11 +11,11 @@ import { HeaderComponent } from '../../header/header.component';
 @Component({
     selector: 'app-home',
     template: `
-    <app-header></app-header>
+    <app-header class="header"></app-header>
     <main class="main-section">
       <router-outlet (activate)="currentPage($event)"></router-outlet>
     </main> 
-    <app-web-player></app-web-player>
+    <app-web-player class="web-player"></app-web-player>
   `,
     styleUrls: ['./home.component.scss'],
     providers: [NavigationHistoryService],

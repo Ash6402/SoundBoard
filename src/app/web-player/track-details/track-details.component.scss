@@ -1,0 +1,41 @@
+:host{
+    align-self: center;
+    grid-row: 1 / 3;
+}
+
+.song-details{
+    display: grid;
+    grid-template-columns: 2;
+    grid-template-rows: 2;
+    column-gap: 0.5rem;
+    justify-content: start;
+
+    .current-track-img{
+        width: 4.5rem;
+        grid-row: 1 / 3;
+        align-self: center;
+        border-radius: 6px;
+    }
+
+    .song-name{
+        grid-column: 2 / 3;
+        font-size: 80%;
+        align-self: end;
+    }
+
+    .artists{
+        display: flex;
+        gap: 0.5rem;
+        font-weight: 400;
+        font-size: 70%;
+        grid-column: 2 / 3;
+        align-self: top;
+    }
+    
+}
+
+.placeholder{
+    img{
+        width: 4.5rem;
+    }
+}

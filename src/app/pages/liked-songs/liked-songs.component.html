@@ -1,26 +1,32 @@
-@if ((savedTracks$ | async)?.length > 0) {
-  <div class="saved-tracks-container"
-    [@listAnimation]="(savedTracks$ | async).length"
-    >
-    @for (track of savedTracks$ | async; track track; let i = $index) {
-      <div class="track" @remove>
-        <app-track-item [index]="i" [track]="track">
-          <button mat-icon-button class="liked-btn"
-            matTooltip="remove"
-            matTooltipPosition="above"
-            matTooltipShowDelay="300"
-            (click)="remove(track.id)">
-            <mat-icon>favorite</mat-icon>
-          </button>
-        </app-track-item>
-      </div>
-    }
-  </div>
-} @else {
+@if (savedTracks$ | async; as tracks) {
+  @if(tracks.length > 0){
+    <div class="saved-tracks-container"
+      >
+      @for (track of tracks; track track.id; let i = $index) {
+        <div class="track" >
+          @defer (on viewport) {
+            <app-track-item [index]="i" [track]="track">
+              <button mat-icon-button class="liked-btn"
+                matTooltip="remove"
+                matTooltipPosition="above"
+                matTooltipShowDelay="300"
+                (click)="remove(track.id)">
+                <mat-icon>favorite</mat-icon>
+              </button>
+            </app-track-item>
+          } @placeholder {
+            <div></div>
+          }
+        </div>
+      }
+    </div>
+    
+  } @else {
   <div class="loader">
     <mat-spinner
-      color="primary"
-      mode="indeterminate">
-    </mat-spinner>
-  </div>
-}
+        color="primary"
+        mode="indeterminate">
+      </mat-spinner>
+    </div>
+  }
+} 

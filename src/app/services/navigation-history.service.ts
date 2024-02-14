@@ -7,7 +7,7 @@ import { MainComponent } from "../pages/home/main/main.component";
 export class NavigationHistoryService{
     isHome$ = new BehaviorSubject<boolean>(null); 
     // as a simple Subject on intial load, next method doesn't fire even though the currentPage()
-    // fuunction is called. If I use a behaviorSubject it works. Maybe i'm missing something here
+    // function is called. If I use a behaviorSubject it works. Maybe i'm missing something here
     // about Subjects.
 
     currentPage(event: RouterEvent): void{

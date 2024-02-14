@@ -9,12 +9,11 @@ h2{
 .header{
     background-color: mat.get-color-from-palette(theme.$primary, 500);
     display: grid;
-    height: 3.5rem;
     padding-inline-start: 1rem;
     grid-template-columns: repeat(2, max-content);
     justify-content: space-between;
     align-items: center;
-}
+} 
 
 .nav-btn-container{
     display: flex;

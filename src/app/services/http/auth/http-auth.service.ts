@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { environment } from 'src/environments/environment.development';
 import { CodeChallengeService } from './code-challenge.service';
-import { Subject, map } from 'rxjs';
+import { map } from 'rxjs';
 import { User } from 'src/app/models/user.model';
 import { TokenResponse } from 'src/app/models/token-response.model';
 

@@ -15,7 +15,7 @@ export class SearchStore extends ComponentStore<StoreState>{
     service = inject(HttpGeneralService);
 
     readonly tracks = this.select(state => state.tracks);
-    readonly searching
+    readonly searching = this.select(state => state.searching);
 
     setTracks(tracks: Track[]){
         this.setState((state) => ({...state, tracks: [...tracks]}))

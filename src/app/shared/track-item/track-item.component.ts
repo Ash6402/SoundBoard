@@ -27,7 +27,7 @@ import { TrimmerPipe } from 'src/app/pipes/TrimmerPipe';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-        <mat-card [isPlaying]="track"
+        <mat-card [isPlaying]="track.id"
           mat-raised-button
           class="track-item">
           <div class="info-container"
@@ -44,11 +44,11 @@ import { TrimmerPipe } from 'src/app/pipes/TrimmerPipe';
                 <button mat-icon-button matTooltip="Add to queue"
                   matTooltipPosition="above"
                   matTooltipShowDelay="300"
-                  (click)="addToQueue(track.uri)"><mat-icon>queue</mat-icon></button>
-                </div>
-              } @else {
+                  (click)="addToQueue(track.uri)"><mat-icon>queue</mat-icon>
+                </button>
+              </div>
               }
-            </mat-card>
+        </mat-card>
         `,
   styleUrls: ['./track-item.component.scss'],
 })
@@ -66,6 +66,6 @@ export class TrackItemComponent {
   }
 
   playSong(uris: string[]){
-    this.store.dispatch(play({uris: uris}));
+    this.store.dispatch(play({uris}));
   }
 }

@@ -7,39 +7,34 @@
     z-index: 100;
     box-shadow: 0px -15px 20px 15px rgba(0,0,0,0.3);
     background-color: theme.$backgroundColor-200;
-    height: 6rem;
+    height: fit-content;
 }
 
 .container{
-    padding-top: 0.5rem;
-    padding-inline: 0.4rem;
     display: grid;
-    height: fit-content;
-    grid-template-columns: max-content 1fr max-content;
+    grid-template-columns: 30% 1fr 30%;
+    grid-template-rows: 2fr;
     justify-content: center;
     align-items: center;
-    max-width: 900px;
     width: 100%;
     margin: 0 auto;
 }
 
-.img-container{
-    grid-row: 1/2;
-}
-
 .current-track-img{
-    aspect-ratio: 1/1;
-    width: 2.5rem;
+    grid-row: span 2;
+    width: 4.5rem;
+    align-self: center;
     border-radius: 5px;
 }
 
 .main-btns{
+    padding-top: 0.5rem;
     justify-self: center;
 }
 
 .media-progress-bar{
     justify-self: center;
-    grid-column: 1/4;
+    grid-column: 2/3;
 }
 
 .loader{

@@ -15,6 +15,7 @@ import { MatTooltip } from '@angular/material/tooltip';
 import { MatMiniFabButton } from '@angular/material/button';
 import { PlayerButtonsComponent } from './player-buttons/player-buttons.component';
 import { MatToolbar } from '@angular/material/toolbar';
+import { TrackDetailsComponent } from './track-details/track-details.component';
 
 @Component({
     selector: 'app-web-player',
@@ -25,6 +26,7 @@ import { MatToolbar } from '@angular/material/toolbar';
     imports: [
         MatToolbar,
         PlayerButtonsComponent,
+        TrackDetailsComponent,
         MatMiniFabButton,
         MatTooltip,
         MatMenuTrigger,

@@ -16,3 +16,13 @@ p{
 li{
     list-style: none;
 }
+
+.link, .link:active{
+    color: inherit;
+    text-decoration: none;
+}
+
+.link:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}

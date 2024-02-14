@@ -27,12 +27,14 @@ import { Router } from '@angular/router';
       <div class="nav-btn-container">
         <button mat-mini-fab class="nav-btn" [disabled]="isHome$ | async"
           (click)="back()"
-          ><mat-icon class="icon-color nav-icon">keyboard_arrow_left</mat-icon></button>
+          ><mat-icon class="icon-color nav-icon">keyboard_arrow_left</mat-icon>
+        </button>
           <button mat-mini-fab class="nav-btn"
             (click)="next()"
-            ><mat-icon class="icon-color nav-icon">keyboard_arrow_right</mat-icon></button>
-            <p>{{ currentPage$ | async }}</p>
-          </div>
+          ><mat-icon class="icon-color nav-icon">keyboard_arrow_right</mat-icon>
+        </button>
+          <p>{{ currentPage$ | async }}</p>
+      </div>
           @if (!(isMobile$| async).matches) {
             <div class="btns">
               <button mat-icon-button color="accent" (click)="navigateToSearch()">
