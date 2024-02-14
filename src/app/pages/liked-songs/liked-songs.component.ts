@@ -21,26 +21,26 @@ import { share, tap } from 'rxjs';
     styleUrls: ['./liked-songs.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [LikedSongsStore],
-    // animations: [
-    //     trigger('listAnimation', [
-    //         transition('*<=>*', [
-    //             query(':enter', [
-    //                 style({ opacity: 0 }), stagger('60ms', animate('160ms ease-out', style({ opacity: 1 })))
-    //             ], { optional: true }),
-    //         ]),
-    //     ]),
-    //     trigger('remove', [
-    //         transition(':leave', [
-    //             animate('200ms ease-in', style({
-    //                 transform: 'translateX(100%)',
-    //                 opacity: 0,
-    //             })),
-    //             animate('60ms ease-out', style({
-    //                 height: 0,
-    //             }))
-    //         ]),
-    //     ]),
-    // ],
+    animations: [
+        trigger('listAnimation', [
+            transition('*<=>*', [
+                query(':enter', [
+                    style({ opacity: 0 }), stagger('60ms', animate('160ms ease-out', style({ opacity: 1 })))
+                ], { optional: true }),
+            ]),
+        ]),
+        trigger('remove', [
+            transition(':leave', [
+                animate('200ms ease-in', style({
+                    transform: 'translateX(100%)',
+                    opacity: 0,
+                })),
+                animate('60ms ease-out', style({
+                    height: 0,
+                }))
+            ]),
+        ]),
+    ],
     standalone: true,
     imports: [TrackItemComponent, MatIconButton, MatTooltip, MatIcon, MatProgressSpinner, AsyncPipe]
 })

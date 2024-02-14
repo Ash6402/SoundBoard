@@ -1,6 +1,5 @@
 import { Injectable, inject } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { UserService } from "src/app/services/user.service";
 import { getUser, getUserFailure, getUserSuccess } from "./user.actions";
 import { catchError, map, of, switchMap } from "rxjs";
 import { User } from "src/app/models/user.model";
@@ -10,7 +9,6 @@ import { HttpErrorResponse } from "@angular/common/http";
 
 @Injectable()
 export class UserEffects{
-   private userService = inject(UserService);
    private httpService = inject(HttpAuthService);
    private route = inject(ActivatedRoute);
    private actions$ = inject(Actions);
@@ -41,7 +39,7 @@ export class UserEffects{
     }
 
     private get getUser(){
-        return this.userService.getUser()
+        return this.httpService.getUser()
             .pipe(map((user: User)=>
                 getUserSuccess({user})
             )
