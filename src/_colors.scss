@@ -1,8 +1,8 @@
 @use '@angular/material' as mat;
 
-$primary: mat.define-palette(mat.$purple-palette);
-$accent: mat.define-palette(mat.$green-palette);
-$warn: mat.define-palette(mat.$red-palette);
+$primary: mat.m2-define-palette(mat.$m2-purple-palette);
+$accent: mat.m2-define-palette(mat.$m2-green-palette);
+$warn: mat.m2-define-palette(mat.$m2-red-palette);
 $text-color: #d3d3d3;
 // $backgroundColor-200: #384867;
 // $backgroundColor-500: #5d79ab;

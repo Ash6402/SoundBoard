@@ -33,7 +33,7 @@
 .track-item:hover{
     cursor: pointer;
     background-color: theme.$backgroundColor-200;
-    border: 1px solid mat.get-color-from-palette(theme.$accent, 600) !important;
+    border: 1px solid mat.m2-get-color-from-palette(theme.$accent, 600) !important;
 }
 
 .track-item:active{
