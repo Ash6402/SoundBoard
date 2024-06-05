@@ -13,7 +13,8 @@ import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatIconButton } from '@angular/material/button';
 import { TrackItemComponent } from '../../shared/track-item/track-item.component';
-import { share, tap } from 'rxjs';
+import { tap } from 'rxjs';
+import { TrackPlaceholderComponent } from 'src/app/shared/track-placeholder.component';
 
 @Component({
     selector: 'app-liked-songs',
@@ -42,7 +43,7 @@ import { share, tap } from 'rxjs';
         ]),
     ],
     standalone: true,
-    imports: [TrackItemComponent, MatIconButton, MatTooltip, MatIcon, MatProgressSpinner, AsyncPipe]
+    imports: [TrackItemComponent, MatIconButton, MatTooltip, MatIcon, MatProgressSpinner, AsyncPipe, TrackPlaceholderComponent]
 })
 export class LikedSongsComponent implements OnInit {
   

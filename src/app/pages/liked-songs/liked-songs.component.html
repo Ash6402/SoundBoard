@@ -1,10 +1,11 @@
 @if (savedTracks$ | async; as tracks) {
   @if(tracks.length > 0){
     <div class="saved-tracks-container"
-    [@listAnimation]="tracks.length">
+    [@listAnimation]="tracks.length"
+    >
       @for (track of tracks; track track.id; let i = $index) {
         <div class="track" >
-          @defer (on viewport) {
+          @defer (on viewport; on timer(100)) {
             <app-track-item [index]="i" [track]="track" @remove>
               <button mat-icon-button class="liked-btn"
                 matTooltip="remove"
@@ -15,7 +16,7 @@
               </button>
             </app-track-item>
           } @placeholder {
-            <div></div>
+            <app-track-placeholder />
           }
         </div>
       }

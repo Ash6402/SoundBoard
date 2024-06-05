@@ -10,9 +10,11 @@
 html, body { height: 100%; width: 100%; max-height: 100vh; max-width: 100vw; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color: theme.$backgroundColor-200; }
 img{ display: block; max-width: 100%;}
+
 p{
     color: theme.$text-color;
 }
+
 li{
     list-style: none;
 }
@@ -25,4 +27,18 @@ li{
 .link:hover{
     text-decoration: underline;
     cursor: pointer;
+}
+
+// global track item styling
+.track-item{
+    padding: .2rem 0.3rem;
+    margin-inline: 0.6rem;
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 1rem;
+    justify-content: space-between;
+    align-items: center;
+    color: theme.$text-color;
+    background-color: theme.$backgroundColor-500 !important;
+    border: 1px solid transparent;
 }
