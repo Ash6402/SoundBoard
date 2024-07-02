@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { selectError, selectUser } from '../../state/user/user.selectors';
+import { selectUser } from '../../state/user/user.selectors';
 import { getUser } from '../../state/user/user.actions';
 import { NavigationHistoryService } from 'src/app/services/navigation-history.service';
 import { initializePlayer } from 'src/app/state/player/player.actions';

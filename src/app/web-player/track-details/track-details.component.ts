@@ -1,12 +1,12 @@
 import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, NgZone, inject } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-track-details',
   standalone: true,
-  imports: [AsyncPipe, RouterLink ],
+  imports: [AsyncPipe, RouterLink],
   template: `
     @if(track$ | async; as track){
       <div class="song-details">
@@ -41,11 +41,7 @@ export class TrackDetailsComponent {
 
   navigate(id: string){
     this.ngZone.run(() =>
-      this.router.navigate(['track'], {
-        queryParams: {
-          id
-        }
-      })
+      this.router.navigate([`track/${id}`])
     )
   }
 }

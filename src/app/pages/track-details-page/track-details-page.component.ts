@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ChangeDetectionStrategy, Component, OnInit, signal } from '@angular/core';
+import { Track } from 'src/app/models/track.model';
 
 @Component({
   selector: 'app-track-details-page',
@@ -10,9 +10,9 @@ import { ActivatedRoute } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TrackDetailsPageComponent implements OnInit {
-  route = inject(ActivatedRoute);
+  track = signal<Track>(null);
+  
   ngOnInit(): void {
-    console.log(this.route.snapshot.queryParamMap.get('id'))
-  }
 
+  }
 }

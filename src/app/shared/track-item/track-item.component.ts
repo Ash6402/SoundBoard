@@ -12,6 +12,8 @@ import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { map } from 'rxjs';
 import { IsPlayingDirective } from '../is-playing.directive';
 import { TrimmerPipe } from 'src/app/pipes/TrimmerPipe';
+import { NavigationEnd, NavigationStart, Router } from '@angular/router';
+import { animate, query, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-track-item',
@@ -27,7 +29,8 @@ import { TrimmerPipe } from 'src/app/pipes/TrimmerPipe';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-        <mat-card [isPlaying]="track.id"
+        <mat-card [isPlaying]="track.id" 
+          @trackItemAnimation
           mat-raised-button
           class="track-item">
           <div class="info-container"
@@ -51,10 +54,23 @@ import { TrimmerPipe } from 'src/app/pipes/TrimmerPipe';
         </mat-card>
         `,
   styleUrls: ['./track-item.component.scss'],
-})
+  animations: [
+    trigger('trackItemAnimation', [
+          
+        ])
+    ]
+  })
 export class TrackItemComponent {
   @Input() index: number;
   @Input() track: Track | any;
+
+  // #routerEvent = inject(Router).events.subscribe((e) => {
+  //   if(e instanceof NavigationStart){
+  //     this.isDisabled = true;
+  //   }else if(e instanceof NavigationEnd){
+  //     this.isDisabled = false;
+  //   }
+  // })
 
   isMobile = inject(BreakpointObserver)
     .observe('(max-width: 599px)')

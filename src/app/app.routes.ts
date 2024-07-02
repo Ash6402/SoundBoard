@@ -12,7 +12,7 @@ export const routes: Routes = [
     {path: '', component: MainComponent},
     {path: 'liked-songs', component: LikedSongsComponent },
     {path: 'search', component: SearchComponent},
-    {path: 'track', component: TrackDetailsPageComponent},
+    {path: 'track/:id', component: TrackDetailsPageComponent },
   ]},
   {path: 'get-started', component: GetStartedComponent},
   {path: '**', redirectTo: ''},

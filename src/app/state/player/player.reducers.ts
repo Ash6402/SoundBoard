@@ -1,10 +1,11 @@
 import { createReducer, on } from "@ngrx/store";
-import { actionSuccess, change, continuePlaying, increment, seek, toggle } from "./player.actions";
+import { actionSuccess, change, continuePlaying, increment, seek, setLoading, toggle } from "./player.actions";
 
 export interface PlayerState{
     paused: boolean;
     currentPlaying: Spotify.Track;
     next: Spotify.Track;
+    loading: boolean,
     previous: Spotify.Track;
     duration: number;
     progress: number;
@@ -16,6 +17,7 @@ export const initialState: PlayerState = {
     paused: true,
     currentPlaying: null,
     next: null,
+    loading: true,
     previous: null,
     duration: 0,
     progress: 0,
@@ -32,4 +34,5 @@ export const playerReducer = createReducer(
     on(seek, (state, {position}) =>  ({...state, progress: position, paused: true})),
     on(continuePlaying, (state) => ({...state, paused: false})),
     on(increment, (state) => ({...state, progress: state.progress + 1000})),
-    )
+    on(setLoading, (state, {loading}) => ({...state, loading}))
+)

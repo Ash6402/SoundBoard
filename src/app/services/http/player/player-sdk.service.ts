@@ -6,7 +6,6 @@ import { Store } from "@ngrx/store";
 import { change } from "src/app/state/player/player.actions";
 
 @Injectable({providedIn: 'root'})
-
 export class PlayerSDKSerivce{
 
   playerHttpService = inject(HttpPlayerService);
@@ -75,16 +74,20 @@ export class PlayerSDKSerivce{
 
   stateChanged(){
     this.player.addListener('player_state_changed',
-    ({position, duration, paused, track_window})=>{
+    // ({position, duration, paused, track_window})=>{
+      
+      (state) => {
+      console.log(state)
 
       this.store.dispatch(change({
         state: {
-        progress: position,
-        duration,
-        paused,
-        currentPlaying: track_window.current_track,
-        next: track_window.next_tracks[0],
-        previous: track_window.previous_tracks[0],
+        progress: state.position,
+        loading: state.loading,
+        duration: state.duration,
+        paused: state.paused,
+        currentPlaying: state.track_window.current_track,
+        next: state.track_window.next_tracks[0],
+        previous: state.track_window.previous_tracks[0],
         }
       }));
     });

@@ -1,9 +1,9 @@
 import { ChangeDetectorRef, Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import { Store } from '@ngrx/store';
-import { Subject, interval, takeUntil, tap } from 'rxjs';
+import { Subject, combineLatest, interval, takeUntil, tap } from 'rxjs';
 import { increment, seek } from 'src/app/state/player/player.actions';
-import { duration, paused, position } from 'src/app/state/player/player.selector';
+import { duration, paused, position, isLoading } from 'src/app/state/player/player.selector';
 import { DurationConverterPipe } from '../../pipes/duration-converter.pipe';
 import { AsyncPipe } from '@angular/common';
 import { MatSlider, MatSliderThumb } from '@angular/material/slider';
@@ -56,18 +56,21 @@ export class MediaProgressBarComponent implements OnInit {
   progress$ = this.store.select(position);
   duration$ = this.store.select(duration);
   paused$ = this.store.select(paused);
+  isLoading$ = this.store.select(isLoading);
   destroy$ = new Subject<void>();
   cdr = inject(ChangeDetectorRef);
   destroyRef = inject(DestroyRef);
 
   ngOnInit(){
-    this.paused$.pipe(takeUntilDestroyed(this.destroyRef),
-      tap(isPaused => {
-        if(isPaused)
-          this.destroy$.next();
-        else
-          this.continuedProgress();
-      })).subscribe();
+      combineLatest([this.paused$, this.isLoading$]).pipe(
+        takeUntilDestroyed(this.destroyRef),
+        tap(([isPaused, isLoading]) => {
+          if(isPaused || isLoading)
+            this.destroy$.next();
+          else
+            this.continuedProgress();
+        })
+      ).subscribe();
   }
 
   seekToPosition(position: number){

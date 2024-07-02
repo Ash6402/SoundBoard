@@ -12,6 +12,7 @@ import { MatIcon } from '@angular/material/icon';
 import { MatMiniFabButton, MatIconButton } from '@angular/material/button';
 import { MatInput } from '@angular/material/input';
 import { MatFormField, MatLabel, MatSuffix } from '@angular/material/form-field';
+import { Track } from 'src/app/models/track.model';
 
 
 @Component({
@@ -56,7 +57,7 @@ export class SearchComponent implements OnInit {
     this.store.search(query);
   }
   
-  addToLiked(id: string, iconEl, track){
+  addToLiked(id: string, iconEl: any, track: Track){
     iconEl._elementRef.nativeElement.innerText = "favorite";
     this.appStore.dispatch(addToLiked({id}));
     this.appStore.dispatch(add({track}));
