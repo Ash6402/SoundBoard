@@ -1,5 +1,6 @@
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable, inject } from "@angular/core";
+import { Artist } from "src/app/models/artist.model";
 import { Track } from "src/app/models/track.model";
 import { Tracks } from "src/app/models/tracks.model";
 import { environment } from "src/environments/environment.development";
@@ -21,19 +22,27 @@ export class HttpGeneralService{
     });
   }
 
-    removeFromLiked(id: string){
-        return this.http.delete(`${environment.apiUrl}/tracks`, {
-        params: new HttpParams().set('ids', id),
+  removeFromLiked(id: string){
+    return this.http.delete(`${environment.apiUrl}/tracks`, {
+      params: new HttpParams().set('ids', id),
     });    
   }
 
-    addToLiked(id: string){
-        return this.http.put(`${environment.apiUrl}/tracks`,{}, {
-        params: new HttpParams().set('ids', id),
+  addToLiked(id: string){
+    return this.http.put(`${environment.apiUrl}/tracks`,{}, {
+      params: new HttpParams().set('ids', id),
     });
   }
 
   getTrack(id: string){
-    return this.http.get<Track>(`${environment.apiUrl}/${id}`)
+    return this.http.get<Track>(`${environment.api}/tracks/${id}`)
+  }
+
+  getArtist(id: string){
+    return this.http.get<Artist>(`${environment.api}/artists/${id}`)
+  }
+
+  getTopTracksOfArtist(id: string){
+    return this.http.get<{tracks: Track[]}>(`${environment.api}/artists/${id}/top-tracks`)
   }
 }

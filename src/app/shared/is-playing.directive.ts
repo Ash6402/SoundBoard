@@ -1,4 +1,4 @@
-import { Directive, Input, inject, OnInit, ElementRef, Renderer2, } from '@angular/core';
+import { Directive, Input, inject, OnInit, ElementRef, Renderer2, RendererStyleFlags2, } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import { Store } from '@ngrx/store';
 import { currentPlaying } from '../state/player/player.selector';
@@ -20,8 +20,8 @@ export class IsPlayingDirective implements OnInit {
     this.currentSong$.subscribe((currTrack)=>{
       if(!currTrack) return;
       this.trackId == currTrack.id ? 
-      this.renderer.setStyle(this.el, 'backgroundColor', 'rgba(128,0, 128, 0.5)') :
-      this.renderer.setStyle(this.el, 'backgroundColor', '#303030');
+      this.renderer.addClass(this.el, 'playing') :
+      this.renderer.removeClass(this.el, 'playing');
     })
   }
 }

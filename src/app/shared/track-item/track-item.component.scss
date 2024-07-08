@@ -3,6 +3,9 @@
 @import 'src/mixins.scss';
 
 .track-item{
+
+    border: 1px solid transparent;
+
     img{
         border-radius: 3px;
     }
@@ -22,6 +25,12 @@
     .track-name{
         font-weight: 700;
         white-space: nowrap;
+        margin-bottom: 0;
+    }
+
+    .artists{
+        display: flex;
+        gap: 1rem;
     }
 
     .action-btns{

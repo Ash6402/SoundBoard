@@ -7,10 +7,15 @@ import { initializePlayer } from 'src/app/state/player/player.actions';
 import { RouterEvent, RouterOutlet } from '@angular/router';
 import { WebPlayerComponent } from '../../web-player/web-player.component';
 import { HeaderComponent } from '../../header/header.component';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { RouterEventsService } from 'src/app/services/router-events.service';
 
 @Component({
     selector: 'app-home',
     template: `
+    @if(isResolving()){
+      <mat-progress-bar class="progress-bar secondary-progress-bar" mode="indeterminate"></mat-progress-bar>
+    }
     <app-header class="header"></app-header>
     <main class="main-section">
       <router-outlet (activate)="currentPage($event)"></router-outlet>
@@ -22,15 +27,17 @@ import { HeaderComponent } from '../../header/header.component';
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
     imports: [
-        HeaderComponent,
-        RouterOutlet,
-        WebPlayerComponent,
+      HeaderComponent,
+      RouterOutlet,
+      WebPlayerComponent,
+      MatProgressBarModule,
     ],
 })
 export class HomeComponent implements OnInit, AfterViewInit{
   private store = inject(Store);
   navHistory = inject(NavigationHistoryService);
   user$ = this.store.select(selectUser);
+  isResolving = inject(RouterEventsService).isResolving;
   
   ngOnInit(): void {
     this.store.dispatch(getUser());

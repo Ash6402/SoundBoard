@@ -1,4 +1,4 @@
-import { Component, Input, inject, ChangeDetectionStrategy } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { Track } from '../../models/track.model';
@@ -12,8 +12,7 @@ import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { map } from 'rxjs';
 import { IsPlayingDirective } from '../is-playing.directive';
 import { TrimmerPipe } from 'src/app/pipes/TrimmerPipe';
-import { NavigationEnd, NavigationStart, Router } from '@angular/router';
-import { animate, query, style, transition, trigger } from '@angular/animations';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-track-item',
@@ -26,20 +25,30 @@ import { animate, query, style, transition, trigger } from '@angular/animations'
     MatTooltipModule,
     IsPlayingDirective,
     TrimmerPipe,
+    RouterLink,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-        <mat-card [isPlaying]="track.id" 
-          @trackItemAnimation
-          mat-raised-button
-          class="track-item">
-          <div class="info-container"
-            (click)="playSong([track.uri])">
-            <p>{{index+1}}</p>
-            <img [src]="track.album?.images[0].url || track.images[0].url"
+        <mat-card [isPlaying]="track().id" 
+        mat-raised-button
+        class="track-item">
+        <div class="info-container"
+            (click)="playSong([track().uri])">
+            <p>{{index()+1}}</p>
+            <img [src]="track().album?.images[0].url || track().images[0].url"
               height="50px"
               width="50px" loading="lazy"/>
-              <h3 class="track-name">{{track.name | trimmer | async }}</h3>
+              <div>
+                <h3 class="track-name">{{track().name | trimmer | async }}</h3>
+                <ul class=artists>
+                  @for(artist of track().artists; track artist.id){
+                    <li>
+                      <a class="link" [routerLink]="['/artist', artist.id]"
+                     (click)="$event.stopPropagation()">{{ artist.name }}</a>
+                    </li>
+                  }
+                </ul>
+              </div>
             </div>
             @if (!(isMobile | async)) {
               <div class="action-btns">
@@ -54,23 +63,11 @@ import { animate, query, style, transition, trigger } from '@angular/animations'
         </mat-card>
         `,
   styleUrls: ['./track-item.component.scss'],
-  animations: [
-    trigger('trackItemAnimation', [
-          
-        ])
-    ]
   })
 export class TrackItemComponent {
-  @Input() index: number;
-  @Input() track: Track | any;
 
-  // #routerEvent = inject(Router).events.subscribe((e) => {
-  //   if(e instanceof NavigationStart){
-  //     this.isDisabled = true;
-  //   }else if(e instanceof NavigationEnd){
-  //     this.isDisabled = false;
-  //   }
-  // })
+  index = input.required<number>();
+  track = input.required<Track | any>();
 
   isMobile = inject(BreakpointObserver)
     .observe('(max-width: 599px)')

@@ -77,7 +77,6 @@ export class PlayerSDKSerivce{
     // ({position, duration, paused, track_window})=>{
       
       (state) => {
-      console.log(state)
 
       this.store.dispatch(change({
         state: {
@@ -92,28 +91,6 @@ export class PlayerSDKSerivce{
       }));
     });
   }
-
-  //   stateChanged(){
-  //   this.player.addListener('player_state_changed',
-  //   (e)=>{
-  //       // if(!loading && !paused){
-  //       //   this.store.dispatch(continuePlaying());
-  //       //   console.log(loading, paused);
-  //       // }
-  //       console.log(e)
-
-  //       this.store.dispatch(change({
-  //         state: {
-  //         progress: e.position,
-  //         duration : e.duration,
-  //         paused: e.paused,
-  //         currentPlaying: e.track_window.current_track,
-  //         next: e.track_window.next_tracks[0],
-  //         previous: e.track_window.previous_tracks[0],
-  //         }
-  //       }));
-  //   });
-  // }
 
   togglePlay(){
    return from(this.player.togglePlay());

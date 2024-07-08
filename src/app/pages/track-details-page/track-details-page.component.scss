@@ -1,0 +1,38 @@
+.main-section{
+    height: 100%;
+    padding: 2rem;
+
+    .header{
+
+        display: flex;
+        gap: 2rem;
+
+        .track-name{
+            font-size: 4rem;
+            font-weight: 900;
+            margin-top: 5rem;
+            align-self: end;
+        }
+    }
+}
+
+.track-details{
+    display: grid;
+    gap: 1rem;
+    align-items: start;
+
+    .album-type{
+        font-size: 1.2rem;
+    }
+
+}
+
+.artists{
+    display: flex;
+    gap: 0.5rem;
+    align-self: end;
+}
+
+.buttons{
+    padding: 1rem; 
+}

@@ -8,7 +8,7 @@
   </mat-form-field>
 </div>
 <ng-container>
-  @for (track of tracks$ | async; track track; let i = $index) {
+  @for (track of tracks$ | async; track track.id; let i = $index) {
     <div class="searched-item">
       <app-track-item [index]="i" [track]="track" [isLiked]="track" [icon]="icon">
         <button mat-icon-button class="liked-btn"

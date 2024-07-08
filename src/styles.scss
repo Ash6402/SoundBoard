@@ -1,6 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
 @use '_colors.scss' as theme;
+@use '@angular/material' as mat;
 @import 'mixins.scss';
+
+$theme: mat.define-theme();
+
+.secondary-progress-bar{
+    @include mat.progress-bar-color($theme, $color-variant: secondary)
+}
+
 *{
     padding: 0;
     margin: 0;
@@ -20,7 +28,7 @@ li{
 }
 
 .link, .link:active{
-    color: inherit;
+    color: theme.$text-color;
     text-decoration: none;
 }
 
@@ -41,4 +49,32 @@ li{
     color: theme.$text-color;
     background-color: theme.$backgroundColor-500 !important;
     border: 1px solid transparent;
+}
+
+.playing{
+    background-color: rgba(128, 0, 128, 0.5) !important;
+}
+
+.heading{
+   font-size: 4rem;
+   line-height: 3.8rem;
+   font-weight: 900;
+}
+
+// ======================== Utilities ======================== 
+
+.grid{
+    display: grid;
+}
+
+.flex{
+    display: flex;
+}
+
+.align-center{
+    align-items: center
+}
+
+.gap-m{
+    gap: 0.8rem;
 }

@@ -1,0 +1,16 @@
+<section class="header">
+    <img [src]="artist().images[0].url" height="250" width="250" />
+    <div>
+        <p class="heading"> {{ artist().name }} </p>
+        <p><strong>{{ artist().followers.total }}</strong> followers</p>
+        <button mat-stroked-button>follow</button>
+    </div>
+</section>
+<section class="top-tracks">
+    <h2 class="section-heading"> Top Tracks </h2>
+    <div class="grid gap-m">
+        @for(track of topTracks(); track track.id; let i = $index){
+            <app-track-item [index]="i" [track]="track" [isPlaying]="track" />
+        }
+    </div>
+</section>

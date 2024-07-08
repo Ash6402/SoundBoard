@@ -1,0 +1,23 @@
+@use '../../../colors.scss' as theme;
+
+:host{
+    display: block;
+    padding: 1.5rem;
+}
+
+.header{
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.top-tracks{
+    margin-top: 2rem;
+}
+
+.section-heading{
+    font-size: 2.5rem;
+    line-height: 2.5rem;
+    font-weight: 700;
+    color: theme.$text-color;
+}

@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { environment } from 'src/environments/environment.development';
 import { CodeChallengeService } from './code-challenge.service';
-import { map } from 'rxjs';
+import { map, tap } from 'rxjs';
 import { User } from 'src/app/models/user.model';
 import { TokenResponse } from 'src/app/models/token-response.model';
 
@@ -51,17 +51,17 @@ export class HttpAuthService {
   }
 
   getRefreshToken(){
-    this.http.post<TokenResponse>(environment.tokenUrl,
+    return this.http.post<TokenResponse>(environment.tokenUrl,
       `grant_type=refresh_token&refresh_token=${localStorage.getItem('refresh_token')}&client_id=${environment.clientId}`,
       {
         headers: new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'}), 
       }
     )
-    .subscribe(
+    .pipe(tap(
       response => {
         localStorage.setItem('access_token', response.access_token);
         localStorage.setItem('refresh_token', response.refresh_token);
-      }
+      })
     )
   }
 
