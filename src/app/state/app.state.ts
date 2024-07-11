@@ -1,3 +1,4 @@
+import { RouterState } from "@ngrx/router-store";
 import { LikedSongsState } from "./liked-songs/liked-songs.reducers";
 import { PlayerState } from "./player/player.reducers";
 import { QueueState } from "./queue/queue.reducer";
@@ -8,4 +9,5 @@ export interface AppState{
     player: PlayerState,
     queue: QueueState,
     likedSongs: LikedSongsState,
+    router: RouterState,
 }

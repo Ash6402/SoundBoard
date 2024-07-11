@@ -3,7 +3,17 @@
     <div>
         <p class="heading"> {{ artist().name }} </p>
         <p><strong>{{ artist().followers.total }}</strong> followers</p>
-        <button mat-stroked-button>follow</button>
+        @if(isFollowing()){
+            <button mat-stroked-button
+            (click)="unfollow()">
+                following
+            </button>
+        }@else{
+            <button mat-stroked-button 
+            (click)="follow()">
+                follow
+            </button>
+        }
     </div>
 </section>
 <section class="top-tracks">

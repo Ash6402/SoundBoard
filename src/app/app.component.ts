@@ -8,10 +8,6 @@ import { RouterOutlet } from '@angular/router';
     standalone: true,
     imports: [RouterOutlet]
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   title = 'SoundBoard';
-
-  ngOnInit(): void {
-    
-  }    
 }

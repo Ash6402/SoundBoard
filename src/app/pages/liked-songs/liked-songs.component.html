@@ -5,7 +5,7 @@
     >
       @for (track of tracks; track track.id; let i = $index) {
         <div class="track">
-          @defer (on viewport; on timer(100)) {
+          @defer {
             <app-track-item [index]="i" [track]="track">
               <button mat-icon-button class="liked-btn"
                 matTooltip="remove"

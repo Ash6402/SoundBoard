@@ -18,7 +18,7 @@
             </button>
             <p [class.no-display]="getStarted">Get Started!</p>
             <div class="login-section" [class.no-display]="!getStarted">
-                <a [href]="authUrl">
+                <a [href]="authUrl | async">
                     <button mat-raised-button
                      color="primary" class="login-btn">LOGIN</button>
                 </a>

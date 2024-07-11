@@ -35,7 +35,7 @@ import { Router } from '@angular/router';
         </button>
           <p>{{ currentPage$ | async }}</p>
       </div>
-          @if (!(isMobile$| async).matches) {
+          @if (!(isMobile$ | async).matches) {
             <div class="btns">
               <button mat-icon-button color="accent" (click)="navigateToSearch()">
                 <mat-icon>search</mat-icon>

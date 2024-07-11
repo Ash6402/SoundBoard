@@ -1,6 +1,6 @@
 import { createReducer, on } from "@ngrx/store";
 import { User } from "src/app/models/user.model";
-import { getUser, getUserFailure, getUserSuccess } from "./user.actions";
+import { getUser, getUserFailure, getUserSuccess, signOut } from "./user.actions";
 
 export interface UserState{
     user: User;
@@ -17,6 +17,7 @@ export const initialUserState: UserState = {
 export const userReducer = createReducer(
     initialUserState,
     on(getUser, (state: UserState) => (<UserState>{...state, status: 'fetching'})),
+    on(signOut, (state: UserState) => (<UserState>{...state, user: null})),
     on(getUserSuccess, (state: UserState, { user }) => (<UserState>{ ...state, user, status: 'success'})),
     on(getUserFailure, (state: UserState, { error }) => (<UserState>{...state, user: null, status: 'error', error}))
 );

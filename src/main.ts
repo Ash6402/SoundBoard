@@ -18,28 +18,30 @@ import { GeneralInterceptor } from './app/interceptors/general.interceptor';
 import { HTTP_INTERCEPTORS, withInterceptorsFromDi, provideHttpClient } from '@angular/common/http';
 import { provideRouter } from '@angular/router';
 import { routes } from './app/app.routes';
+import { provideRouterStore } from '@ngrx/router-store';
 
 bootstrapApplication(AppComponent, {
     providers: [
-        provideRouter(routes),
-        importProvidersFrom(BrowserModule, MatDialogModule, StoreModule.forRoot({
-            user: userReducer,
-            player: playerReducer,
-            queue: queueReducer,
-            likedSongs: likedSongsReducer,
-        }), EffectsModule.forRoot([UserEffects, PlayerEffects, QueueEffects, LikedSongsEffects])),
-        {
-            provide: HTTP_INTERCEPTORS,
-            useClass: GeneralInterceptor,
-            multi: true,
-        },
-        {
-            provide: HTTP_INTERCEPTORS,
-            useClass: ErrorHandlerInterceptor,
-            multi: true,
-        },
-        provideAnimations(),
-        provideHttpClient(withInterceptorsFromDi())
-    ]
+    provideRouter(routes),
+    importProvidersFrom(BrowserModule, MatDialogModule, StoreModule.forRoot({
+        user: userReducer,
+        player: playerReducer,
+        queue: queueReducer,
+        likedSongs: likedSongsReducer,
+    }), EffectsModule.forRoot([UserEffects, PlayerEffects, QueueEffects, LikedSongsEffects])),
+    {
+        provide: HTTP_INTERCEPTORS,
+        useClass: GeneralInterceptor,
+        multi: true,
+    },
+    {
+        provide: HTTP_INTERCEPTORS,
+        useClass: ErrorHandlerInterceptor,
+        multi: true,
+    },
+    provideAnimations(),
+    provideHttpClient(withInterceptorsFromDi()),
+    provideRouterStore()
+]
 })
   .catch(err => console.error(err));

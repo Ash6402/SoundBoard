@@ -1,5 +1,6 @@
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable, inject } from "@angular/core";
+import { Album } from "src/app/models/album.model";
 import { Artist } from "src/app/models/artist.model";
 import { Track } from "src/app/models/track.model";
 import { Tracks } from "src/app/models/tracks.model";
@@ -44,5 +45,29 @@ export class HttpGeneralService{
 
   getTopTracksOfArtist(id: string){
     return this.http.get<{tracks: Track[]}>(`${environment.api}/artists/${id}/top-tracks`)
+  }
+
+  getAlbumsOfArtist(id: string){
+    return this.http.get<Album[]>(`${environment.api}/artists/${id}/albums`)
+  }
+
+  isFollowing(id: string, type: string){
+    return this.http.get<boolean[]>(`${environment.apiUrl}/following/contains`,
+      {
+        params: new HttpParams().set("type", type).set("ids", id)
+      }
+    )
+  }
+
+  follow(id: string, type: string){
+    return this.http.put<null>(`${environment.apiUrl}/following`, {}, {
+      params: new HttpParams().set("type", type).set("ids", id)
+    })
+  }
+
+  unfollow(id: string, type: string){
+    return this.http.delete<null>(`${environment.apiUrl}/following`, {
+      params: new HttpParams().set("type", type).set("ids", id)
+    })
   }
 }

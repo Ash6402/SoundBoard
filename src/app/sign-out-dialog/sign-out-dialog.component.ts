@@ -2,6 +2,8 @@ import { Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { signOut } from '../state/user/user.actions';
 
 @Component({
   selector: 'app-sign-out-dialog',
@@ -22,7 +24,9 @@ import { Router } from '@angular/router';
 })
 export class SignOutDialogComponent {
   router = inject(Router);
+  store = inject(Store);
   signOut(){
+    this.store.dispatch(signOut());
     this.router.navigate(['get-started']);
   }
 }
