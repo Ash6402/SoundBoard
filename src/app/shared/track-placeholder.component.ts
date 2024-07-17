@@ -13,6 +13,7 @@ import { Component } from '@angular/core';
     .track-item{
       padding: 0;
       height: 56px;
+      border-radius: 3px;
 
       img{
         margin-left: 1.5rem;

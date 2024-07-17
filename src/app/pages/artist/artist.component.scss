@@ -11,8 +11,14 @@
     gap: 2rem;
 }
 
-.top-tracks{
+.section{
     margin-top: 2rem;
+    display: grid;
+    gap: 1rem;
+
+    button{
+        justify-self: start;
+    }
 }
 
 .section-heading{
@@ -20,4 +26,15 @@
     line-height: 2.5rem;
     font-weight: 700;
     color: theme.$text-color;
+}
+
+.albums-container{
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+.message{
+    font-size: 2rem;
+    width: 100%;
+    text-align: center;
 }

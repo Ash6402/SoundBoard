@@ -5,18 +5,27 @@ import { authGuard } from './guards/auth.guard';
 import { MainComponent } from './pages/home/main/main.component';
 import { SearchComponent } from './pages/search/search.component';
 import { LikedSongsComponent } from './pages/liked-songs/liked-songs.component';
-import { TrackDetailsPageComponent } from './pages/track-details-page/track-details-page.component';
+import { TrackDetailsPageComponent } from './pages/track-details/track-details.component';
 import { ArtistComponent } from './pages/artist/artist.component';
 import { artistResolver } from './resolvers/artist.resolver';
 
 export const routes: Routes = [
-  {path: '', component: HomeComponent, canActivate: [authGuard], children: [
-    {path: '', component: MainComponent},
-    {path: 'liked-songs', component: LikedSongsComponent },
-    {path: 'search', component: SearchComponent},
-    {path: 'track/:id', component: TrackDetailsPageComponent },
-    {path: 'artist/:id', component: ArtistComponent, resolve: {artist: artistResolver}},
-  ]},
+  {path: '',
+    component: HomeComponent,
+    canActivate: [authGuard],
+    children: [
+      {
+        path: '',
+        component: MainComponent
+      },
+      { path: 'liked-songs',
+        component: LikedSongsComponent,
+      },
+      {path: 'search', component: SearchComponent},
+      {path: 'track/:id', component: TrackDetailsPageComponent },
+      {path: 'artist/:id', component: ArtistComponent, resolve: {artist: artistResolver}},
+    ]
+  },
   {path: 'get-started', component: GetStartedComponent},
   {path: '**', redirectTo: ''},
 ];

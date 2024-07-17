@@ -16,11 +16,30 @@
         }
     </div>
 </section>
-<section class="top-tracks">
+<section class="section">
     <h2 class="section-heading"> Top Tracks </h2>
     <div class="grid gap-m">
         @for(track of topTracks(); track track.id; let i = $index){
             <app-track-item [index]="i" [track]="track" [isPlaying]="track" />
+        }@empty{
+            @for(i of 5 | repeat; track i){
+                <app-track-placeholder />
+            }
         }
     </div>
+</section>
+<section class="section">
+    <h2 class="section-heading">Albums</h2>
+    <div class="flex albums-container">
+        @for(album of albums(); track album.id){
+            <app-album-item [album]="album" />
+        }
+        
+        @if(albums() && albums().length===0){
+            <p class="message">Artist has no albums</p>
+        }
+    </div>
+    @if (more() && albums()) {
+    <button mat-stroked-button (click)="limit.set(6); more.set(false)">see all</button>
+    }
 </section>

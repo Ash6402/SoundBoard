@@ -11,7 +11,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { map } from 'rxjs';
 import { IsPlayingDirective } from '../is-playing.directive';
-import { TrimmerPipe } from 'src/app/pipes/TrimmerPipe';
+import { TrimmerPipe } from 'src/app/pipes/trimmer.pipe';
 import { RouterLink } from '@angular/router';
 
 @Component({

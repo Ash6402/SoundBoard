@@ -12,14 +12,16 @@ import { MatSlider, MatSliderThumb } from '@angular/material/slider';
     selector: 'app-media-progress-bar',
     template: `
     <div class="media-progress">
-      <p>{{ ((progress$ | async) | durationConverter) }}</p>
+      @let progress = progress$ | async;
+      @let duration = duration$ | async;
+      <p>{{ (progress | durationConverter) }}</p>
       <mat-slider [min]="0" 
-      [max]="duration$ | async" class="progress-bar">
+      [max]="duration" class="progress-bar">
           <input (dragEnd)="seekToPosition(progressBar.value)" 
-          [value]="progress$ | async" 
+          [value]="progress" 
           matSliderThumb #progressBar>
       </mat-slider>
-      <p>{{ duration$ | async | durationConverter }}</p>
+      <p>{{ duration | durationConverter }}</p>
     </div>`,
     styles: [
         `.media-progress{
@@ -58,7 +60,6 @@ export class MediaProgressBarComponent implements OnInit {
   paused$ = this.store.select(paused);
   isLoading$ = this.store.select(isLoading);
   destroy$ = new Subject<void>();
-  cdr = inject(ChangeDetectorRef);
   destroyRef = inject(DestroyRef);
 
   ngOnInit(){
@@ -81,6 +82,6 @@ export class MediaProgressBarComponent implements OnInit {
     interval(1000).pipe(takeUntilDestroyed(this.destroyRef),
       tap(()=>this.store.dispatch(increment())),
       takeUntil(this.destroy$),
-    ).subscribe(() => this.cdr.detectChanges());
+    ).subscribe();
   }
 }

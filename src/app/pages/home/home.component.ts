@@ -9,11 +9,12 @@ import { WebPlayerComponent } from '../../web-player/web-player.component';
 import { HeaderComponent } from '../../header/header.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { RouterEventsService } from 'src/app/services/router-events.service';
+import { LoaderService } from 'src/app/services/loader.service';
 
 @Component({
     selector: 'app-home',
     template: `
-    @if(isResolving()){
+    @if(isResolving() || isLoading()){
       <mat-progress-bar class="progress-bar secondary-progress-bar" mode="indeterminate"></mat-progress-bar>
     }
     <app-header class="header"></app-header>
@@ -38,6 +39,7 @@ export class HomeComponent implements OnInit, AfterViewInit{
   navHistory = inject(NavigationHistoryService);
   user$ = this.store.select(selectUser);
   isResolving = inject(RouterEventsService).isResolving;
+  isLoading = inject(LoaderService).loading;
   
   ngOnInit(): void {
     this.store.dispatch(getUser());

@@ -14,8 +14,7 @@ export class LikedSongsEffects{
     fetchLikedSongs$ = createEffect(() => 
         this.actions$.pipe(
             ofType(fetchLikedSongs),
-            switchMap(() => {
-                return this.httpGeneralService.getSavedTracks()}),
+            switchMap(() => this.httpGeneralService.getSavedTracks()),
             expand((res) => {
                 this.store.dispatch(addSongs({tracks: res.items.flatMap((item)=>item.track)}));
                 return res.next ? this.httpGeneralService.getSavedTracks(res.next) : EMPTY

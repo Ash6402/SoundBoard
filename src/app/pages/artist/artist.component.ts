@@ -4,15 +4,19 @@ import { MatButtonModule } from '@angular/material/button';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { follow, unfollow } from 'src/app/state/user/user.actions';
-import { map, switchMap, tap } from 'rxjs';
+import { combineLatest, EMPTY, expand, map, scan, switchMap, tap } from 'rxjs';
 import { Artist } from 'src/app/models/artist.model';
 import { HttpGeneralService } from 'src/app/services/http/general/http-general.service';
 import { IsPlayingDirective } from 'src/app/shared/is-playing.directive';
 import { TrackItemComponent } from 'src/app/shared/track-item/track-item.component';
+import { AlbumItemComponent } from 'src/app/shared/album-item/album-item.component';
+import { RepeatPipe } from 'ngxtension/repeat-pipe';
+import { TrackPlaceholderComponent } from 'src/app/shared/track-placeholder.component';
+
 @Component({
   selector: 'app-artist',
   standalone: true,
-  imports: [TrackItemComponent, IsPlayingDirective, MatButtonModule],
+  imports: [TrackItemComponent, IsPlayingDirective, MatButtonModule, AlbumItemComponent, RepeatPipe, TrackPlaceholderComponent],
   templateUrl: './artist.component.html',
   styleUrl: './artist.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -20,39 +24,82 @@ import { TrackItemComponent } from 'src/app/shared/track-item/track-item.compone
 export class ArtistComponent {
   private activatedRoute = inject(ActivatedRoute);
   private http = inject(HttpGeneralService);
-  store = inject(Store);
+  private store = inject(Store);
 
-  artist  = toSignal(this.activatedRoute.data.pipe(map(data => data?.artist)), {initialValue: null}) as Signal<Artist>;
-  isFollowing = signal<boolean>(null);
-  albums = toSignal(
+  limit = signal<number>(5);
+  more = signal<boolean>(true);
+  
+  artist = toSignal(
+    this.activatedRoute.data.pipe(
+      map(data => data?.artist),
+      tap(() => this.reset())
+    )
+  ) as Signal<Artist>
+
+  topTracks = toSignal(
     toObservable(this.artist).pipe(
-      
+      switchMap(({id}) => this.http.getTopTracksOfArtist(id)),
+      map((response) => response.tracks)
     )
   )
+  
+  albums = toSignal(
+    combineLatest([toObservable(this.artist), toObservable(this.limit)])
+    .pipe(
+      switchMap(([{id}, limit]) => {
+        if(limit == 5)
+          return this.getAlbums(id, limit)
+        else
+          return this.getAllAlbums(id, limit)
+      }),
+      map(res => res.items),
+      scan((prev, curr) => {
+        if(this.limit()==5)
+          return [...curr]
+        else
+          return [...prev, ...curr]
+      }) 
+    )
+  )
+  
+  isFollowing = signal<boolean>(null)
 
   constructor(){
     toObservable(this.artist)
     .pipe(
       takeUntilDestroyed(),
-      switchMap((artist) => this.http.isFollowing(artist.id, "artist")),
+      switchMap(({id}) => this.http.isFollowing(id, "artist")),
       tap((result) => this.isFollowing.set(result[0]))
     ).subscribe()
   }
   
-  topTracks = toSignal(
-    toObservable(this.artist).pipe(
-      switchMap((artist) => this.http.getTopTracksOfArtist(artist.id)),
-      map((response) => response.tracks)
-    )
-  )
-
   follow(){
     this.store.dispatch(follow({id: this.artist().id, typeOf: 'artist'}))
     this.isFollowing.set(true)
   } 
-
+  
   unfollow(){
     this.store.dispatch(unfollow({id: this.artist().id, typeOf: 'artist'}))
     this.isFollowing.set(false)
+  }
+  
+  reset(){
+    this.limit.set(5);
+    this.more.set(true);
+  }
+  
+  getAlbums(id: string, limit: number){
+    return this.http.getAlbumsOfArtist(id, limit)
+  }
+  
+  getAllAlbums(id: string, limit: number){
+    return this.http.getAlbumsOfArtist(id, limit, 5)
+    .pipe(
+      expand(res =>
+        (res.next && res.items.length > 0) ? 
+        this.http.getAlbumsOfArtist(id, limit, (res.offset + limit)) : 
+        EMPTY
+      ),
+    ) 
   }
 }
