@@ -9,8 +9,9 @@ import { AsyncPipe } from '@angular/common';
 import { MatSlider, MatSliderThumb } from '@angular/material/slider';
 
 @Component({
-    selector: 'app-media-progress-bar',
-    template: `
+  selector: 'app-media-progress-bar',
+  standalone: true,
+  template: `
     <div class="media-progress">
       @let progress = progress$ | async;
       @let duration = duration$ | async;
@@ -22,31 +23,31 @@ import { MatSlider, MatSliderThumb } from '@angular/material/slider';
           matSliderThumb #progressBar>
       </mat-slider>
       <p>{{ duration | durationConverter }}</p>
-    </div>`,
-    styles: [
-        `.media-progress{
+    </div>
+  `,
+  styles: `
+    .media-progress{
       display: flex;
       font-size: 12px;
       align-items: center;
       gap: 1rem;
-  
-      p{
-        margin-bottom: 0;
-      }
-  
-      .progress-bar{
-        width: 50vw;
-        max-width: 20rem;
-      }
-    }`
-    ],
-    standalone: true,
-    imports: [
-        MatSlider,
-        MatSliderThumb,
-        AsyncPipe,
-        DurationConverterPipe,
-    ],
+    }
+
+    p{
+      margin-bottom: 0;
+    }
+
+    .progress-bar{
+      width: 50vw;
+      max-width: 20rem;
+    }
+  `,
+  imports: [
+    MatSlider,
+    MatSliderThumb,
+    AsyncPipe,
+    DurationConverterPipe,
+  ],
 })
 
 // Another change detection issue in this component. If I toggle it works fine. but after the seek()
@@ -63,15 +64,15 @@ export class MediaProgressBarComponent implements OnInit {
   destroyRef = inject(DestroyRef);
 
   ngOnInit(){
-      combineLatest([this.paused$, this.isLoading$]).pipe(
-        takeUntilDestroyed(this.destroyRef),
-        tap(([isPaused, isLoading]) => {
-          if(isPaused || isLoading)
-            this.destroy$.next();
-          else
-            this.continuedProgress();
-        })
-      ).subscribe();
+    combineLatest([this.paused$, this.isLoading$]).pipe(
+      takeUntilDestroyed(this.destroyRef),
+      tap(([isPaused, isLoading]) => {
+        if(isPaused || isLoading)
+          this.destroy$.next();
+        else
+          this.continuedProgress();
+      })
+    ).subscribe();
   }
 
   seekToPosition(position: number){

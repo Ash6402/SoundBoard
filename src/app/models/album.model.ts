@@ -19,7 +19,7 @@ export interface Album{
     name: string,
     release_date: string,
     release_date_precision: string,
-    restrictions: {
+    restrictions?: {
         reason: string,
     },
     type: string,
@@ -31,11 +31,11 @@ export interface Album{
         type: string
     }[],
     external_ids?: {
-        isrc: string,
-        ean: string,
-        upc: string,
+        isrc?: string,
+        ean?: string,
+        upc?: string,
     },
     genres: string[],
     label: string,
-    popularity: string,
+    popularity: number,
 }

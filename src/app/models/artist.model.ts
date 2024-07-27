@@ -4,18 +4,17 @@ export interface Artist{
     },
     followers: {
         href: string,
-        total: 0
+        total: number,
     },
     genres: string[],
     href: string,
     id: string,
-    images: [
-        {
+    images: {
         url: string,
         height: number,
         width: number
-        }
-    ],
+    }[]
+    ,
     name: string,
     popularity: number,
     type: string,

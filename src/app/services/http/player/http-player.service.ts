@@ -32,7 +32,7 @@ export class HttpPlayerService {
     return this.http.post(`${environment.apiUrl}/player/queue`,{}, {
       params: new HttpParams().set('uri', uri)
     });
-0  }
+  }
 
   
   transferPlayback(deviceId: string){

@@ -35,11 +35,12 @@ export class PlayerEffects{
     );
 
     next$ = createEffect(()=>
-    this.actions$.pipe(
-        ofType(next),
-        switchMap(()=> this.playerSDKService.nextPlay()),
-        delay(2000),
-        map(()=> getQueue())),
+        this.actions$.pipe(
+            ofType(next),
+            switchMap(()=> this.playerSDKService.nextPlay()),
+            delay(2000),
+            map(()=> getQueue())
+        ),
     )
 
     previous$ = createEffect(() => 

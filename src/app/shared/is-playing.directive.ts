@@ -14,7 +14,6 @@ export class IsPlayingDirective implements OnInit {
   private store = inject(Store);
   @Input('isPlaying') trackId: string;
   private currentSong$ = this.store.select(currentPlaying).pipe(takeUntilDestroyed());
-  style: string = '#303030';
 
   ngOnInit(){
     this.currentSong$.subscribe((currTrack)=>{

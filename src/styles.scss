@@ -55,6 +55,35 @@ li{
     background-color: rgba(128, 0, 128, 0.5) !important;
 }
 
+// .placeholder{
+//     background-color: theme.$backgroundColor-500;
+//     background: linear-gradient(
+//         45deg,
+//         theme.$backgroundColor-500 10%,
+//         theme.$backgroundColor-200 15%,
+//         theme.$backgroundColor-200 25%, 
+//         theme.$backgroundColor-500 30%
+//     );
+//     background-size: 200%;
+//     animation: 2s linear infinite move-forward;
+// }
+
+// @keyframes move-forward {
+//     0%{
+//         background-position: 100%;
+//     }
+
+//     100%{
+//         background-position: -100%;
+//     }
+// }
+
+.header-section{
+    display: flex;
+    align-items: center;
+    gap: 2rem; 
+}
+
 .heading{
    font-size: 4rem;
    line-height: 3.8rem;
@@ -77,4 +106,8 @@ li{
 
 .gap-m{
     gap: 0.8rem;
+}
+
+.bold{
+    font-weight: 700;
 }

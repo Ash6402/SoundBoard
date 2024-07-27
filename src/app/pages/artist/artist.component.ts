@@ -1,7 +1,6 @@
-import { ChangeDetectionStrategy, Component, Signal, inject, signal} from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input, signal} from '@angular/core';
 import { takeUntilDestroyed, toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
-import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { follow, unfollow } from 'src/app/state/user/user.actions';
 import { combineLatest, EMPTY, expand, map, scan, switchMap, tap } from 'rxjs';
@@ -22,19 +21,20 @@ import { TrackPlaceholderComponent } from 'src/app/shared/track-placeholder.comp
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ArtistComponent {
-  private activatedRoute = inject(ActivatedRoute);
   private http = inject(HttpGeneralService);
   private store = inject(Store);
 
   limit = signal<number>(5);
   more = signal<boolean>(true);
+
+  artist? = input<Artist>();
   
-  artist = toSignal(
-    this.activatedRoute.data.pipe(
-      map(data => data?.artist),
-      tap(() => this.reset())
-    )
-  ) as Signal<Artist>
+  // artist = toSignal(
+  //   this.activatedRoute.data.pipe(
+  //     map(data => data?.artist),
+  //     tap(() => this.reset())
+  //   )
+  // ) as Signal<Artist>
 
   topTracks = toSignal(
     toObservable(this.artist).pipe(

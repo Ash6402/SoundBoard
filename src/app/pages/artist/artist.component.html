@@ -1,4 +1,4 @@
-<section class="header">
+<section class="header-section">
     <img [src]="artist().images[0].url" height="250" width="250" />
     <div>
         <p class="heading"> {{ artist().name }} </p>
@@ -39,7 +39,7 @@
             <p class="message">Artist has no albums</p>
         }
     </div>
-    @if (more() && albums()) {
-    <button mat-stroked-button (click)="limit.set(6); more.set(false)">see all</button>
+    @if (more() && albums() && albums().length == 5) {
+    <button mat-stroked-button (click)="limit.set(50); more.set(false)">see all</button>
     }
 </section>

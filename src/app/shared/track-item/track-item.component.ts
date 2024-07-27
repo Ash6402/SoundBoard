@@ -56,7 +56,7 @@ import { RouterLink } from '@angular/router';
                 <button mat-icon-button matTooltip="Add to queue"
                   matTooltipPosition="above"
                   matTooltipShowDelay="300"
-                  (click)="addToQueue(track.uri)"><mat-icon>queue</mat-icon>
+                  (click)="addToQueue(track().uri)"><mat-icon>queue</mat-icon>
                 </button>
               </div>
               }

@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   template: `
-    <div class='track-item'>
+    <div class='track-item placeholder'>
       <img src="/assets/placeholder.png" alt="placeholder image">
     </div>
   `,

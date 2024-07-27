@@ -11,8 +11,8 @@ export class QueueEffects{
     addToQueue$ = createEffect(()=>
     this.actions$.pipe(
         ofType(addToQueue),
-        mergeMap( ({uri}) => this.playerHttpService.addToQueue(uri) ),
-        map(() => getQueue()),      
+        mergeMap( ({uri}) => this.playerHttpService.addToQueue(uri)),
+        map(() => getQueue()),
     ))
     
     getQueue$ = createEffect(()=>

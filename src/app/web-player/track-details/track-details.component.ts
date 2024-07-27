@@ -2,11 +2,13 @@ import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, NgZone, inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { Observable } from 'rxjs';
+import { Track } from 'src/app/models/track.model';
+import { LinkComponent } from 'src/app/shared/link/link.component';
 
 @Component({
   selector: 'app-track-details',
   standalone: true,
-  imports: [AsyncPipe, RouterLink],
+  imports: [AsyncPipe, RouterLink, LinkComponent],
   template: `
     @if(track$ | async; as track){
       <div class="song-details">
@@ -14,8 +16,8 @@ import { Observable } from 'rxjs';
           [src]="track.album.images[0].url" />
         <a class="song-name link" (click)="navigate(track.id)"> {{ track.name }} </a>
         <ul class="artists">
-          @for(artist of track.artists; track artist.name){
-            <li><a class="link">{{ artist.name }}</a></li>
+          @for(artist of track.artists; track artist.id){
+            <li><app-link [artist]='artist' /></li>
           }
         </ul>
       </div>

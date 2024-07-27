@@ -1,5 +1,6 @@
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable, inject } from "@angular/core";
+import { Album } from "src/app/models/album.model";
 import { Albums } from "src/app/models/albums.model";
 import { Artist } from "src/app/models/artist.model";
 import { Track } from "src/app/models/track.model";
@@ -9,7 +10,9 @@ import { environment } from "src/environments/environment.development";
 @Injectable({providedIn: 'root'}) 
 
 export class HttpGeneralService{
+
   private http = inject(HttpClient);
+
   search(query: string){
       return this.http.get(`${environment.api}/search`, {
           params: new HttpParams().set('q', query).set('type', "track"),
@@ -47,13 +50,17 @@ export class HttpGeneralService{
     return this.http.get<{tracks: Track[]}>(`${environment.api}/artists/${id}/top-tracks`)
   }
 
-  getAlbumsOfArtist(id: string, limit: number, offset?: number){
+  getAlbumsOfArtist(id: string, limit: number, offset: number = 0){
     return this.http.get<Albums>(`${environment.api}/artists/${id}/albums`, {
       params: new HttpParams()
                 .set("include_groups", "album")
                 .set("limit", limit)
-                .set("offset", offset ?? 0)
+                .set("offset", offset)
     })
+  }
+
+  getAlbum(id: string){
+    return this.http.get<Album>(`${environment.api}/albums/${id}`)
   }
 
   isFollowing(id: string, type: string){

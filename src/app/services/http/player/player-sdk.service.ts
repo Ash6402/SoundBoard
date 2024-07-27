@@ -4,6 +4,7 @@ import { from } from "rxjs";
 import { HttpPlayerService } from "./http-player.service";
 import { Store } from "@ngrx/store";
 import { change } from "src/app/state/player/player.actions";
+import { Track } from "src/app/models/track.model";
 
 @Injectable({providedIn: 'root'})
 export class PlayerSDKSerivce{

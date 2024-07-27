@@ -1,3 +1,4 @@
+import { SimplifiedTrack } from "./simplified-track.model";
 import { Track } from "./track.model"
 
 export interface Tracks{
@@ -7,5 +8,5 @@ export interface Tracks{
     offset: number,
     previous: string,
     total: number,
-    items: [{ added_at: string, track: Track,}]
+    items: [{ added_at: string, track: Track}] | SimplifiedTrack[]; 
 }

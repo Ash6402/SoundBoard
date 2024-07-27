@@ -1,26 +1,31 @@
-@if(track()){
    <section class="main-section">
         <div class="header">
-            <img [src]="track().album.images[0].url" width="400" height="400" alt="track cover">
-            <div class="track-details">
-                <div class="grid gap-m">
-                    <p class="track-name">{{ track().name }}</p>
-                    <p class="album-type"> {{ track().album.album_type }}</p>
-                    <p> {{ getDuration(track().duration_ms) }} </p>
+            <img
+                style.view-transition-name="track-image" 
+                [src]="track()?.album.images[0].url || '/assets/placeholder.png'" 
+                width="400" 
+                height="400" 
+                alt="track cover">
+            @if(track()){
+                <div class="track-details">
+                    <div class="grid gap-m">
+                        <p class="track-name">{{ track().name }}</p>
+                        <p class="album-type"> {{ track().album.album_type }}</p>
+                        <p> {{ getDuration(track().duration_ms)}} </p>
+                    </div>
+                    <div class="artists">
+                        <p>by </p>
+                        @for(artist of track().artists; track artist.id){
+                            <p class="link"><strong>{{ artist.name }}</strong></p>
+                        }
+                    </div>
                 </div>
-                <div class="artists">
-                    <p>by </p>
-                    @for(artist of track().artists; track artist.id){
-                        <p class="link"><strong>{{ artist.name }}</strong></p>
-                    }
-                </div>
-                    
-            </div>
+            }
         </div>
         <div class="buttons">
-            <button mat-fab color="primary" (click)="play([track().uri])">
+            <button mat-fab color="primary" (click)="play([track()?.uri])">
                 @if(isReady()){
-                    @if(!(currentSong().id == track().id) || paused()){
+                    @if(!(currentSong().id == track()?.id) || paused()){
                         <mat-icon>play_arrow</mat-icon>
                     }@else{
                         <mat-icon>pause_arrow</mat-icon>        
@@ -29,6 +34,3 @@
             </button>
         </div>        
    </section> 
-}@else{
-    <h2>Track is not here </h2>
-}
