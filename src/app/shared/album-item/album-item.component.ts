@@ -20,7 +20,13 @@ import { ShortnerPipe } from 'src/app/pipes/shortner.pipe';
               alt="album-cover">
         </div>
           <mat-card-content>
-            <mat-card-title><p class="title">{{ album().name | shortner:20 }}</p></mat-card-title>
+            <mat-card-title>
+              <p 
+                [style.view-transition-name]="'name-'+album().id"
+                class="title">
+                {{ album().name | shortner:20 }}
+              </p>
+            </mat-card-title>
             <mat-card-subtitle>
               <strong>
                 {{ album().release_date | date:"yyyy" }} - {{ album().album_type }}

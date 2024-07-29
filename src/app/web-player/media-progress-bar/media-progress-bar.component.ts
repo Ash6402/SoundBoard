@@ -50,10 +50,6 @@ import { MatSlider, MatSliderThumb } from '@angular/material/slider';
   ],
 })
 
-// Another change detection issue in this component. If I toggle it works fine. but after the seek()
-// function is called and the continueProgress() refires the timer. change detection stops again. So
-// once again manually firing the change detection.
-
 export class MediaProgressBarComponent implements OnInit {
   store = inject(Store);
   progress$ = this.store.select(position);

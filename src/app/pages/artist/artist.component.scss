@@ -5,21 +5,9 @@
     padding: 1.5rem;
 }
 
-.section{
-    margin-top: 2rem;
-    display: grid;
-    gap: 1rem;
 
-    button{
-        justify-self: start;
-    }
-}
-
-.section-heading{
-    font-size: 2.5rem;
-    line-height: 2.5rem;
-    font-weight: 700;
-    color: theme.$text-color;
+.section button{
+    justify-self: start;
 }
 
 .albums-container{

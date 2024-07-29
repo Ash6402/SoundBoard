@@ -10,48 +10,44 @@ export interface Track{
       },
       href: string,
       id: string
-      images: [
-        {
+      images: {
           url: string,
           height: number,
           width: number
-        }
-      ],
+        }[],
       name: string,
       release_date: string,
       release_date_precision: string,
-      restrictions: {
+      restrictions?: {
         reason: string,
       },
       type: string,
       uri: string,
-      copyrights: [
+      copyrights?: [
         {
           text: string,
           type: string
         }
       ],
-      external_ids: {
+      external_ids?: {
         isrc: string,
         ean: string,
         upc: string
       },
-      genres: string[],
-      label: string,
-      popularity: 0,
-      album_group: string,
-      artists: [
-        {
-          external_urls: {
-            spotify: string
-          },
-          href: string,
-          id: string,
-          name: string,
-          type: string,
-          uri: string
-        }
-      ]
+      genres?: string[],
+      label?: string,
+      popularity?: 0,
+      album_group?: string,
+      artists: {
+        external_urls: {
+          spotify: string
+        },
+        href: string,
+        id: string,
+        name: string,
+        type: string,
+        uri: string
+      }[]
     },
     artists: Artist[],
     available_markets: string[],
@@ -59,19 +55,19 @@ export interface Track{
     duration_ms: number,
     explicit: boolean,
     external_ids: {
-      isrc: string,
-      ean: string,
-      upc: string,
+      isrc?: string,
+      ean?: string,
+      upc?: string,
     },
     external_urls: {
       spotify: string
     },
     href: string,
     id: string,
-    is_playable: boolean,
-    linked_from: {
+    is_playable?: boolean,
+    linked_from?: {
     },
-    restrictions: {
+    restrictions?: {
       reason: string
     },
     name: string,

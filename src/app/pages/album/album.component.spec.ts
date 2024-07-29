@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing"
 import { AlbumComponent } from "./album.component"
 import { albumMock } from "../../mocks/album.mock";
+import { LinkComponent } from "src/app/shared/link/link.component";
 
 describe("AlbumComponent", () => {
 
@@ -11,9 +12,15 @@ describe("AlbumComponent", () => {
     beforeEach(() => {
 
         TestBed.configureTestingModule({
-            imports: [AlbumComponent]
+            imports: [AlbumComponent],
         })
-
+        .overrideComponent(LinkComponent, {
+            set: {
+                selector: 'app-link',
+                template: ''
+            }
+        })
+        
         fixture = TestBed.createComponent(AlbumComponent);
         component = fixture.componentInstance;
         albumElement = fixture.nativeElement;
@@ -32,6 +39,6 @@ describe("AlbumComponent", () => {
     it('should render album name', () => {
         const el = albumElement.querySelector('p.heading')!
         const albumName = component.album().name;
-        expect(el.textContent).toEqual(albumName)
+        expect(el.textContent).toContain(albumName)
     })
 })

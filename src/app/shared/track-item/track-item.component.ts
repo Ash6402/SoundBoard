@@ -13,6 +13,7 @@ import { map } from 'rxjs';
 import { IsPlayingDirective } from '../is-playing.directive';
 import { TrimmerPipe } from 'src/app/pipes/trimmer.pipe';
 import { RouterLink } from '@angular/router';
+import { LinkComponent } from '../link/link.component';
 
 @Component({
   selector: 'app-track-item',
@@ -26,6 +27,7 @@ import { RouterLink } from '@angular/router';
     IsPlayingDirective,
     TrimmerPipe,
     RouterLink,
+    LinkComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
@@ -43,8 +45,7 @@ import { RouterLink } from '@angular/router';
                 <ul class=artists>
                   @for(artist of track().artists; track artist.id){
                     <li>
-                      <a class="link" [routerLink]="['/artist', artist.id]"
-                     (click)="$event.stopPropagation()">{{ artist.name }}</a>
+                     <app-link (click)="$event.stopPropagation()" [artist]="artist" />
                     </li>
                   }
                 </ul>

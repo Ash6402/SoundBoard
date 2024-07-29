@@ -1,19 +1,16 @@
-import { Component, Input, input, OnInit } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { Album } from 'src/app/models/album.model';
+import { LinkComponent } from 'src/app/shared/link/link.component';
 
 @Component({
   selector: 'app-album',
   standalone: true,
-  imports: [],
+  imports: [LinkComponent],
   templateUrl: './album.component.html',
   styleUrl: './album.component.scss'
 })
-export class AlbumComponent implements OnInit {
+export class AlbumComponent{
   
   album = input<Album>();
   
-  ngOnInit(): void {
-    // console.log(this.album())
-  }
-
 }

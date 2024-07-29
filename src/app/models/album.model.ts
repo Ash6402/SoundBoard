@@ -1,4 +1,3 @@
-import { Artist } from "./artist.model"
 import { SimplifiedArtist } from "./simplified-artist.model"
 import { Tracks } from "./tracks.model"
 

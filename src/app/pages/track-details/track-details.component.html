@@ -1,7 +1,6 @@
    <section class="main-section">
         <div class="header">
             <img
-                style.view-transition-name="track-image" 
                 [src]="track()?.album.images[0].url || '/assets/placeholder.png'" 
                 width="400" 
                 height="400" 
@@ -16,7 +15,7 @@
                     <div class="artists">
                         <p>by </p>
                         @for(artist of track().artists; track artist.id){
-                            <p class="link"><strong>{{ artist.name }}</strong></p>
+                           <app-link [artist]="artist" [bold]="true" /> 
                         }
                     </div>
                 </div>

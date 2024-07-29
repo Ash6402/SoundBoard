@@ -90,6 +90,19 @@ li{
    font-weight: 900;
 }
 
+.section{
+    margin-top: 2rem;
+    display: grid;
+    gap: 1rem;
+}
+
+.section-heading{
+    font-size: 2.5rem !important;
+    line-height: 2.5rem !important;
+    font-weight: 700 !important;
+    color: theme.$text-color;
+}
+
 // ======================== Utilities ======================== 
 
 .grid{
@@ -104,9 +117,14 @@ li{
     align-items: center
 }
 
+.gap-s{
+    gap: 0.5rem;
+}
+
 .gap-m{
     gap: 0.8rem;
 }
+
 
 .bold{
     font-weight: 700;

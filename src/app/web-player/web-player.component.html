@@ -17,7 +17,7 @@
   @let queue = queue$ | async;
   @if ((queue)?.length > 0) {
     <div class="queue-menu">
-      @for (track of (queue); track track.id) {
+      @for (track of queue; track track.id) {
         <p mat-menu-item
           #item>
           {{track.name}}

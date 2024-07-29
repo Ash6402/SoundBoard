@@ -1,4 +1,4 @@
-<div class="header-section">
+<section class="header-section">
         <img
             [style.view-transition-name]="'cover-' + album().id"    
             [src]="album().images[0].url" 
@@ -7,13 +7,20 @@
             height="250"
         >
     <div>
-        <p class="heading">{{ album().name }}</p>
+        <p  
+            [style.view-transition-name]="'name-' + album().id"
+            class="heading">
+            {{ album().name }}
+        </p>
         <p><strong> {{ album().total_tracks }} Tracks</strong></p>
-        <div class="flex">
+        <div class="flex gap-s">
             <p>By </p>
             @for(artist of album().artists; track artist.id){
-              <strong><p class="link">{{ artist.name }}</p></strong>
+                <app-link [artist]="artist" [bold]="true"></app-link>
             }
         </div>
     </div>
-</div>
+</section>
+<section class="section">
+    <h2 class="section-heading">Tracks</h2>
+</section>
