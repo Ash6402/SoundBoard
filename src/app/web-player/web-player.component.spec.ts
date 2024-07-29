@@ -102,7 +102,7 @@ describe("WebPlayerComponent", () => {
         })
     }))
 
-    it("should enable the queue button", async () => {
+    it("currentTrack$ should enable the queue button", async () => {
        mockCurrentPlaying.setResult(mockPlaybackTrack)
        store.refreshState()
        fixture.detectChanges()
